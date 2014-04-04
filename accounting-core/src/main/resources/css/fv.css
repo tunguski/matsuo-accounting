@@ -1,0 +1,222 @@
+div>img {
+  float: left;
+  display: block;
+  width: 266px;
+  margin-top: 0px;
+  margin-left: -10px;
+}
+
+div#logo {
+  display: block;
+  height: 44px;
+  float: left;
+  width: 266px;
+  padding: 0;
+  padding-top: 10px;
+}
+
+div#dates {
+  float: right;
+  width: 384px;
+}
+
+div#dates table {
+  float: right;
+}
+
+div#dates td {
+  text-align: center;
+}
+
+span#date {
+  font-weight: bolder;
+  display: block;
+}
+
+span#date:first-line {
+  font-weight: normal;
+  font-size: 70%;
+}
+
+td,tr {
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+table#seller,table#buyer {
+  display: block;
+  width: 47%;
+  float: left;
+  border: solid 0px #000;
+  padding-left: 10px;
+  margin: 0;
+  margin-top: 14px;
+  margin-bottom: 3px;
+}
+
+table#buyer {
+  float: right;
+}
+
+td.left {
+  text-align: right !important;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+td.middle {
+  width: 20px;
+}
+
+div#dates table,div#dates tr,div#dates td {
+  margin: -1px;
+  padding: 0;
+}
+
+div#dates td.left {
+  font-size: 90%;
+  font-weight: normal;
+}
+
+div#dates td.right {
+  font-weight: bolder;
+  padding-left: 5px;
+}
+
+td.right {
+  text-align: left;
+  padding-left: 5px;
+}
+
+div#contractors,div#payment-method,div#product-list,div#amount {
+  float: left;
+  margin-top: 10px;
+  width: 650px;
+}
+
+div#payment-method {
+  margin-left: 1px;
+}
+
+div#payment-method table, div#comments {
+  width: 642px;
+  margin-left: -2px;
+  float: left;
+}
+
+div#comments {
+  padding-top: 20px;
+}
+
+div#product-list table {
+  width: 650px;
+  margin: 0;
+  margin-top: 10px;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: solid 1px #000;
+  border-bottom: none !important;
+  border-left: none !important;
+}
+
+div#product-list td,div#product-list th {
+  margin: 0px;
+  padding: 2px;
+  border: solid 1px #000;
+}
+
+div#product-list th {
+  background: #bfbfbf;
+}
+
+div#product-list tr:nth-child(even) {
+  background: #efefef;
+}
+
+div#product-list tr:nth-child(odd) {
+  background: #FFF;
+}
+
+tr#sumup td {
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  background: #fff;
+}
+
+tr.whitebg td {
+  background: #fff;
+}
+
+div#amount {
+  float: left;
+}
+
+div#amount table {
+  float: right;
+}
+
+div#buyer-sig,div#seller-sig {
+  position: static;
+  bottom: 300px;
+  width: 310px;
+  border: solid 1px #000;
+  text-align: left;
+  margin-top: 20px;
+  padding: 1px;
+}
+
+div#buyer-sig:first-line,div#seller-sig:first-line {
+  font-size: 110%;
+}
+
+div#buyer-sig>div,div#seller-sig>div {
+  width: 300px;
+  height: 50px;
+}
+
+div#buyer-sig {
+  float: left;
+}
+
+div#seller-sig {
+  float: right;
+}
+
+div#signatures {
+  clear: both;
+  margin: 0 auto;
+}
+
+div#reason-of-correction {
+  width: 625px;
+  border: solid 1px #000;
+  float: left;
+  text-align: left;
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+div#reason-of-correction:first-line {
+  font-weight: bolder;
+}
+
+div.full-width-message {
+  width: 649px;
+  /*background: #000;*/
+  border: solid 1px #aaa;
+  float: left;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 00px;
+  font-size: 95%;
+}
+
+div#dates h1{
+  margin: 1px;
+  margin-right: 10px;
+}

@@ -1,0 +1,28 @@
+.capital {
+  width: 100px;
+  text-align: center;
+}
+
+.nfz_number {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.kr_number {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.clinic_name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.address {
+  font-size: 13px;
+}
+
+.name_dispensary {
+  font-size: 15px;
+  font-weight: bold;
+}

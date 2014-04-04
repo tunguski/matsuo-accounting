@@ -1,0 +1,68 @@
+div#from,div#to {
+  width: 48%;
+  float: left;
+  font-size: 12px;
+  font-weight: bolder;
+  border: solid 1px #333;
+  padding: 5px;
+}
+
+div#to {
+  margin-top: 15px;
+}
+
+div#from {
+  margin-top: -40px;
+}
+
+div#from span {
+  display: block;
+  margin: 0;
+  padding: 0;
+  float: left;
+  text-align: left;
+  font-weight: normal;
+  width: 100%;
+  font-size: 10px;
+}
+
+div#number {
+  float: right;
+  width: 48%;
+  margin-top: 25px;
+}
+
+div#maintable {
+  float: left;
+  width: 100%;
+}
+
+div#maintable table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: solid 0px #555;
+  width: 100%;
+  margin-top: 10px;
+}
+
+div#maintable td {
+  border: solid 1px #333;
+}
+
+td.noborder {
+  border: none !important;
+}
+
+td.grey {
+  background: #b9b9b9;
+  color: #000;
+  font-weight: bolder;
+}
+
+tr.payment-list:nth-child(odd) {
+  background: #efefef;
+}
+
+tr.payment-list:nth-child(even) {
+  background: #fdfdfd;
+}

@@ -1,0 +1,15 @@
+target
+overlays
+.idea
+.DS_Store
+node_modules
+.classpath
+.project
+.settings
+/tmp.txt
+*.bak
+*.eml
+*.iml
+*.iws
+*.ipr
+*~
