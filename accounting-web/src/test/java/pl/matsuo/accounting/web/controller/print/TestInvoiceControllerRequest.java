@@ -1,36 +1,44 @@
 package pl.matsuo.accounting.web.controller.print;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
-import pl.matsuo.clinic.model.cash.CashRegister;
-import pl.matsuo.clinic.model.print.cash.Invoice;
-import pl.matsuo.clinic.model.print.cash.InvoicePosition;
-import pl.matsuo.clinic.service.medical.services.ServicesService;
-import pl.matsuo.clinic.service.numeration.NumerationServiceImpl;
-import pl.matsuo.clinic.test.data.AppointmentTestData;
-import pl.matsuo.clinic.test.data.CashRegisterTestData;
-import pl.matsuo.clinic.test.data.NumerationTestData;
-import pl.matsuo.clinic.test.data.PayersTestData;
-import pl.matsuo.clinic.web.controller.AbstractControllerRequestTest;
+import pl.matsuo.accounting.model.cashregister.CashRegister;
+import pl.matsuo.accounting.model.print.AccountingPrint;
+import pl.matsuo.accounting.model.print.Invoice;
+import pl.matsuo.accounting.model.print.InvoicePosition;
+import pl.matsuo.accounting.test.TestClinicSessionState;
+import pl.matsuo.accounting.test.data.CashRegisterTestData;
 import pl.matsuo.core.model.organization.Company;
 import pl.matsuo.core.model.organization.Person;
+import pl.matsuo.core.model.print.KeyValuePrintElement;
+import pl.matsuo.core.service.numeration.NumerationServiceImpl;
+import pl.matsuo.core.test.data.NumerationTestData;
+import pl.matsuo.core.test.data.PayersTestData;
+import pl.matsuo.core.test.data.PersonTestData;
+import pl.matsuo.core.web.controller.AbstractControllerRequestTest;
 
 import static org.springframework.http.MediaType.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static pl.matsuo.clinic.model.print.Print.*;
-import static pl.matsuo.clinic.web.controller.ControllerTestUtil.*;
+import static pl.matsuo.accounting.model.print.AccountingPrint.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.util.NumberUtil.*;
+import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
 
 
-@ContextConfiguration(classes = { InvoiceController.class, ServicesService.class, NumerationServiceImpl.class,
-                                  NumerationTestData.class, CashRegisterTestData.class, AppointmentTestData.class })
+@ContextConfiguration(classes = { InvoiceController.class, NumerationServiceImpl.class, TestClinicSessionState.class,
+                                  PersonTestData.class, CashRegisterTestData.class, NumerationTestData.class})
 public class TestInvoiceControllerRequest extends AbstractControllerRequestTest {
 
 
-  private Print createPrint() {
-    Print print = print(Invoice.class, null).get();
+  @Autowired
+  protected TestClinicSessionState clinicSessionState;
+
+
+  private AccountingPrint createPrint() {
+    AccountingPrint print = print(Invoice.class, null).get();
 
     Invoice invoice = facadeBuilder.createFacade(print);
 
@@ -43,8 +51,8 @@ public class TestInvoiceControllerRequest extends AbstractControllerRequestTest 
   }
 
 
-  private PrintElement addRandomPosition(Print print) {
-    PrintElement printElement = new PrintElement();
+  private KeyValuePrintElement addRandomPosition(AccountingPrint print) {
+    KeyValuePrintElement printElement = new KeyValuePrintElement();
     printElement.getFields().put("key", "" + Math.random());
 
     print.getElements().add(printElement);
@@ -61,7 +69,7 @@ public class TestInvoiceControllerRequest extends AbstractControllerRequestTest 
 
   @Test
   public void listAppointments() throws Exception {
-    Print print = createPrint();
+    AccountingPrint print = createPrint();
     addRandomPosition(print);
     addRandomPosition(print);
 

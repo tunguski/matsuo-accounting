@@ -2,7 +2,8 @@ package pl.matsuo.accounting.web.controller.print;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.matsuo.clinic.model.print.cash.DepositSlip;
+import pl.matsuo.accounting.model.print.AccountingPrint;
+import pl.matsuo.accounting.model.print.DepositSlip;
 
 import java.math.BigDecimal;
 
@@ -16,12 +17,12 @@ public class DepositSlipController extends CashDocumentController<DepositSlip> {
 
 
   @Override
-  protected void preCreate(Print print, DepositSlip cashDocument) {
+  protected void preCreate(AccountingPrint print, DepositSlip cashDocument) {
     cashDocument.setNumber(numerationService.getNumber("DEPOSIT_SLIP"));
   }
 
 
-  protected Print fillDocument(Print print, DepositSlip depositSlip) {
+  protected AccountingPrint fillDocument(AccountingPrint print, DepositSlip depositSlip) {
     super.fillDocument(print, depositSlip);
 
     BigDecimal sum = sumSlipPositions(depositSlip);

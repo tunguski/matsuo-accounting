@@ -33,6 +33,11 @@ public class AccountingPrint extends KeyValuePrint {
   private Integer idCashRegisterReport;
 
 
+  public static Supplier<? extends AccountingPrint> print(Class<? extends IPrintFacade> clazz, Integer id) {
+    return () -> { return (AccountingPrint) printInitializer(clazz, id).apply(new AccountingPrint()); };
+  }
+
+
   public Integer getIdCashRegister() {
     return idCashRegister;
   }

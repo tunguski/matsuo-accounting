@@ -1,24 +1,31 @@
 package pl.matsuo.accounting.web.controller.cash;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import pl.matsuo.clinic.model.cash.CashRegister;
-import pl.matsuo.clinic.model.cash.CashRegisterReport;
-import pl.matsuo.clinic.model.print.cash.Invoice;
-import pl.matsuo.clinic.test.data.CashRegisterTestData;
-import pl.matsuo.clinic.web.controller.AbstractControllerRequestTest;
+import pl.matsuo.accounting.model.cashregister.CashRegister;
+import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
+import pl.matsuo.accounting.model.print.AccountingPrint;
+import pl.matsuo.accounting.model.print.Invoice;
+import pl.matsuo.accounting.test.data.CashRegisterTestData;
+import pl.matsuo.accounting.web.controller.report.CashRegisterReportController;
+import pl.matsuo.core.model.query.QueryBuilder;
 import pl.matsuo.core.service.execution.ExecutionServiceImpl;
+import pl.matsuo.core.web.controller.AbstractControllerRequestTest;
+import pl.matsuo.core.web.controller.ControllerTestUtil;
 
 import java.math.BigDecimal;
 
 import static java.util.Arrays.*;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static pl.matsuo.clinic.model.print.Print.*;
-import static pl.matsuo.clinic.web.controller.ControllerTestUtil.*;
+import static pl.matsuo.accounting.model.print.AccountingPrint.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.util.NumberUtil.*;
+import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
 
 
 /**
@@ -30,8 +37,8 @@ import static pl.matsuo.core.util.NumberUtil.*;
 public class TestCashRegisterReportControllerRequest extends AbstractControllerRequestTest {
 
 
-  public Print createPrint(BigDecimal sum, Integer idCashRegister) {
-    Print print = print(Invoice.class, null).get();
+  public AccountingPrint createPrint(BigDecimal sum, Integer idCashRegister) {
+    AccountingPrint print = print(Invoice.class, null).get();
     print.setIdCashRegister(idCashRegister);
 
     Invoice facade = facadeBuilder.createFacade(print);

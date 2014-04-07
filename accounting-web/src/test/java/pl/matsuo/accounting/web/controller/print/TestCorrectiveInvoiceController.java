@@ -1,24 +1,27 @@
 package pl.matsuo.accounting.web.controller.print;
 
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.mock.http.client.MockClientHttpRequest;
 import org.springframework.mock.http.client.MockClientHttpResponse;
 import org.springframework.test.context.ContextConfiguration;
-import pl.matsuo.clinic.model.cash.CashRegister;
-import pl.matsuo.clinic.model.print.cash.CorrectiveInvoice;
-import pl.matsuo.clinic.model.print.cash.InvoicePosition;
-import pl.matsuo.clinic.model.print.initializer.PrintInitializer;
-import pl.matsuo.clinic.service.medical.services.ServicesService;
-import pl.matsuo.clinic.service.numeration.NumerationServiceImpl;
-import pl.matsuo.clinic.test.TestClinicSessionState;
-import pl.matsuo.clinic.test.data.AppointmentTestData;
-import pl.matsuo.clinic.test.data.CashRegisterTestData;
-import pl.matsuo.clinic.test.data.NumerationTestData;
+import pl.matsuo.accounting.model.cashregister.CashRegister;
+import pl.matsuo.accounting.model.print.AccountingPrint;
+import pl.matsuo.accounting.model.print.CorrectiveInvoice;
+import pl.matsuo.accounting.model.print.InvoicePosition;
+import pl.matsuo.accounting.test.TestClinicSessionState;
+import pl.matsuo.accounting.test.data.CashRegisterTestData;
+import pl.matsuo.core.model.print.KeyValuePrintElement;
+import pl.matsuo.core.model.print.initializer.PrintInitializer;
+import pl.matsuo.core.service.numeration.NumerationServiceImpl;
+import pl.matsuo.core.test.data.NumerationTestData;
+import pl.matsuo.core.test.data.PersonTestData;
 import pl.matsuo.core.web.controller.exception.RestProcessingException;
 
+import static org.junit.Assert.*;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.*;
 import static pl.matsuo.accounting.util.PrintUtil.*;
@@ -30,9 +33,7 @@ import static pl.matsuo.core.util.NumberUtil.*;
  * @author Marek Romanowski
  * @since Aug 21, 2013
  */
-@ContextConfiguration(classes = { CorrectiveInvoiceController.class, TestClinicSessionState.class,
-                                  ServicesService.class, NumerationServiceImpl.class, CashRegisterTestData.class,
-                                  AppointmentTestData.class, NumerationTestData.class })
+@ContextConfiguration(classes = { CorrectiveInvoiceController.class, TestClinicSessionState.class })
 public class TestCorrectiveInvoiceController extends AbstractPrintControllerTest {
 
 
@@ -40,8 +41,8 @@ public class TestCorrectiveInvoiceController extends AbstractPrintControllerTest
   CorrectiveInvoiceController controller;
 
 
-  private PrintElement addRandomPosition(Print print) {
-    PrintElement printElement = new PrintElement();
+  private KeyValuePrintElement addRandomPosition(AccountingPrint print) {
+    KeyValuePrintElement printElement = new KeyValuePrintElement();
     printElement.getFields().put("key", "" + Math.random());
 
     print.getElements().add(printElement);
@@ -58,7 +59,7 @@ public class TestCorrectiveInvoiceController extends AbstractPrintControllerTest
 
   @Test
   public void createAndUpdateInvoice() throws Exception {
-    Print print = createPrint(CorrectiveInvoice.class);
+    AccountingPrint print = createPrint(CorrectiveInvoice.class);
     CorrectiveInvoice correctiveInvoice = createFacade(print);
 
     addElements(print, correctiveInvoice,
@@ -68,11 +69,11 @@ public class TestCorrectiveInvoiceController extends AbstractPrintControllerTest
 
     clinicSessionState.setCashRegister(database.findAll(CashRegister.class).get(0));
 
-    HttpEntity<Print> httpEntity = controller.create(print, new StringBuffer());
+    HttpEntity<AccountingPrint> httpEntity = controller.create(print, new StringBuffer());
     String url = httpEntity.getHeaders().getLocation().toString();
     String id = url.substring(url.lastIndexOf("/") + 1);
 
-    Print savedPrint = database.findById(Print.class, i(id), new PrintInitializer());
+    AccountingPrint savedPrint = database.findById(AccountingPrint.class, i(id), new PrintInitializer());
     CorrectiveInvoice savedCorrectiveInvoice = createFacade(savedPrint);
 
     assertEquals(bd("14.00"), savedCorrectiveInvoice.getCashRegisterAmount());
@@ -82,26 +83,26 @@ public class TestCorrectiveInvoiceController extends AbstractPrintControllerTest
 
   @Test(expected = RestProcessingException.class)
   public void noCashRegisterInState() throws Exception {
-    Print print = createPrint(CorrectiveInvoice.class);
+    AccountingPrint print = createPrint(CorrectiveInvoice.class);
 
     addRandomPosition(print);
     addRandomPosition(print);
 
-    HttpEntity<Print> httpEntity = controller.create(print, new StringBuffer());
+    HttpEntity<AccountingPrint> httpEntity = controller.create(print, new StringBuffer());
     String url = httpEntity.getHeaders().getLocation().toString();
     String id = url.substring(url.lastIndexOf("/") + 1);
 
-    Print savedPrint = database.findById(Print.class, i(id), new PrintInitializer());
+    AccountingPrint savedPrint = database.findById(AccountingPrint.class, i(id), new PrintInitializer());
     database.evict(savedPrint);
 
     MockClientHttpRequest request = new MockClientHttpRequest();
     converter.write(savedPrint, APPLICATION_JSON, request);
     MockClientHttpResponse response = new MockClientHttpResponse(request.getBodyAsBytes(), OK);
-    Print resultObject = (Print) converter.read(Print.class, response);
+    AccountingPrint resultObject = (AccountingPrint) converter.read(AccountingPrint.class, response);
 
     controller.update(resultObject);
 
-    Print updatedPrint = database.findById(Print.class, i(id));
+    AccountingPrint updatedPrint = database.findById(AccountingPrint.class, i(id));
 
     assertEquals(print.getId(), updatedPrint.getId());
   }

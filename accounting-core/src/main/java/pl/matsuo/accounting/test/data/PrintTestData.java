@@ -4,12 +4,12 @@ package pl.matsuo.accounting.test.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.accounting.model.print.CashDocumentUtil;
 import pl.matsuo.accounting.model.print.DepositSlip;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.model.print.InvoicePosition;
-import pl.matsuo.accounting.model.print.PaymentType;
 import pl.matsuo.accounting.model.print.SlipPosition;
 import pl.matsuo.accounting.model.print.TotalCost;
 import pl.matsuo.accounting.model.print.WithdrawSlip;
@@ -22,15 +22,12 @@ import pl.matsuo.core.model.user.User;
 import pl.matsuo.core.service.facade.IFacadeBuilder;
 import pl.matsuo.core.service.print.PrintMethods;
 import pl.matsuo.core.test.data.AbstractTestData;
-import pl.matsuo.core.test.data.PayersTestData;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.function.Function;
 
-import static java.util.Collections.*;
+import static pl.matsuo.accounting.model.print.AccountingPrint.*;
 import static pl.matsuo.accounting.model.print.PaymentType.*;
-import static pl.matsuo.core.model.print.KeyValuePrint.*;
 import static pl.matsuo.core.model.query.QueryBuilder.eq;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.test.data.PayersTestData.*;
@@ -54,9 +51,6 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
 
   @Override
   public void execute() {
-//    List<Appointment> appointments = database.findAll(Appointment.class);
-//    sort(appointments);
-
     savePrints(createTestInvoice(null),
         createTestInvoice_2(null),
         createTestDepositSlip(null),
@@ -64,10 +58,10 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
   }
 
 
-  protected void savePrints(KeyValuePrint ... prints) {
+  protected void savePrints(AccountingPrint ... prints) {
     User user = database.findOne(query(User.class, eq("username", "admin")));
 
-    for (KeyValuePrint print : prints) {
+    for (AccountingPrint print : prints) {
       print.setIdUserCreated(user.getId());
       database.create(print);
     }
@@ -88,8 +82,8 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
   }
 
 
-  private KeyValuePrint createTestWithdrawSlip(Integer id) { // kw
-    KeyValuePrint print = print(WithdrawSlip.class, id).get();
+  private AccountingPrint createTestWithdrawSlip(Integer id) { // kw
+    AccountingPrint print = print(WithdrawSlip.class, id).get();
     WithdrawSlip withdrawSlip = facadeBuilder.createFacade(print);
     SlipPosition printElementFacade;
 
@@ -131,8 +125,8 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
   }
 
 
-  private KeyValuePrint createTestDepositSlip(Integer id) { // kp
-    return initializePrint(DepositSlip.class, id, depositSlip -> {
+  private AccountingPrint createTestDepositSlip(Integer id) { // kp
+    return initializePrint(print(DepositSlip.class, id).get(), DepositSlip.class, depositSlip -> {
           rewriteParties(depositSlip, "REMONT", MEDIQ);
 
           depositSlip.setSellDate(date(2013, 8, 9));
@@ -170,8 +164,8 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
   }
 
 
-  private KeyValuePrint createTestInvoice_2(Integer id) {
-    KeyValuePrint print = print(Invoice.class, id).get();
+  private AccountingPrint createTestInvoice_2(Integer id) {
+    AccountingPrint print = print(Invoice.class, id).get();
 
     Invoice invoice = facadeBuilder.createFacade(print);
     InvoicePosition printElementFacade;
@@ -229,8 +223,8 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
   }
 
 
-  private KeyValuePrint createTestInvoice(Integer id) {
-    KeyValuePrint print = print(Invoice.class, id).get();
+  private AccountingPrint createTestInvoice(Integer id) {
+    AccountingPrint print = print(Invoice.class, id).get();
 
     Invoice invoice = facadeBuilder.createFacade(print);
     InvoicePosition printElementFacade;
