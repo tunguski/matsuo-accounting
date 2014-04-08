@@ -1,4 +1,4 @@
-<%@page import="pl.matsuo.clinic.model.print.cash.WithdrawSlip"%>
+<%@page import="pl.matsuo.accounting.model.print.WithdrawSlip"%>
 <%@page import="pl.matsuo.core.web.view.BootstrapRenderer"%>
 <%!  BootstrapRenderer.BootstrapRenderingBuilder renderer =
              BootstrapRenderer.renderer().create(WithdrawSlip.class).entityName("entity.fields"); %>

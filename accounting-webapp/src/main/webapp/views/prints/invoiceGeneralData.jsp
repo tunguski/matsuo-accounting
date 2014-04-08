@@ -1,4 +1,4 @@
-<%@page import="pl.matsuo.clinic.model.print.cash.Invoice"%>
+<%@page import="pl.matsuo.accounting.model.print.Invoice"%>
 <%@page import="pl.matsuo.core.web.view.BootstrapRenderer"%>
 <%!  BootstrapRenderer renderer = BootstrapRenderer.renderer(); %>
 

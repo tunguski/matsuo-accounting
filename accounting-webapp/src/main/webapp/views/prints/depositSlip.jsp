@@ -1,4 +1,4 @@
-<%@page import="pl.matsuo.clinic.model.print.cash.DepositSlip"%>
+<%@page import="pl.matsuo.accounting.model.print.DepositSlip"%>
 <%@page import="pl.matsuo.core.web.view.BootstrapRenderer"%>
 <%!  BootstrapRenderer.BootstrapRenderingBuilder renderer =
              BootstrapRenderer.renderer().create(DepositSlip.class).entityName("entity.fields"); %>
