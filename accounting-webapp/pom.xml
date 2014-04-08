@@ -30,12 +30,148 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
+        <groupId>com.github.searls</groupId>
+        <artifactId>jasmine-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>test</id>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>bdd</id>
+            <goals>
+              <goal>bdd</goal>
+            </goals>
+          </execution>
+        </executions>
+
         <configuration>
-          <jvmArgs>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=n</jvmArgs>
-          <stopPort>54334</stopPort>
-          <stopKey>stopKey</stopKey>
+
+          <!--
+          where is your javascript - default is src/main/javascript
+          below is a typical tomcat project
+
+          src/main/webapp/js/
+          -->
+          <jsSrcDir>${project.basedir}</jsSrcDir>
+
+          <!--
+          an ordered list of filters to match script source files
+          -->
+          <sourceIncludes>
+            <!--   add the ones you want first  -->
+            <include>overlays/*/js/**/jquery.js</include>
+            <include>overlays/*/js/**/angular.js</include>
+            <include>overlays/*/js/**/underscore.js</include>
+            <include>overlays/*/js/**/moment.js</include>
+            <include>overlays/*/js/**/mousetrap.js</include>
+            <include>overlays/*/js/**/general/backbone.js</include>
+            <!--   these are the defaults  -->
+            <include>overlays/*/js/**/*.js</include>
+            <include>src/main/webapp/js/**/*.js</include>
+          </sourceIncludes>
+
+          <!--
+          an ordered list of filters to match script source files NOT to be included
+          -->
+          <sourceExcludes>
+            <exclude>overlays/*/js/lib/util/toastr.js</exclude>
+          </sourceExcludes>
+
+          <!--
+          where are your test script - default is src/test/javascript
+          below is a typical tomcat project
+          -->
+          <jsTestSrcDir>${project.basedir}/src/test/javascript</jsTestSrcDir>
+
+          <!--
+          an ordered list of filters to match script spec files NOT to be included
+          -->
+          <specIncludes>
+            <!--   add the ones you want first  -->
+            <include>lib/angular-mocks.js</include>
+            <include>lib/matsuo_test_base.js</include>
+            <!--   these are the defaults  -->
+            <include>unit/**/*.js</include>
+          </specIncludes>
+
+          <!--
+          the port that the jasmine:bdd goal binds to
+          -->
+          <serverPort>8234</serverPort>
+
+          <!--
+          the type of browser HtmlUnit emulates when your specs run during the build
+          possible other value: INTERNET_EXPLORER_6, INTERNET_EXPLORER_7, INTERNET_EXPLORER_8
+          default: FIREFOX_3
+          see HtmlUnit documentation to see if any have been added since
+           -->
+          <browserVersion>FIREFOX_17</browserVersion>
+
+          <!--
+          when true, failing specs break the build
+          -->
+          <haltOnFailure>true</haltOnFailure>
+
+          <!--
+          when spec execution exceeds the timeout (in seconds), the build fails
+          -->
+          <timeout>60</timeout>
+
+          <!--
+          the name of the generated JUnit XML report
+          the plugin generates XML of the same brand JUnit does; this is handy for when your CI server is capable of aggregating these XML files (like Jenkins freestyle projects)
+          -->
+          <junitXmlReportFileName>TEST-jasmine.xml</junitXmlReportFileName>
+
+          <!--
+          True to increase HtmlUnit output and attempt reporting on specs even if a timeout occurred.
+          -->
+          <debug>false</debug>
+
+          <!--
+          Source encoding
+          -->
+          <sourceEncoding>utf-8</sourceEncoding>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+
+        <executions>
+          <execution>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <configuration>
+          <nosuffix>true</nosuffix>
+          <nomunge>true</nomunge>
+          <excludes>
+            <exclude>**/lib/**/*.js</exclude>
+          </excludes>
+
+          <aggregations>
+            <aggregation>
+              <insertNewLine>true</insertNewLine>
+              <output>${project.build.directory}/${project.build.finalName}/js/packed.js</output>
+              <inputDir>${project.build.directory}/${project.build.finalName}/js/</inputDir>
+
+              <includes>
+                <include>**/clinic/**/*.js</include>
+                <include>**/directives/**/*.js</include>
+                <include>**/general/**/*.js</include>
+                <include>*.js</include>
+              </includes>
+            </aggregation>
+          </aggregations>
         </configuration>
       </plugin>
     </plugins>

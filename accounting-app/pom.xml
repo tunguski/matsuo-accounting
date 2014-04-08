@@ -28,11 +28,6 @@
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <configuration>
-          <jvmArgs>-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=n</jvmArgs>
-          <stopPort>54334</stopPort>
-          <stopKey>stopKey</stopKey>
-        </configuration>
       </plugin>
     </plugins>
   </build>
