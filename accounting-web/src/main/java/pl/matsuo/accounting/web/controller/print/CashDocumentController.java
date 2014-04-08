@@ -18,8 +18,6 @@ import pl.matsuo.core.web.controller.exception.RestProcessingException;
 
 import javax.validation.Valid;
 
-import java.util.Arrays;
-
 import static java.util.Arrays.*;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.*;
@@ -43,7 +41,7 @@ public class CashDocumentController<D extends CashDocument> extends AbstractAcco
 
     D cashDocument = facadeBuilder.createFacade(entity, printType);
 
-    CashRegister cashRegister = clinicSessionState.getCashRegister();
+    CashRegister cashRegister = cashRegisterSessionState.getCashRegister();
 
     entity.setPrintClass(printType);
     entity = fillDocument(entity);

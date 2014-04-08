@@ -2,7 +2,7 @@ package pl.matsuo.accounting.test;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.annotation.Order;
-import pl.matsuo.accounting.service.session.ClinicSessionState;
+import pl.matsuo.accounting.service.session.CashRegisterSessionState;
 
 
 /**
@@ -10,6 +10,6 @@ import pl.matsuo.accounting.service.session.ClinicSessionState;
  */
 @Scope
 @Order(0)
-public class TestClinicSessionState extends ClinicSessionState {
+public class TestCashRegisterSessionState extends CashRegisterSessionState {
 }
 

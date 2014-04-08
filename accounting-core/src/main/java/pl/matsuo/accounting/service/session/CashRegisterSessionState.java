@@ -14,7 +14,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.*;
 @Component
 @Order(0)
 @Scope(value = "session", proxyMode = TARGET_CLASS)
-public class ClinicSessionState {
+public class CashRegisterSessionState {
 
 
   private CashRegister cashRegister;

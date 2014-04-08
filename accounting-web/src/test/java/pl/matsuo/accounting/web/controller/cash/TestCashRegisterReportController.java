@@ -9,7 +9,7 @@ import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
-import pl.matsuo.accounting.service.session.ClinicSessionState;
+import pl.matsuo.accounting.service.session.CashRegisterSessionState;
 import pl.matsuo.accounting.test.data.CashRegisterTestData;
 import pl.matsuo.accounting.web.controller.report.CashRegisterReportController;
 import pl.matsuo.core.service.numeration.NumerationServiceImpl;
@@ -33,7 +33,7 @@ import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
  * Created by tunguski on 18.09.13.
  */
 @WebAppConfiguration
-@ContextConfiguration(classes = { MvcConfig.class, CashRegisterReportController.class, ClinicSessionState.class,
+@ContextConfiguration(classes = { MvcConfig.class, CashRegisterReportController.class, CashRegisterSessionState.class,
                                   NumerationServiceImpl.class, PayersTestData.class, CashRegisterTestData.class,
                                   NumerationTestData.class })
 public class TestCashRegisterReportController extends AbstractControllerTest {

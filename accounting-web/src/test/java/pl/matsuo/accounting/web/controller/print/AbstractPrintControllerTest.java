@@ -6,7 +6,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.InvoiceCommon;
-import pl.matsuo.accounting.test.TestClinicSessionState;
+import pl.matsuo.accounting.test.TestCashRegisterSessionState;
 import pl.matsuo.accounting.test.data.CashRegisterTestData;
 import pl.matsuo.core.model.organization.Company;
 import pl.matsuo.core.model.organization.Person;
@@ -27,13 +27,13 @@ import static pl.matsuo.core.model.query.QueryBuilder.*;
  * Created by tunguski on 02.02.14.
  */
 @WebAppConfiguration
-@ContextConfiguration(classes = { MvcConfig.class, NumerationServiceImpl.class, TestClinicSessionState.class,
+@ContextConfiguration(classes = { MvcConfig.class, NumerationServiceImpl.class, TestCashRegisterSessionState.class,
                                   PersonTestData.class, CashRegisterTestData.class, NumerationTestData.class })
 public abstract class AbstractPrintControllerTest extends AbstractControllerTest
     implements PrintMethods, FacadeBuilderMethods {
 
   @Autowired
-  TestClinicSessionState clinicSessionState;
+  TestCashRegisterSessionState clinicSessionState;
   @Autowired
   MappingJackson2HttpMessageConverter converter;
 

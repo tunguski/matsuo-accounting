@@ -8,7 +8,7 @@ import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.model.print.InvoicePosition;
-import pl.matsuo.accounting.test.TestClinicSessionState;
+import pl.matsuo.accounting.test.TestCashRegisterSessionState;
 import pl.matsuo.accounting.test.data.CashRegisterTestData;
 import pl.matsuo.core.model.organization.Company;
 import pl.matsuo.core.model.organization.Person;
@@ -28,13 +28,13 @@ import static pl.matsuo.core.util.NumberUtil.*;
 import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
 
 
-@ContextConfiguration(classes = { InvoiceController.class, NumerationServiceImpl.class, TestClinicSessionState.class,
+@ContextConfiguration(classes = { InvoiceController.class, NumerationServiceImpl.class, TestCashRegisterSessionState.class,
                                   PersonTestData.class, CashRegisterTestData.class, NumerationTestData.class})
 public class TestInvoiceControllerRequest extends AbstractControllerRequestTest {
 
 
   @Autowired
-  protected TestClinicSessionState clinicSessionState;
+  protected TestCashRegisterSessionState clinicSessionState;
 
 
   private AccountingPrint createPrint() {
