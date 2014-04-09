@@ -1,6 +1,6 @@
 
 
-angular.module('mt.baseApp')
+angular.module('mt.core')
     .factory('userGroupConfiguration', ['$route', '$rootScope', '$location', 'routeConfiguration',
       function($route, $rootScope, $location, routeConfiguration) {
 

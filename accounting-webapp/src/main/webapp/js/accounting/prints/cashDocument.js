@@ -1,7 +1,8 @@
 restFactory("CashDocument");
+restFactory("Payer");
 
 
-angular.module('mt.baseApp')
+angular.module('mt.core')
     .factory('printTypeService', function() {
       var service = {
         printType: function (print) {

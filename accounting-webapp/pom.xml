@@ -74,7 +74,7 @@
             <include>target/war/work/*/*/js/**/moment.js</include>
             <include>target/war/work/*/*/js/**/mousetrap.js</include>
             <include>target/war/work/*/*/js/**/general/backbone.js</include>
-            <include>target/war/work/*/*/js/**/matsuo-core-app.js</include>
+            <include>target/war/work/*/*/js/**/general/base-app-module.js</include>
             <!--   these are the defaults  -->
             <include>target/war/work/*/*/js/**/*.js</include>
             <include>src/main/webapp/js/**/*.js</include>

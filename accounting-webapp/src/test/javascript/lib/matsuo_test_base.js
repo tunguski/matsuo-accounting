@@ -7,8 +7,9 @@ toastr = {
   }
 }
 
+angular.module('mt.test_module', ['mt.core', 'mt.cashRegisterService']);
 
-beforeEach(angular.module('mt.test_module', ['mt.core', 'mt.cashRegisterService']));
+beforeEach(module('mt.test_module'));
 
 
 beforeEach(function () {
