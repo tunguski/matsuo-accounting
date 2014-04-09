@@ -6,10 +6,10 @@
     <link rel="stylesheet" href="css/external/jquery-ui.css">
     <link rel="stylesheet" href="css/external/jquery.colorpicker.css">
     <link rel="stylesheet" href="css/external/jquery.pageslide.css">
-    <link rel="stylesheet" href="css/external/bootstrap.css">
-    <link rel="stylesheet" href="css/external/bootstrap-responsive.css">
+    <link rel="stylesheet" href="css/external/bootstrap-2.3/bootstrap.css">
+    <link rel="stylesheet" href="css/external/bootstrap-2.3/bootstrap-responsive.css">
     <link rel="stylesheet" href="css/external/font-awesome.css">
-    <link rel="stylesheet" href="css/external/bootstrap-timepicker.css">
+    <link rel="stylesheet" href="css/external/bootstrap-2.3/bootstrap-timepicker.css">
     <!--
     <link rel="stylesheet" href="css/external/bootstrap-modal.css">
      -->
@@ -18,11 +18,10 @@
     <link rel="stylesheet" href="css/external/toastr.css" />
     <link rel="stylesheet" href="css/external/select2.css" />
     <!--link rel="stylesheet" href="css/external/select2-bootstrap.css" /-->
-    <link rel="stylesheet" href="css/html.css">
-    <link rel="stylesheet" href="css/select2-modifications.css">
-    <link rel="stylesheet" href="css/bootstrap-modifications.css">
-    <link rel="stylesheet" href="css/key-like.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/bs23/html.css">
+    <link rel="stylesheet" href="css/bs23/bootstrap-modifications.css">
+    <link rel="stylesheet" href="css/bs23/key-like.css">
+    <link rel="stylesheet" href="css/bs23/matsuo-core.css">
 
     <title ng-bind-html="title">My App</title>
   </head>
@@ -30,7 +29,8 @@
   <body ng-controller="AppController">
 
     <!-- menu górne -->
-    <div ng-show="isLoggedIn()" class="navbar navbar-inverse navbar-fixed-top slide-with-page hidden-on-startup">
+    <div ng-show="isLoggedIn()" role="navigation"
+         class="navbar navbar-inverse navbar-fixed-top slide-with-page hidden-on-startup">
       <div class="nav-collapse collapse" ng-include="'/views/base/page/menu.jsp'">
       </div>
     </div>
