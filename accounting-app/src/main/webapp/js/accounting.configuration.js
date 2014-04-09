@@ -1,6 +1,6 @@
 
 
-angular.module('matsuo.baseApp')
+angular.module('mt.baseApp')
     .factory('userGroupConfiguration', ['$route', '$rootScope', '$location', 'routeConfiguration',
       function($route, $rootScope, $location, routeConfiguration) {
 

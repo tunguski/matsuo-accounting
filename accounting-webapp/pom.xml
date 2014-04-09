@@ -30,6 +30,11 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
         <groupId>com.github.searls</groupId>
         <artifactId>jasmine-maven-plugin</artifactId>
         <executions>
@@ -63,14 +68,15 @@
           -->
           <sourceIncludes>
             <!--   add the ones you want first  -->
-            <include>overlays/*/js/**/jquery.js</include>
-            <include>overlays/*/js/**/angular.js</include>
-            <include>overlays/*/js/**/underscore.js</include>
-            <include>overlays/*/js/**/moment.js</include>
-            <include>overlays/*/js/**/mousetrap.js</include>
-            <include>overlays/*/js/**/general/backbone.js</include>
+            <include>target/war/work/*/*/js/**/jquery.js</include>
+            <include>target/war/work/*/*/js/**/angular.js</include>
+            <include>target/war/work/*/*/js/**/underscore.js</include>
+            <include>target/war/work/*/*/js/**/moment.js</include>
+            <include>target/war/work/*/*/js/**/mousetrap.js</include>
+            <include>target/war/work/*/*/js/**/general/backbone.js</include>
+            <include>target/war/work/*/*/js/**/matsuo-core-app.js</include>
             <!--   these are the defaults  -->
-            <include>overlays/*/js/**/*.js</include>
+            <include>target/war/work/*/*/js/**/*.js</include>
             <include>src/main/webapp/js/**/*.js</include>
           </sourceIncludes>
 
@@ -78,7 +84,7 @@
           an ordered list of filters to match script source files NOT to be included
           -->
           <sourceExcludes>
-            <exclude>overlays/*/js/lib/util/toastr.js</exclude>
+            <exclude>target/war/work/*/*/js/lib/util/toastr.js</exclude>
           </sourceExcludes>
 
           <!--

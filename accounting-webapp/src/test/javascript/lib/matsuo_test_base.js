@@ -8,33 +8,7 @@ toastr = {
 }
 
 
-function createService(code) {
-  return {
-    service: {
-      name: 'name ' + code,
-      medicalSpecialization: 'specjalizacja ' + code,
-      code: code
-    }
-  }
-}
-
-
-var testData = {
-  services: ['AA', 'RTG', 'TK', 'MR', 'USG', 'KON']
-};
-
-
-function configureBaseRequests(http, responses) {
-  responses = responses || {};
-  angular.forEach(testData.services, function (element) {
-    http.expectGET('/api/appointments/treatmentsList/' + element).respond(responses[element] || []);
-  });
-  http.expectGET('/api/services/icd9').respond([]);
-  http.expectGET('/api/services/icd10').respond([]);
-}
-
-
-beforeEach(module('klinika'));
+beforeEach(angular.module('mt.test_module', ['mt.core', 'mt.cashRegisterService']));
 
 
 beforeEach(function () {
@@ -48,6 +22,7 @@ beforeEach(function () {
 
 var controller;
 var rootScope, scope, http, compile;
+
 beforeEach(inject(function ($httpBackend, $rootScope, $compile) {
   http = $httpBackend;
   rootScope = $rootScope;

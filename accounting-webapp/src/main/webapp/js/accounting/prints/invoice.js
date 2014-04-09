@@ -91,7 +91,7 @@ function abstractInvoiceController($scope) {
 }
 
 
-function InvoiceController($scope, $routeParams, $http, Invoice, Appointment) {
+function InvoiceController($scope, $routeParams, $http, Invoice) {
   abstractInvoiceController($scope, $routeParams, $http);
 
 
@@ -119,32 +119,12 @@ function InvoiceController($scope, $routeParams, $http, Invoice, Appointment) {
       },
       elements: []
     });
-
-    if ($routeParams.for_appointment) {
-      scope.appointment = Appointment.get({ idAppointment: $routeParams.for_appointment }, function() {
-        scope.loadBuyer(scope.appointment.idPatient);
-      });
-
-      $http.get('/api/invoices/for_appointment/' + $routeParams.for_appointment).then(function(data) {
-        $.extend(true, scope.entity, data.data);
-
-        $scope._loadData.resolve();
-
-        scope.recalculateSummaries();
-      });
-    } else {
-      if ($routeParams.idBuyer) {
-        scope.loadBuyer($routeParams.idBuyer);
-      }
-
-      $scope._loadData.resolve();
-    }
-  }
+  };
 
 
   $scope.pluginPrintLogic(function (scope) {
     scope.recalculateSummaries = $scope.recalculateSummaries;
-    scope.createEmptyEntity = createEmptyEntity;
+    scope.createEmptyEntity = $scope.createEmptyEntity;
   });
 }
 
