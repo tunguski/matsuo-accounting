@@ -87,6 +87,9 @@ public class TestInvoiceController extends AbstractPrintControllerTest {
   @Test(expected = RestProcessingException.class)
   public void noCashRegisterInState() throws Exception {
     AccountingPrint print = createPrint(Invoice.class);
+    // clear buyer id in invoice - when no cashRegister is set, this is natuarl situation
+    Invoice invoice = createFacade(print);
+    invoice.getBuyer().setId(null);
 
     addRandomPosition(print);
     addRandomPosition(print);
