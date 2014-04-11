@@ -83,11 +83,5 @@ public class CashRegisterReportService extends AbstractReportService<ICashRegist
       summary.put("printTypeSummary", printTypeSummary);
     }
   }
-
-
-  @Override
-  public String getName() {
-    return "cashRegisterReport";
-  }
 }
 
