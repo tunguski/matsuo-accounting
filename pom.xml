@@ -13,6 +13,7 @@
     <groupId>pl.matsuo</groupId>
     <artifactId>matsuo-core-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <relativePath>../matsuo-core/pom.xml</relativePath>
   </parent>
 
   <modules>
