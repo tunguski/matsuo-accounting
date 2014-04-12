@@ -55,16 +55,7 @@
     <a class="btn btn-primary" ng-click="save()" translate="save"></a>
     <a class="btn" href="javascript:;" onclick="window.history.back()" translate="cancel"></a>
 
-    <div class="btn-group" ng-if="entity.id">
-      <a class="btn btn-info" class="btn btn-info" ng-href="/api/prints/{{entity.id}}" target="_blank">Pobierz</a>
-      <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a tabindex="-1" ng-click="printFile('/api/prints/{{entity.id}}')">Drukuj</a></li>
-        <li><a tabindex="-1" >Wyślij mailem</a></li>
-      </ul>
-    </div>
+    <div download-button="entity" />
 
     <a ng-if="entity.id" class="btn btn-info" ng-href="#/prints/cashDocument?idCorrectedPrint={{entity.id}}">Korekta</a>
   </div>
