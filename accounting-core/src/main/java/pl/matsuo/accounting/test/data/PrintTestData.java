@@ -14,6 +14,7 @@ import pl.matsuo.accounting.model.print.SlipPosition;
 import pl.matsuo.accounting.model.print.TotalCost;
 import pl.matsuo.accounting.model.print.WithdrawSlip;
 import pl.matsuo.accounting.util.PrintUtil;
+import pl.matsuo.core.conf.DiscoverTypes;
 import pl.matsuo.core.model.organization.Company;
 import pl.matsuo.core.model.organization.address.Address;
 import pl.matsuo.core.model.print.KeyValuePrint;
@@ -22,11 +23,14 @@ import pl.matsuo.core.model.user.User;
 import pl.matsuo.core.service.facade.IFacadeBuilder;
 import pl.matsuo.core.service.print.PrintMethods;
 import pl.matsuo.core.test.data.AbstractTestData;
+import pl.matsuo.core.test.data.PayersTestData;
+import pl.matsuo.core.test.data.PersonTestData;
 
 import java.math.BigDecimal;
 import java.util.function.Function;
 
 import static pl.matsuo.accounting.model.print.AccountingPrint.*;
+import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
 import static pl.matsuo.accounting.model.print.PaymentType.*;
 import static pl.matsuo.core.model.query.QueryBuilder.eq;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
@@ -38,6 +42,7 @@ import static pl.matsuo.core.util.NumberUtil.*;
 
 @Component
 @Order(50)
+@DiscoverTypes({ PayersTestData.class })
 public class PrintTestData extends AbstractTestData implements PrintMethods {
 
 
@@ -77,8 +82,8 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
   private void rewriteParties(CashDocument cashDocument, String sellerCode, String buyerCode) {
     Object o1 = cashDocument.getBuyer();
     Object o2 = cashDocument.getSeller();
-    CashDocumentUtil.rewriteParty(cashDocument.getBuyer(), database.findOne(query(Company.class, eq("code", buyerCode))));
-    CashDocumentUtil.rewriteParty(cashDocument.getSeller(), database.findOne(query(Company.class, eq("code", sellerCode))));
+    rewriteParty(cashDocument.getBuyer(), database.findOne(query(Company.class, eq("code", buyerCode))));
+    rewriteParty(cashDocument.getSeller(), database.findOne(query(Company.class, eq("code", sellerCode))));
   }
 
 
