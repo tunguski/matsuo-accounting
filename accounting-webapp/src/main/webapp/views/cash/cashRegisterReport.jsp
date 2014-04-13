@@ -26,7 +26,7 @@
         <tbody>
           <tr ng-repeat="print in entity.prints | orderBy:'id' | filter:query">
             <td>{{$index + 1}}</td>
-            <td>{{"cashDocument.shortName." + printTypeSpecial(print) | translate}}</td>
+            <td>{{"cashDocument.shortName." + printTypeService.printTypeSpecial(print) | translate}}</td>
             <td><a href="#/prints/cashDocument/{{print.id}}">{{print.createdTime | formatDate}} {{print.createdTime | formatTime}}</a></td>
             <td>{{print.userCreated.username}}</td>
             <td>{{print.fields.buyer}}</td>

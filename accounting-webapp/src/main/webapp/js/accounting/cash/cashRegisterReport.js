@@ -2,6 +2,9 @@
 function CashRegisterReportController($scope, $routeParams, $location, printTypeService, CashRegisterReport, User) {
 
 
+  $scope.printTypeService = printTypeService;
+
+
   $scope.sumCashDocuments = function () {
     var sum = 0.0;
 
@@ -13,10 +16,6 @@ function CashRegisterReportController($scope, $routeParams, $location, printType
 
     return sum;
   }
-
-
-  $scope.printType = printTypeService.printType;
-  $scope.printTypeSpecial = printTypeService.printTypeSpecial;
 
 
   $scope.save = function () {

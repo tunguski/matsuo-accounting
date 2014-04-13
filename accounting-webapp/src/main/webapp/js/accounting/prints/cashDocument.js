@@ -5,14 +5,32 @@ restFactory("Payer");
 angular.module('mt.core')
     .factory('printTypeService', function() {
       var service = {
+        /**
+         * Returns string defining print type. Cash document view shows proper print basing on it.
+         */
         printType: function (print) {
           if (print && print.printClass) {
             return _.uncapitalize(print.printClass.split('.').slice(-1)[0]);
           }
         },
+        /**
+         * Returns special version of print type. It adds '_receipt' suffix to type if print is receipt.
+         */
         printTypeSpecial: function (print) {
           return service.printType(print)
               + ((print.fields.isReceipt  === 'true' || print.fields.isReceipt  === true) ? "_receipt" : "");
+        },
+        /**
+         * Returns url to view showing passed kind of print.
+         */
+        printPageUrl: function (print) {
+          if (print.fields['buyer.id']) {
+            // cashDocument
+            return '/#/prints/cashDocument/' + print.id;
+          } else {
+            // for all others view has to be /print/<print_type>/<id>
+            return '/#/prints/' + service.printType(print) + '/' + print.id;
+          }
         }
       };
       return service;
@@ -22,6 +40,7 @@ angular.module('mt.core')
 function CashDocumentController($scope, $routeParams, $location, $filter, $q, cashRegisterService, printTypeService,
                                 CashDocument, Payer, CashRegisterReport) {
   $scope.cashRegisterService = cashRegisterService;
+  $scope.printTypeService = printTypeService;
 
   function sellerFromCashRegister(cashRegister) {
     if ($scope.entity && cashRegister && !$scope.entity.id) {
@@ -44,16 +63,12 @@ function CashDocumentController($scope, $routeParams, $location, $filter, $q, ca
   $scope.loadBuyer = $scope.loadPayer('idBuyer');
 
 
-  $scope.printType = printTypeService.printType;
-  $scope.printTypeSpecial = printTypeService.printTypeSpecial;
-
-
   $scope.recalculateSummaries = angular.noop;
 
 
   $scope.guestPrintClass = function() {
     return 'pl.matsuo.clinic.model.print.cash.' + ($routeParams.idCorrectedPrint
-        ? "Corrective" + _.capitalize($scope.printType($scope.correctedEntity)) : _.capitalize($routeParams.type));
+        ? "Corrective" + _.capitalize(printTypeService.printType($scope.correctedEntity)) : _.capitalize($routeParams.type));
   }
 
 
@@ -90,7 +105,7 @@ function CashDocumentController($scope, $routeParams, $location, $filter, $q, ca
         initEmptyEntity();
       }
 
-      $scope.setTitle("<span translate='cashDocument.newTitle.{{printTypeSpecial(entity)}}'></span>", $scope);
+      $scope.setTitle("<span translate='cashDocument.newTitle.{{printTypeService.printTypeSpecial(entity)}}'></span>", $scope);
     }
 
     $scope._loadData.promise.then(function () {
@@ -108,10 +123,10 @@ function CashDocumentController($scope, $routeParams, $location, $filter, $q, ca
       $scope._loadData.resolve();
 
       $scope.isInvoice = print.fields.isReceipt !== 'true';
-      $scope.setTitle("<span><span class='comment' translate='cashDocument.title.{{printTypeSpecial(entity)}}'></span>"
+      $scope.setTitle("<span><span class='comment' translate='cashDocument.title.{{printTypeService.printTypeSpecial(entity)}}'></span>"
           + "<span class='comment'>: </span>{{entity.fields.number}}</span>", $scope);
 
-      $scope.cashDocumentBodyUrl = '/views/prints/' + $scope.printType(print) + '.jsp';
+      $scope.cashDocumentBodyUrl = '/views/prints/' + printTypeService.printType(print) + '.jsp';
       $scope.loadBuyer($scope.entity.fields['buyer.id']);
 
       $scope.loadSeller(print.fields['seller.id']);
@@ -123,7 +138,7 @@ function CashDocumentController($scope, $routeParams, $location, $filter, $q, ca
     // implementować w createEmptyEntity()
   } else if ($routeParams.idCorrectedPrint) {
     $scope.correctedEntity = CashDocument.get({ idCashDocument: $routeParams.idCorrectedPrint }, function(print) {
-      $scope.cashDocumentBodyUrl = '/views/prints/corrective' + _.capitalize($scope.printType(print)) + '.jsp';
+      $scope.cashDocumentBodyUrl = '/views/prints/corrective' + _.capitalize(printTypeService.printType(print)) + '.jsp';
       $scope._loadData.resolve();
     });
   } else {
@@ -146,13 +161,13 @@ function CashDocumentController($scope, $routeParams, $location, $filter, $q, ca
 
   $scope.save = saveOrUpdate($scope, 'entity',
       function(entity, headers) {
-        toastr.success($filter('translate')("cashDocument.saved." + $scope.printTypeSpecial($scope.entity)));
+        toastr.success($filter('translate')("cashDocument.saved." + printTypeService.printTypeSpecial($scope.entity)));
         $scope.entity.id = parseInt(lastUrlElement(headers));
         $location.url("/prints/cashDocument/" + $scope.entity.id);
         $location.replace();
       },
       function() {
-        toastr.success($filter('translate')("cashDocument.updated." + $scope.printTypeSpecial($scope.entity)));
+        toastr.success($filter('translate')("cashDocument.updated." + printTypeService.printTypeSpecial($scope.entity)));
       });
 
   $scope.remove = function(position) {
