@@ -55,7 +55,7 @@
   <#if print.areCommentsVisible!true>
     <div id="comments">
       <table>
-        <@macros.infoRow left="Uwagi:" right=print.comments!"(uwagi)" />
+        <@macros.infoRow left="Uwagi:" right=print.comments!"" />
       </table>
     </div>
   </#if>

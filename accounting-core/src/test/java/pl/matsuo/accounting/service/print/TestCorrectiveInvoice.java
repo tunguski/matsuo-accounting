@@ -16,6 +16,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.*;
+import static org.junit.Assert.*;
 import static pl.matsuo.accounting.util.PrintUtil.*;
 import static pl.matsuo.accounting.service.print.CashDocumentTestUtil.*;
 import static pl.matsuo.core.util.collection.CollectionUtil.*;
@@ -43,7 +44,7 @@ public class TestCorrectiveInvoice extends AbstractPrintTest<CorrectiveInvoice> 
   public void full() throws Exception {
     testCreatePDF(getFullCorrectiveInvoice(), (html, pdf) -> {
       // corrective element must be only in one table - splitting should return 2 parts
-      Assert.assertEquals(2, html.split("spaceholder 2 3").length);
+      assertEquals(2, html.split("spaceholder 2 3").length);
     });
   }
 

@@ -95,22 +95,14 @@ public class CashDocumentController<D extends CashDocument> extends AbstractAcco
 
 
   protected AccountingPrint fillDocument(AccountingPrint print, D cashDocument) {
-    rewriteParty(cashDocument.getBuyer(), database.findById(AbstractParty.class, cashDocument.getBuyer().getId()));
-    rewriteParty(cashDocument.getSeller(), database.findById(AbstractParty.class, cashDocument.getSeller().getId()));
+    fillParty(cashDocument.getBuyer());
+    fillParty(cashDocument.getSeller());
     return print;
   }
 
 
   protected void fillParty(CashDocumentParty cashDocumentParty) {
-    with(database.findById(AbstractParty.class, cashDocumentParty.getId()), party -> {
-      cashDocumentParty.setName(party.getName());
-      cashDocumentParty.setAddress(htmlAddress(party.getAddress()));
-      cashDocumentParty.setNip(party.getNip());
-
-      if (party instanceof Person) {
-        cashDocumentParty.setPesel(((Person) party).getPesel());
-      }
-    });
+    with(database.findById(AbstractParty.class, cashDocumentParty.getId()), party -> rewriteParty(cashDocumentParty, party));
   }
 }
 

@@ -55,8 +55,9 @@
     <a class="btn btn-primary" ng-click="save()" translate="save"></a>
     <a class="btn" href="javascript:;" onclick="window.history.back()" translate="cancel"></a>
 
-    <div download-button="entity" />
+    <div ng-show="entity.id" download-button="entity" />
 
-    <a ng-if="entity.id" class="btn btn-info" ng-href="#/prints/cashDocument?idCorrectedPrint={{entity.id}}">Korekta</a>
+    <a ng-if="entity.id && !entity.fields.isAfterCorrection"
+       class="btn btn-info" ng-href="#/prints/cashDocument?idCorrectedPrint={{entity.id}}">Korekta</a>
   </div>
 </div>

@@ -46,7 +46,7 @@
     <@macros.infoRow left="Adres:" right=print.buyer.address!"adres<br/>nabywcy" />
     <tr>
       <td class="left"><#if print.isPerson??>${print.isPerson?string("PESEL","NIP")}:<#else>PESEL</#if></td>
-      <td class="right"><#if print.isPerson??>${print.isPerson?string(print.buyer.pesel!"pesel",print.buyer.nip!"pesel")}<#else>(pesel)</#if></td>
+      <td class="right"><#if print.isPerson??>${print.isPerson?string(print.buyer.pesel!"",print.buyer.nip!"")}<#else></#if></td>
     </tr>
   </table>
 </div>
@@ -63,7 +63,7 @@
       <#if paymentType == "TRANSFER">
         <tr>
           <td class="left">Numer konta:</td>
-          <td class="right">${print.bankAccountNumber!"(numer konta)"}</td>
+          <td class="right">${print.bankAccountNumber!""}</td>
         </tr>
       </#if>
     </table>
