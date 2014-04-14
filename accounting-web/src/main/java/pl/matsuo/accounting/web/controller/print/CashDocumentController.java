@@ -95,8 +95,8 @@ public class CashDocumentController<D extends CashDocument> extends AbstractAcco
 
 
   protected AccountingPrint fillDocument(AccountingPrint print, D cashDocument) {
-    asList(cashDocument.getBuyer(), cashDocument.getSeller()).stream().forEach(cashDocumentParty ->
-      rewriteParty(cashDocumentParty, database.findById(AbstractParty.class, cashDocumentParty.getId())));
+    rewriteParty(cashDocument.getBuyer(), database.findById(AbstractParty.class, cashDocument.getBuyer().getId()));
+    rewriteParty(cashDocument.getSeller(), database.findById(AbstractParty.class, cashDocument.getSeller().getId()));
     return print;
   }
 
