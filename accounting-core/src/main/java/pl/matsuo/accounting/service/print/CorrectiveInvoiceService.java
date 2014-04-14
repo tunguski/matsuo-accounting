@@ -3,7 +3,9 @@ package pl.matsuo.accounting.service.print;
 import org.springframework.stereotype.Service;
 import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.core.service.print.AbstractPrintService;
+import pl.matsuo.core.util.FreemarkerUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static pl.matsuo.accounting.util.PrintUtil.*;
@@ -15,10 +17,17 @@ public class CorrectiveInvoiceService extends AbstractPrintService<CorrectiveInv
 
   @Override
   protected void buildModel(CorrectiveInvoice print, Map<String, Object> dataModel) {
-    dataModel.put("taxRateList", createTaxRatesList(print));
-    dataModel.put("total", sumInvoicePositions(print));
-    dataModel.put("taxRateListAfterCorrection", createCorrectedTaxRatesList(print));
-    dataModel.put("totalAfterCorrection", sumCorrectedInvoicePositions(print));
+    Map<String, Object> total = new HashMap<>();
+    Map<String, Object> taxes = new HashMap<>();
+
+    total.put("" + false, sumInvoicePositions(print));
+    total.put("" + true, sumCorrectedInvoicePositions(print));
+
+    taxes.put("" + false, createTaxRatesList(print));
+    taxes.put("" + true, createCorrectedTaxRatesList(print));
+
+    dataModel.put("taxRateList", taxes);
+    dataModel.put("total", total);
   }
 
 

@@ -1,4 +1,7 @@
 <#macro positionList correctedOnly>
+
+  <#assign correctedText>${correctedOnly?c}</#assign>
+
   <div id="product-list">
     <table class="paginated">
       <tr>
@@ -31,12 +34,12 @@
       <tr id="sumup">
         <td colspan="4" class="left">RAZEM:&nbsp;</td>
         <td>-</td>
-        <td class="numbers">${total.value?string(",##0.00")}</td>
-        <td class="numbers">${total.tax?string(",##0.00")}</td>
-        <td class="numbers">${total.sum?string(",##0.00")}</td>
+        <td class="numbers">${total[correctedText].value?string(",##0.00")}</td>
+        <td class="numbers">${total[correctedText].tax?string(",##0.00")}</td>
+        <td class="numbers">${total[correctedText].sum?string(",##0.00")}</td>
       </tr>
-      <#assign taxRateListElements = taxRateList?values>
-      <#list taxRateList?keys as key>
+      <#assign taxRateListElements = taxRateList[correctedText]?values>
+      <#list taxRateList[correctedText]?keys as key>
         <tr class="whitebg">
           <td colspan="4" class="left noborder"></td> <#if key == "zw">
           <td class="numbers">zw</td> <#else>

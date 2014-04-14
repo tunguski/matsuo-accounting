@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.core.service.print.AbstractPrintService;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static pl.matsuo.accounting.util.PrintUtil.*;
@@ -20,10 +21,14 @@ public class InvoiceService extends AbstractPrintService<Invoice> {
 
   @Override
   protected void buildModel(Invoice invoice, Map<String, Object> dataModel) {
-    // tworzy liste klas podatkowych
-    dataModel.put("taxRateList", createTaxRatesList(invoice));
-    // tworzy wiersz RAZEM
-    dataModel.put("total", sumInvoicePositions(invoice));
+    Map<String, Object> total = new HashMap<>();
+    Map<String, Object> taxes = new HashMap<>();
+
+    total.put("" + false, sumInvoicePositions(invoice));
+    taxes.put("" + false, createTaxRatesList(invoice));
+
+    dataModel.put("taxRateList", taxes);
+    dataModel.put("total", total);
   }
 
 

@@ -117,7 +117,7 @@ public class PrintUtil {
    * Tworzy liste stawek podatkowych po korekcie faktury
    */
   public static Map<String, TotalCost> createCorrectedTaxRatesList(CorrectiveInvoice invoice) {
-    return fold(filter(invoice.getElements(), false),
+    return fold(filter(invoice.getElements(), true),
                    new LinkedHashMap<String,TotalCost>(), taxRatesAdder);
   }
 

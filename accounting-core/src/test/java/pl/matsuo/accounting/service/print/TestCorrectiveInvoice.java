@@ -55,6 +55,10 @@ public class TestCorrectiveInvoice extends AbstractPrintTest<CorrectiveInvoice> 
           TotalCost sumAfterCorrection = sumCorrectedInvoicePositions(invoice);
           invoice.setAmountDueAfterCorrection(sumAfterCorrection.getSum());
           invoice.setAmountDueAfterCorrectionInWords(speakCashAmount(sumAfterCorrection.getSum()));
+
+          TotalCost sum = sumInvoicePositions(invoice);
+          invoice.setAmountDue(sum.getSum());
+          invoice.setAmountDueInWords(speakCashAmount(sum.getSum()));
         }), positions()
     );
   }
