@@ -57,8 +57,8 @@ public class PrintUtil {
   private static Map<String, TotalCost> appendToTaxRate(Map<String, TotalCost> taxRates, InvoicePosition position) {
     TotalCost totalTaxRateCost = new TotalCost();
     String key = position.getTaxRate();
-    totalTaxRateCost.setValue(position.getPrice().multiply(position.getCount())); // net weigh
-    totalTaxRateCost.setTax(position.getPrice().multiply(position.getCount())
+    totalTaxRateCost.addToValue(position.getPrice().multiply(position.getCount())); // net weigh
+    totalTaxRateCost.addToTax(position.getPrice().multiply(position.getCount())
         .multiply(decTax(position.getTaxRate()).scaleByPowerOfTen(-2))); // tax
     if (taxRates.containsKey(key)) {
       TotalCost tmp = taxRates.get(key);
