@@ -67,7 +67,7 @@ function CashDocumentController($scope, $routeParams, $location, $filter, $q, ca
 
 
   $scope.guestPrintClass = function() {
-    return 'pl.matsuo.clinic.model.print.cash.' + ($routeParams.idCorrectedPrint
+    return 'pl.matsuo.accounting.model.print.' + ($routeParams.idCorrectedPrint
         ? "Corrective" + _.capitalize(printTypeService.printType($scope.correctedEntity)) : _.capitalize($routeParams.type));
   }
 
