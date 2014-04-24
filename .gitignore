@@ -8,6 +8,7 @@ node_modules
 .settings
 /tmp.txt
 *.bak
+*.log
 *.eml
 *.iml
 *.iws
