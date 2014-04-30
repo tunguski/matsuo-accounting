@@ -1,6 +1,5 @@
 package pl.matsuo.accounting.web.controller.cash;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
@@ -11,10 +10,8 @@ import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.test.data.CashRegisterTestData;
 import pl.matsuo.accounting.web.controller.report.CashRegisterReportController;
-import pl.matsuo.core.model.query.QueryBuilder;
 import pl.matsuo.core.service.execution.ExecutionServiceImpl;
-import pl.matsuo.core.web.controller.AbstractControllerRequestTest;
-import pl.matsuo.core.web.controller.ControllerTestUtil;
+import pl.matsuo.core.web.controller.AbstractDbControllerRequestTest;
 
 import java.math.BigDecimal;
 
@@ -34,7 +31,7 @@ import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
 @Transactional
 @ContextConfiguration(classes = { CashRegisterReportController.class, ExecutionServiceImpl.class,
                                   CashRegisterTestData.class })
-public class TestCashRegisterReportControllerRequest extends AbstractControllerRequestTest {
+public class TestCashRegisterReportControllerRequest extends AbstractDbControllerRequestTest {
 
 
   public AccountingPrint createPrint(BigDecimal sum, Integer idCashRegister) {

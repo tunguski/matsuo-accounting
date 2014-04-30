@@ -17,7 +17,7 @@ import pl.matsuo.core.service.numeration.NumerationServiceImpl;
 import pl.matsuo.core.test.data.NumerationTestData;
 import pl.matsuo.core.test.data.PayersTestData;
 import pl.matsuo.core.test.data.PersonTestData;
-import pl.matsuo.core.web.controller.AbstractControllerRequestTest;
+import pl.matsuo.core.web.controller.AbstractDbControllerRequestTest;
 
 import static org.springframework.http.MediaType.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -30,7 +30,7 @@ import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
 
 @ContextConfiguration(classes = { InvoiceController.class, NumerationServiceImpl.class, TestCashRegisterSessionState.class,
                                   PersonTestData.class, CashRegisterTestData.class, NumerationTestData.class})
-public class TestInvoiceControllerRequest extends AbstractControllerRequestTest {
+public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTest {
 
 
   @Autowired
