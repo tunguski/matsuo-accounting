@@ -60,7 +60,7 @@ public class CashRegisterReportController
   @Override
   @RequestMapping(method = GET)
   public @ResponseBody
-  List<CashRegisterReport> list(@RequestBody ICashRegisterReportControllerQueryRequestParams params) {
+  List<CashRegisterReport> list(ICashRegisterReportControllerQueryRequestParams params) {
     List<CashRegisterReport> list = super.list(params);
 
     // specjalny przypadek - pobieranie ostatnich raportów dla każdej z kas
