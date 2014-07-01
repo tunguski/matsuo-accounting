@@ -18,8 +18,8 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static java.math.BigDecimal.*;
-import static pl.matsuo.core.util.collection.CollectionUtil.*;
 import static pl.matsuo.core.util.NumberUtil.*;
+import static pl.matsuo.core.util.collection.CollectionUtil.*;
 
 
 /**

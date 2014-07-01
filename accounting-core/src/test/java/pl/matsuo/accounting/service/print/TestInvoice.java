@@ -11,12 +11,12 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static pl.matsuo.accounting.util.PrintUtil.*;
+import static java.util.Arrays.*;
 import static pl.matsuo.accounting.service.print.CashDocumentTestUtil.*;
+import static pl.matsuo.accounting.util.PrintUtil.*;
+import static pl.matsuo.core.util.NumberUtil.*;
 import static pl.matsuo.core.util.collection.CollectionUtil.*;
 import static pl.matsuo.core.util.function.FunctionalUtil.*;
-import static pl.matsuo.core.util.NumberUtil.*;
-import static java.util.Arrays.*;
 
 
 /**

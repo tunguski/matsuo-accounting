@@ -3,11 +3,9 @@ package pl.matsuo.accounting.web.controller.report;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
@@ -33,7 +31,7 @@ import static java.util.Arrays.*;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
-import static pl.matsuo.accounting.model.print.CashDocumentUtil.sum;
+import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.util.StringUtil.*;
 

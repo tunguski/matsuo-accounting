@@ -1,7 +1,6 @@
 package pl.matsuo.accounting.web.controller.print;
 
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -15,9 +14,6 @@ import pl.matsuo.accounting.model.print.InvoicePosition;
 import pl.matsuo.core.model.print.KeyValuePrint;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
 import pl.matsuo.core.model.print.initializer.PrintInitializer;
-import pl.matsuo.core.service.numeration.NumerationServiceImpl;
-import pl.matsuo.core.test.data.NumerationTestData;
-import pl.matsuo.core.test.data.PersonTestData;
 import pl.matsuo.core.web.controller.exception.RestProcessingException;
 
 import static org.junit.Assert.*;

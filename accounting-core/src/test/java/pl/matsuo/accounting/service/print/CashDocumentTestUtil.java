@@ -14,9 +14,9 @@ import java.util.function.Function;
 import static pl.matsuo.accounting.model.print.PaymentType.*;
 import static pl.matsuo.accounting.util.PrintUtil.*;
 import static pl.matsuo.core.util.DateUtil.*;
-import static pl.matsuo.core.util.function.FunctionalUtil.*;
 import static pl.matsuo.core.util.NumberSpeaker.*;
 import static pl.matsuo.core.util.NumberUtil.*;
+import static pl.matsuo.core.util.function.FunctionalUtil.*;
 
 /**
  * Created by marek on 30.03.14.

@@ -9,7 +9,6 @@ import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.core.service.facade.FacadeBuilder;
 import pl.matsuo.core.service.report.AbstractReportService;
 import pl.matsuo.core.service.report.DataModelBuilder;
-import pl.matsuo.core.util.DateUtil;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

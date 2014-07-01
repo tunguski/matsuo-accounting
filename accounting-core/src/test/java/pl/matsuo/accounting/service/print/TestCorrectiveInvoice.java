@@ -1,28 +1,25 @@
 package pl.matsuo.accounting.service.print;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.accounting.model.print.CorrectiveInvoicePosition;
 import pl.matsuo.accounting.model.print.TotalCost;
 import pl.matsuo.core.model.print.KeyValuePrint;
-import pl.matsuo.core.service.facade.FacadeBuilderMethods;
 import pl.matsuo.core.test.AbstractPrintTest;
 
-import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.*;
 import static org.junit.Assert.*;
-import static pl.matsuo.accounting.util.PrintUtil.*;
 import static pl.matsuo.accounting.service.print.CashDocumentTestUtil.*;
-import static pl.matsuo.core.util.collection.CollectionUtil.*;
-import static pl.matsuo.core.util.function.FunctionalUtil.*;
+import static pl.matsuo.accounting.util.PrintUtil.*;
 import static pl.matsuo.core.util.NumberSpeaker.*;
 import static pl.matsuo.core.util.NumberUtil.*;
+import static pl.matsuo.core.util.collection.CollectionUtil.*;
+import static pl.matsuo.core.util.function.FunctionalUtil.*;
 
 
 @ContextConfiguration(classes = {CorrectiveInvoiceService.class})
