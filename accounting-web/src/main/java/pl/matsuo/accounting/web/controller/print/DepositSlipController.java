@@ -1,7 +1,7 @@
 package pl.matsuo.accounting.web.controller.print;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.DepositSlip;
 
@@ -11,7 +11,7 @@ import static pl.matsuo.accounting.util.PrintUtil.*;
 import static pl.matsuo.core.util.NumberSpeaker.*;
 
 
-@Controller
+@RestController
 @RequestMapping("/depositSlips")
 public class DepositSlipController extends CashDocumentController<DepositSlip> {
 

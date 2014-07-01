@@ -2,42 +2,39 @@ package pl.matsuo.accounting.web.controller.print;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.accounting.model.print.CashDocumentParty;
 import pl.matsuo.core.model.organization.AbstractParty;
-import pl.matsuo.core.model.organization.Person;
 import pl.matsuo.core.web.controller.exception.RestProcessingException;
 
 import javax.validation.Valid;
 
-import static java.util.Arrays.*;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
-import static pl.matsuo.core.model.organization.address.AddressUtil.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.util.function.FunctionalUtil.*;
 
 
-@Controller
+@RestController
 @RequestMapping("/cashDocuments")
 public class CashDocumentController<D extends CashDocument> extends AbstractAccountingPrintController<D> {
 
 
   @Override
-  @RequestMapping(method = POST, consumes = { APPLICATION_JSON_VALUE })
+  @RequestMapping(method = POST, consumes = {APPLICATION_JSON_VALUE})
   @ResponseStatus(CREATED)
   public HttpEntity<AccountingPrint> create(@RequestBody AccountingPrint entity,
-                                  @Value("#{request.requestURL}") StringBuffer parentUri) {
+                                            @Value("#{request.requestURL}") StringBuffer parentUri) {
 
     D cashDocument = facadeBuilder.createFacade(entity, printType);
 
@@ -74,7 +71,7 @@ public class CashDocumentController<D extends CashDocument> extends AbstractAcco
 
 
   @Override
-  @RequestMapping(method = PUT, consumes = { APPLICATION_JSON_VALUE })
+  @RequestMapping(method = PUT, consumes = {APPLICATION_JSON_VALUE})
   @ResponseStatus(NO_CONTENT)
   public void update(@RequestBody @Valid AccountingPrint entity) {
     super.update(fillDocument(entity));

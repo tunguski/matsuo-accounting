@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.cashregister.initializer.CashRegisterReportInitializer;
@@ -40,7 +41,7 @@ import static pl.matsuo.core.util.StringUtil.*;
 /**
  * Created by tunguski on 15.09.13.
  */
-@Controller
+@RestController
 @RequestMapping("/cashRegisterReports")
 public class CashRegisterReportController
     extends AbstractController<CashRegisterReport, CashRegisterReportController.ICashRegisterReportControllerQueryRequestParams> {
@@ -59,8 +60,7 @@ public class CashRegisterReportController
 
   @Override
   @RequestMapping(method = GET)
-  public @ResponseBody
-  List<CashRegisterReport> list(ICashRegisterReportControllerQueryRequestParams params) {
+  public List<CashRegisterReport> list(ICashRegisterReportControllerQueryRequestParams params) {
     List<CashRegisterReport> list = super.list(params);
 
     // specjalny przypadek - pobieranie ostatnich raportów dla każdej z kas
@@ -84,7 +84,7 @@ public class CashRegisterReportController
   }
 
 
-  @RequestMapping(method = POST, consumes = { APPLICATION_JSON_VALUE })
+  @RequestMapping(method = POST, consumes = {APPLICATION_JSON_VALUE})
   @ResponseStatus(CREATED)
   public HttpEntity<CashRegisterReport> create(@RequestBody @Valid CashRegisterReport entity,
                                                @Value("#{request.requestURL}") StringBuffer parentUri) {
@@ -96,9 +96,8 @@ public class CashRegisterReportController
   }
 
 
-  @RequestMapping(value = "/reportForCashRegister/{id}", method = GET, consumes = { APPLICATION_OCTET_STREAM_VALUE })
-  public @ResponseBody
-  CashRegisterReport reportForCashRegister(@PathVariable("id") Integer idCashRegister) {
+  @RequestMapping(value = "/reportForCashRegister/{id}", method = GET, consumes = {APPLICATION_OCTET_STREAM_VALUE})
+  public CashRegisterReport reportForCashRegister(@PathVariable("id") Integer idCashRegister) {
     CashRegister cashRegister = database.findOne(query(CashRegister.class, eq("id", idCashRegister)));
 
     CashRegisterReport lastReport =
@@ -124,9 +123,8 @@ public class CashRegisterReportController
   }
 
 
-  @RequestMapping(value = "/cashRegisterPrintsSummary/{id}", method = GET, consumes = { APPLICATION_OCTET_STREAM_VALUE })
-  public @ResponseBody
-  BigDecimal cashRegisterPrintsSummary(@PathVariable("id") Integer idCashRegister) {
+  @RequestMapping(value = "/cashRegisterPrintsSummary/{id}", method = GET, consumes = {APPLICATION_OCTET_STREAM_VALUE})
+  public BigDecimal cashRegisterPrintsSummary(@PathVariable("id") Integer idCashRegister) {
     return sum(database.find(query(AccountingPrint.class, eq("idCashRegister", idCashRegister),
             isNull("idCashRegisterReport")).initializer(new PrintInitializer())),
         facadeBuilder::createFacade, CashDocument::getCashRegisterAmount);

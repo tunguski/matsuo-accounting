@@ -1,14 +1,12 @@
 package pl.matsuo.accounting.web.controller.print;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.accounting.model.print.CorrectiveInvoicePosition;
 import pl.matsuo.accounting.model.print.InvoiceCommon;
-import pl.matsuo.accounting.model.print.PaymentType;
 import pl.matsuo.accounting.model.print.TotalCost;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
 import pl.matsuo.core.model.print.initializer.PrintInitializer;
@@ -25,7 +23,7 @@ import static pl.matsuo.core.util.DateUtil.*;
 import static pl.matsuo.core.util.NumberSpeaker.*;
 
 
-@Controller
+@RestController
 @RequestMapping("/correctiveInvoices")
 public class CorrectiveInvoiceController extends CashDocumentController<CorrectiveInvoice> {
 
@@ -43,7 +41,6 @@ public class CorrectiveInvoiceController extends CashDocumentController<Correcti
 
 
   @RequestMapping(value = "/for_invoice/{id}", method = GET)
-  @ResponseBody
   public AccountingPrint forInvoice(@PathVariable("id") Integer id) {
     AccountingPrint invoice = database.findById(AccountingPrint.class, id, new PrintInitializer());
     invoice.setId(null);
