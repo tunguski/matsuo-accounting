@@ -22,7 +22,6 @@
     <module>accounting-core</module>
     <module>accounting-web</module>
     <module>accounting-webapp</module>
-    <module>accounting-app</module>
   </modules>
 
   <dependencyManagement>
