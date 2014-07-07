@@ -14,7 +14,7 @@ import pl.matsuo.accounting.model.print.TotalCost;
 import pl.matsuo.accounting.model.print.WithdrawSlip;
 import pl.matsuo.accounting.util.PrintUtil;
 import pl.matsuo.core.conf.DiscoverTypes;
-import pl.matsuo.core.model.organization.Company;
+import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.model.organization.address.Address;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
 import pl.matsuo.core.model.user.User;
@@ -78,8 +78,8 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
   private void rewriteParties(CashDocument cashDocument, String sellerCode, String buyerCode) {
     Object o1 = cashDocument.getBuyer();
     Object o2 = cashDocument.getSeller();
-    rewriteParty(cashDocument.getBuyer(), database.findOne(query(Company.class, eq("code", buyerCode))));
-    rewriteParty(cashDocument.getSeller(), database.findOne(query(Company.class, eq("code", sellerCode))));
+    rewriteParty(cashDocument.getBuyer(), database.findOne(query(OrganizationUnit.class, eq("code", buyerCode))));
+    rewriteParty(cashDocument.getSeller(), database.findOne(query(OrganizationUnit.class, eq("code", sellerCode))));
   }
 
 

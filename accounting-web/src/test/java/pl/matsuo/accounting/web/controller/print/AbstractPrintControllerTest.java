@@ -8,7 +8,7 @@ import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.InvoiceCommon;
 import pl.matsuo.accounting.test.TestCashRegisterSessionState;
 import pl.matsuo.accounting.test.data.CashRegisterTestData;
-import pl.matsuo.core.model.organization.Company;
+import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.model.organization.Person;
 import pl.matsuo.core.service.facade.FacadeBuilderMethods;
 import pl.matsuo.core.service.numeration.NumerationServiceImpl;
@@ -42,10 +42,10 @@ public abstract class AbstractPrintControllerTest extends AbstractControllerTest
     AccountingPrint print = print(clazz, null).get();
 
     InvoiceCommon invoice = createFacade(print);
-    Company company = database.findOne(query(Company.class, eq("code", PayersTestData.MEDIQ)));
+    OrganizationUnit organizationUnit = database.findOne(query(OrganizationUnit.class, eq("code", PayersTestData.MEDIQ)));
     Person person = database.findOne(query(Person.class, eq("pesel", "42041428579")));
     invoice.getBuyer().setId(person.getId());
-    invoice.getSeller().setId(company.getId());
+    invoice.getSeller().setId(organizationUnit.getId());
 
     return print;
   }

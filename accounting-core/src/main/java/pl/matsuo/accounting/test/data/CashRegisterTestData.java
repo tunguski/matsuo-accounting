@@ -8,7 +8,7 @@ import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.core.conf.DiscoverTypes;
-import pl.matsuo.core.model.organization.Company;
+import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.service.facade.FacadeBuilder;
 import pl.matsuo.core.test.data.AbstractTestData;
 import pl.matsuo.core.test.data.PayersTestData;
@@ -33,8 +33,8 @@ public class CashRegisterTestData extends AbstractTestData {
 
   @Override
   public void execute() {
-    Company mediq = database.findOne(query(Company.class, eq("code", PayersTestData.MEDIQ)));
-    Company onet = database.findOne(query(Company.class, eq("code", PayersTestData.ONET)));
+    OrganizationUnit mediq = database.findOne(query(OrganizationUnit.class, eq("code", PayersTestData.MEDIQ)));
+    OrganizationUnit onet = database.findOne(query(OrganizationUnit.class, eq("code", PayersTestData.ONET)));
 
     CashRegister cashRegister = new CashRegister();
     cashRegister.setCode("Kasa 1");
