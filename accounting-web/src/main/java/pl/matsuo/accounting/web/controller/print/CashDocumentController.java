@@ -13,7 +13,7 @@ import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.accounting.model.print.CashDocumentParty;
 import pl.matsuo.core.model.organization.AbstractParty;
-import pl.matsuo.core.web.controller.exception.RestProcessingException;
+import pl.matsuo.core.exception.RestProcessingException;
 
 import javax.validation.Valid;
 

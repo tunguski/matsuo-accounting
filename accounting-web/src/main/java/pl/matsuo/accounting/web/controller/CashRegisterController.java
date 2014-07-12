@@ -10,6 +10,8 @@ import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.service.session.CashRegisterSessionState;
 import pl.matsuo.core.web.controller.AbstractSimpleController;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -35,6 +37,14 @@ public class CashRegisterController extends AbstractSimpleController<CashRegiste
 
   @RequestMapping(value = "/actualCashRegister", method = GET)
   public CashRegister actualCashRegister() {
+    if (sessionState.getCashRegister() == null) {
+      // if there is only one cash register for the company, set it automatically as default
+      List<CashRegister> cashRegisters = database.findAll(CashRegister.class);
+      if (cashRegisters.size() == 1) {
+        sessionState.setCashRegister(cashRegisters.get(0));
+      }
+    }
+
     return sessionState.getCashRegister();
   }
 }
