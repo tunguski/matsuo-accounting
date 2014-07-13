@@ -36,7 +36,6 @@ public class CashRegisterReportService extends AbstractReportService<ICashRegist
 
 
   /**
-   * Na podstawie przekazanych parametrów wyszukiwania wizyt tworzy model dla generowania druku.
    */
   @Override
   protected void injectModel(DataModelBuilder dataModel, ICashRegisterReportParams params) {
