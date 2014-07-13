@@ -65,6 +65,9 @@ public class CashRegisterReportService extends AbstractReportService<ICashRegist
         printTypeSummary.put(printType, printTypeSummary.get(printType).add(cashDocument.getCashRegisterAmount()));
       }
 
+      CashDocument documentInfo = facadeBuilder.createFacade(new HashMap<>(), CashDocument.class);
+      dataModel.put("print", documentInfo);
+
       dataModel.put("prints", mapWrapper(printFacades));
 
       for (CashRegisterReport registerReport : cashRegisterReports) {

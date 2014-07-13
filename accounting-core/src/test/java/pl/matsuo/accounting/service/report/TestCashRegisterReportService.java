@@ -30,18 +30,16 @@ public class TestCashRegisterReportService extends AbstractReportTest<ICashRegis
     public void empty() throws Exception {
       // FIXME: naprawić generowanie druku tak, aby bez dokumentu dało się wygenerować pusty szkieletowy plik
 //      Map<String, String> params = new HashMap<>();
-//
-//        testCreatePDF("/print/cashRegisterReport.ftl",
-//                cashRegisterService.buildModel(facadeBuilder.createFacade(params, ICashRegisterReportParams.class)));
+//      testCreatePDF(facadeBuilder.createFacade(params, ICashRegisterReportParams.class));
     }
 
 
     @Test
     public void full() throws Exception {
-        Map<String, String> params = new HashMap<>();
-        params.put("idReport", "" + database.findAll(CashRegisterReport.class).get(0).getId());
+      Map<String, String> params = new HashMap<>();
+      params.put("idReport", "" + database.findAll(CashRegisterReport.class).get(0).getId());
 
-        testCreatePDF(facadeBuilder.createFacade(params, ICashRegisterReportParams.class));
+      testCreatePDF(facadeBuilder.createFacade(params, ICashRegisterReportParams.class));
     }
 
 
