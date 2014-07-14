@@ -38,25 +38,26 @@ public class CashDocumentController<D extends CashDocument> extends AbstractAcco
 
     D cashDocument = facadeBuilder.createFacade(entity, printType);
 
-    CashRegister cashRegister = cashRegisterSessionState.getCashRegister();
+    Integer idCashRegister = cashRegisterSessionState.getIdCashRegister();
 
     if (entity.getIdCashRegisterReport() != null) {
       CashRegisterReport cashRegisterReport =
           database.findOne(query(CashRegisterReport.class, eq("id", entity.getIdCashRegisterReport())));
-      cashRegister = cashRegisterReport.getCashRegister();
+      idCashRegister = cashRegisterReport.getCashRegister().getId();
 
       cashRegisterReport.setEndingBalance(
           cashRegisterReport.getEndingBalance().add(cashDocument.getCashRegisterAmount()));
       database.update(cashRegisterReport);
-    } else if (cashRegister == null) {
+    } else if (idCashRegister == null) {
       throw new RestProcessingException("no_cash_register_set");
     }
 
     entity.setPrintClass(printType);
     entity = fillDocument(entity);
 
-    entity.setIdCashRegister(cashRegister.getId());
+    entity.setIdCashRegister(idCashRegister);
 
+    CashRegister cashRegister = database.findById(CashRegister.class, idCashRegister);
     cashRegister.setValue(cashRegister.getValue().add(cashDocument.getCashRegisterAmount()));
     database.update(cashRegister);
 

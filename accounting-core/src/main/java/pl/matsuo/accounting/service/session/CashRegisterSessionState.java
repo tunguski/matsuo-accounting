@@ -17,14 +17,14 @@ import static org.springframework.context.annotation.ScopedProxyMode.*;
 public class CashRegisterSessionState {
 
 
-  private CashRegister cashRegister;
+  private Integer idCashRegister;
 
 
-  public CashRegister getCashRegister() {
-    return cashRegister;
+  public Integer getIdCashRegister() {
+    return idCashRegister;
   }
-  public void setCashRegister(CashRegister cashRegister) {
-    this.cashRegister = cashRegister;
+  public void setIdCashRegister(Integer idCashRegister) {
+    this.idCashRegister = idCashRegister;
   }
 }
 

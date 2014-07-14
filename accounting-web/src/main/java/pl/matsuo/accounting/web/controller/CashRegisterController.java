@@ -31,21 +31,25 @@ public class CashRegisterController extends AbstractSimpleController<CashRegiste
   @RequestMapping(value = "/chooseCashRegister/{id}", method = POST)
   @ResponseStatus(OK)
   public void chooseCashRegister(@PathVariable("id") Integer idCashRegister) {
-    sessionState.setCashRegister(database.findById(CashRegister.class, idCashRegister));
+    // searches CashRegister in db to be sure it exists
+    sessionState.setIdCashRegister(database.findById(CashRegister.class, idCashRegister).getId());
   }
 
 
   @RequestMapping(value = "/actualCashRegister", method = GET)
   public CashRegister actualCashRegister() {
-    if (sessionState.getCashRegister() == null) {
+    if (sessionState.getIdCashRegister() == null) {
       // if there is only one cash register for the company, set it automatically as default
       List<CashRegister> cashRegisters = database.findAll(CashRegister.class);
       if (cashRegisters.size() == 1) {
-        sessionState.setCashRegister(cashRegisters.get(0));
+        sessionState.setIdCashRegister(cashRegisters.get(0).getId());
+        return cashRegisters.get(0);
       }
+    } else {
+      return database.findById(CashRegister.class, sessionState.getIdCashRegister());
     }
 
-    return sessionState.getCashRegister();
+    return null;
   }
 }
 

@@ -62,7 +62,7 @@ public class TestCorrectiveInvoiceController extends AbstractPrintControllerTest
         invoicePosition("", bd("1"), bd("1"), "zw"),
         correctiveInvoicePosition("", bd("3"), bd("12"), "zw"));
 
-    clinicSessionState.setCashRegister(database.findAll(CashRegister.class).get(0));
+    clinicSessionState.setIdCashRegister(database.findAll(CashRegister.class).get(0).getId());
 
     HttpEntity<AccountingPrint> httpEntity = controller.create(print, new StringBuffer());
     String url = httpEntity.getHeaders().getLocation().toString();

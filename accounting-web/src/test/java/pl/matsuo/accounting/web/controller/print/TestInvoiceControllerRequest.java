@@ -73,7 +73,7 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
     addRandomPosition(print);
     addRandomPosition(print);
 
-    clinicSessionState.setCashRegister(database.findAll(CashRegister.class).get(0));
+    clinicSessionState.setIdCashRegister(database.findAll(CashRegister.class).get(0).getId());
 
     ResultActions resultActions = mockMvc.perform(post("/invoices", print));
     resultActions.andExpect(status().isCreated());

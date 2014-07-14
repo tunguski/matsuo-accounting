@@ -58,7 +58,7 @@ public class TestInvoiceController extends AbstractPrintControllerTest {
     addRandomPosition(print);
     addRandomPosition(print);
 
-    clinicSessionState.setCashRegister(database.findAll(CashRegister.class).get(0));
+    clinicSessionState.setIdCashRegister(database.findAll(CashRegister.class).get(0).getId());
 
     HttpEntity<AccountingPrint> httpEntity = controller.create(print, new StringBuffer());
     String url = httpEntity.getHeaders().getLocation().toString();
