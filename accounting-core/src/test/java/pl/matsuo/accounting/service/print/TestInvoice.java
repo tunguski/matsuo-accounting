@@ -25,7 +25,7 @@ import static pl.matsuo.core.util.function.FunctionalUtil.*;
  * @author Marek Romanowski
  * @since Aug 22, 2013
  */
-@ContextConfiguration(classes = { InvoiceService.class })
+@ContextConfiguration(classes = { InvoicePrintService.class })
 public class TestInvoice extends AbstractPrintTest<Invoice> {
 
 

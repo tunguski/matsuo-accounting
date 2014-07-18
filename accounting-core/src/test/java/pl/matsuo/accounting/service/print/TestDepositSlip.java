@@ -12,7 +12,7 @@ import static pl.matsuo.accounting.service.print.CashDocumentTestUtil.*;
 import static pl.matsuo.core.util.NumberUtil.*;
 
 
-@ContextConfiguration(classes = { DepositSlipService.class })
+@ContextConfiguration(classes = { DepositSlipPrintService.class })
 public class TestDepositSlip extends AbstractPrintTest<DepositSlip> {
 
 

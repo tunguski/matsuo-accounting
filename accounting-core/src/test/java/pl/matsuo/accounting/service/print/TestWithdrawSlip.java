@@ -10,7 +10,7 @@ import static pl.matsuo.accounting.service.print.CashDocumentTestUtil.*;
 import static pl.matsuo.core.util.NumberUtil.*;
 
 
-@ContextConfiguration(classes = { WithdrawSlipService.class })
+@ContextConfiguration(classes = { WithdrawSlipPrintService.class })
 public class TestWithdrawSlip extends AbstractPrintTest<WithdrawSlip> {
 
 

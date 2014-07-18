@@ -1,30 +1,33 @@
 package pl.matsuo.accounting.service.print;
 
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.DepositSlip;
-import pl.matsuo.core.service.print.AbstractPrintService;
 
-import java.util.Map;
+import java.math.BigDecimal;
+
+import static pl.matsuo.accounting.util.PrintUtil.*;
+import static pl.matsuo.core.util.NumberSpeaker.*;
 
 
-/**
- * Serwis tworzenia modelu dla "Kasa przyjmie".
- * @author Marek Romanowski
- * @since Aug 28, 2013
- */
-@Service
-public class DepositSlipService extends AbstractPrintService<DepositSlip> {
+public class DepositSlipService extends CashDocumentService<DepositSlip> {
 
 
   @Override
-  protected void buildModel(DepositSlip print, Map<String, Object> dataModel) {
-
+  protected void preCreate(AccountingPrint print, DepositSlip cashDocument) {
+    cashDocument.setNumber(numerationService.getNumber("DEPOSIT_SLIP"));
   }
 
 
-  @Override
-  public String getFileName(DepositSlip print) {
-    return "depositSlip";
+  protected AccountingPrint fillDocument(AccountingPrint print, DepositSlip depositSlip) {
+    super.fillDocument(print, depositSlip);
+
+    BigDecimal sum = sumSlipPositions(depositSlip);
+    depositSlip.setTotalAmount(sum);
+    depositSlip.setCashRegisterAmount(sum.negate());
+    depositSlip.setTotalAmountInWords(speakCashAmount(sum));
+    return print;
   }
 }
 

@@ -8,6 +8,7 @@ import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.model.print.InvoicePosition;
+import pl.matsuo.accounting.service.print.InvoiceService;
 import pl.matsuo.accounting.test.TestCashRegisterSessionState;
 import pl.matsuo.accounting.test.data.CashRegisterTestData;
 import pl.matsuo.core.model.organization.OrganizationUnit;
@@ -28,8 +29,9 @@ import static pl.matsuo.core.util.NumberUtil.*;
 import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
 
 
-@ContextConfiguration(classes = { InvoiceController.class, NumerationServiceImpl.class, TestCashRegisterSessionState.class,
-                                  PersonTestData.class, CashRegisterTestData.class, NumerationTestData.class})
+@ContextConfiguration(classes = { CashDocumentController.class, InvoiceService.class, NumerationServiceImpl.class,
+                                  TestCashRegisterSessionState.class, PersonTestData.class, CashRegisterTestData.class,
+                                  NumerationTestData.class})
 public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTest {
 
 
@@ -75,13 +77,13 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
 
     clinicSessionState.setIdCashRegister(database.findAll(CashRegister.class).get(0).getId());
 
-    ResultActions resultActions = mockMvc.perform(post("/invoices", print));
+    ResultActions resultActions = mockMvc.perform(post("/cashDocuments/invoice", print));
     resultActions.andExpect(status().isCreated());
 
     addRandomPosition(print);
     addRandomPosition(print);
 
-    mockMvc.perform(put("/invoices/" + idFromLocation(resultActions))
+    mockMvc.perform(put("/cashDocuments/" + idFromLocation(resultActions))
          .content(objectMapper.writeValueAsString(print)).contentType(APPLICATION_JSON))
          .andExpect(status().isNoContent());
   }

@@ -22,7 +22,7 @@ import static pl.matsuo.core.util.collection.CollectionUtil.*;
 import static pl.matsuo.core.util.function.FunctionalUtil.*;
 
 
-@ContextConfiguration(classes = {CorrectiveInvoiceService.class})
+@ContextConfiguration(classes = {CorrectiveInvoicePrintService.class})
 public class TestCorrectiveInvoice extends AbstractPrintTest<CorrectiveInvoice> {
 
 

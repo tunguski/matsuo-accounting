@@ -1,29 +1,33 @@
 package pl.matsuo.accounting.service.print;
 
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.WithdrawSlip;
-import pl.matsuo.core.service.print.AbstractPrintService;
 
-import java.util.Map;
+import java.math.BigDecimal;
+
+import static pl.matsuo.accounting.util.PrintUtil.*;
+import static pl.matsuo.core.util.NumberSpeaker.*;
 
 
-/**
- * Serwis tworzenia modelu dla "Kasa wyda".
- * @author Marek Romanowski
- * @since Aug 28, 2013
- */
-@Service
-public class WithdrawSlipService extends AbstractPrintService<WithdrawSlip> {
+public class WithdrawSlipService extends CashDocumentService<WithdrawSlip> {
 
 
   @Override
-  protected void buildModel(WithdrawSlip print, Map<String, Object> dataModel) {
+  protected void preCreate(AccountingPrint print, WithdrawSlip cashDocument) {
+    cashDocument.setNumber(numerationService.getNumber("WITHDRAW_SLIP"));
   }
 
 
-  @Override
-  public String getFileName(WithdrawSlip print) {
-    return "withdrawSlip_" + print.getNumber();
+  protected AccountingPrint fillDocument(AccountingPrint print, WithdrawSlip withdrawSlip) {
+    super.fillDocument(print, withdrawSlip);
+
+    BigDecimal sum = sumSlipPositions(withdrawSlip);
+    withdrawSlip.setTotalAmount(sum);
+    withdrawSlip.setCashRegisterAmount(sum.negate());
+    withdrawSlip.setTotalAmountInWords(speakCashAmount(sum));
+    return print;
   }
 }
 

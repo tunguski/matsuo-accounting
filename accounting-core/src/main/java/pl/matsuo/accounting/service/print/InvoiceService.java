@@ -1,40 +1,45 @@
 package pl.matsuo.accounting.service.print;
 
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
-import pl.matsuo.core.service.print.AbstractPrintService;
+import pl.matsuo.accounting.model.print.TotalCost;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
 
 import static pl.matsuo.accounting.util.PrintUtil.*;
+import static pl.matsuo.core.util.NumberSpeaker.*;
 
 
-/**
- * Serwis tworzenia modelu dla faktury.
- * @author Marek Romanowski
- * @since Aug 28, 2013
- */
-@Service
-public class InvoiceService extends AbstractPrintService<Invoice> {
+public class InvoiceService extends CashDocumentService<Invoice> {
 
 
-  @Override
-  protected void buildModel(Invoice invoice, Map<String, Object> dataModel) {
-    Map<String, Object> total = new HashMap<>();
-    Map<String, Object> taxes = new HashMap<>();
-
-    total.put("" + false, sumInvoicePositions(invoice));
-    taxes.put("" + false, createTaxRatesList(invoice));
-
-    dataModel.put("taxRateList", taxes);
-    dataModel.put("total", total);
+  protected String numerationName(Invoice invoice) {
+    return invoice.getIsReceipt() != null && invoice.getIsReceipt() ? "RECEIPT" : "INVOICE";
   }
 
 
-  @Override
-  public String getFileName(Invoice print) {
-    return "invoice_" + print.getNumber();
+  protected AccountingPrint fillDocument(AccountingPrint print, Invoice facade) {
+    super.fillDocument(print, facade);
+
+    if (facade.getIsReceipt() == null) {
+      facade.setIsReceipt(false);
+    }
+
+    TotalCost sum = sumInvoicePositions(facade);
+    BigDecimal amountPaid = new BigDecimal(0);
+    facade.setTotalAmount(sum.getSum());
+    facade.setCashRegisterAmount(sum.getSum());
+
+    facade.setAmountAlreadyPaid(amountPaid);
+    facade.setAmountDue(sum.getSum().subtract(amountPaid));
+    facade.setAmountDueInWords(speakCashAmount(sum.getSum().subtract(amountPaid)));
+
+    facade.setAuthenticityText("ORYGINAŁ");
+    facade.setAreCommentsVisible(true);
+
+    return print;
   }
 }
 
