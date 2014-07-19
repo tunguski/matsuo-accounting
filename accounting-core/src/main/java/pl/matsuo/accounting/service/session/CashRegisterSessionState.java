@@ -13,7 +13,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.*;
  */
 @Component
 @Order(0)
-@Scope(value = "session", proxyMode = TARGET_CLASS)
+@Scope(value = "wideSession", proxyMode = TARGET_CLASS)
 public class CashRegisterSessionState {
 
 
