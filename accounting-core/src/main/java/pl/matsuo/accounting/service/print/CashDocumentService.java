@@ -32,7 +32,6 @@ import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.util.function.FunctionalUtil.*;
 
 
-@Service
 public abstract class CashDocumentService<D extends CashDocument> implements ICashDocumentService {
 
 

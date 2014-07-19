@@ -26,14 +26,13 @@ public class CashDocumentTestUtil {
 
   public static final Consumer<CashDocument> partyFiller(Integer id, String name, String address, String nip,
                                                          Function<CashDocument, CashDocumentParty> partyProvider) {
-    return invoice -> {
+    return invoice ->
       with(partyProvider.apply(invoice), party -> {
         party.setId(id);
         party.setName(name);
         party.setAddress(address);
         party.setNip(nip);
       });
-    };
   }
 
 

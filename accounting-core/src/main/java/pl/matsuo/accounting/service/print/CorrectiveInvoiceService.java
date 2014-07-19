@@ -1,5 +1,6 @@
 package pl.matsuo.accounting.service.print;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ import static pl.matsuo.core.util.DateUtil.*;
 import static pl.matsuo.core.util.NumberSpeaker.*;
 
 
+@Service
 public class CorrectiveInvoiceService extends CashDocumentService<CorrectiveInvoice> {
 
 

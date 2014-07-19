@@ -29,9 +29,8 @@ import static pl.matsuo.core.util.function.FunctionalUtil.*;
 public class TestInvoice extends AbstractPrintTest<Invoice> {
 
 
-  public static Function<Integer, Consumer<InvoicePosition>> createPosition = i -> {
-    return invoicePosition("spaceholder " + i, bd("100").add(bd("" + i)), bd("100").add(bd("" + i)), "13");
-  };
+  public static Function<Integer, Consumer<InvoicePosition>> createPosition = i ->
+    invoicePosition("spaceholder " + i, bd("100").add(bd("" + i)), bd("100").add(bd("" + i)), "13");
 
 
   @Test

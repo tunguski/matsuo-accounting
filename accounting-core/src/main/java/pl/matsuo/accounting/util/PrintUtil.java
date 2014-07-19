@@ -82,7 +82,7 @@ public class PrintUtil {
   private static TotalCost appendToSumOfInvoicePositions(TotalCost result, InvoicePosition position) {
     result.addToValue(position.getPrice().multiply(position.getCount())); // net weigh
     result.addToTax(position.getPrice().multiply(position.getCount())
-                      .multiply(decTax(position.getTaxRate()).multiply(bd(".01")))); // tax
+        .multiply(decTax(position.getTaxRate()).multiply(bd(".01")))); // tax
     return result;
   }
 
@@ -109,7 +109,7 @@ public class PrintUtil {
    */
   public static Map<String, TotalCost> createTaxRatesList(InvoiceCommon<? extends InvoicePosition> invoice) {
     return fold(filter((List<InvoicePosition>) invoice.getElements(), false),
-                   new LinkedHashMap<String,TotalCost>(), taxRatesAdder);
+        new LinkedHashMap<String, TotalCost>(), taxRatesAdder);
   }
 
 
@@ -171,6 +171,12 @@ public class PrintUtil {
       invoicePosition.setPrice(price);
       invoicePosition.setTaxRate(taxRate);
     };
+  }
+
+
+  public static Consumer<InvoicePosition> invoicePosition(
+      String serviceName, BigDecimal price, String taxRate) {
+    return invoicePosition(serviceName, bd(1), price, taxRate);
   }
 
 
