@@ -18,6 +18,7 @@ public class AccountingPrint extends KeyValuePrint {
   private Integer idCashRegister;
   @EntityReference(CashRegisterReport.class)
   private Integer idCashRegisterReport;
+  private AccountingPrintStatus status = AccountingPrintStatus.OPEN;
 
 
   public static Supplier<? extends AccountingPrint> print(Class<? extends IPrintFacade> clazz, Integer id) {
@@ -36,6 +37,12 @@ public class AccountingPrint extends KeyValuePrint {
   }
   public void setIdCashRegisterReport(Integer idCashRegisterReport) {
     this.idCashRegisterReport = idCashRegisterReport;
+  }
+  public AccountingPrintStatus getStatus() {
+    return status;
+  }
+  public void setStatus(AccountingPrintStatus status) {
+    this.status = status;
   }
 }
 
