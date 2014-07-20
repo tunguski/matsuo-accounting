@@ -2,8 +2,6 @@ package pl.matsuo.accounting.service.print;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.accounting.model.print.CorrectiveInvoicePosition;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 import static pl.matsuo.accounting.model.print.PaymentType.*;
 import static pl.matsuo.accounting.util.PrintUtil.*;
 import static pl.matsuo.core.util.DateUtil.*;

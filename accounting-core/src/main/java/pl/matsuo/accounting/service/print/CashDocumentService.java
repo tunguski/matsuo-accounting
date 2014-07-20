@@ -1,14 +1,6 @@
 package pl.matsuo.accounting.service.print;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
@@ -21,12 +13,7 @@ import pl.matsuo.core.service.db.Database;
 import pl.matsuo.core.service.facade.FacadeBuilder;
 import pl.matsuo.core.service.numeration.NumerationService;
 
-import javax.validation.Valid;
-
 import static org.springframework.core.GenericTypeResolver.*;
-import static org.springframework.http.HttpStatus.*;
-import static org.springframework.http.MediaType.*;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.util.function.FunctionalUtil.*;

@@ -20,7 +20,7 @@ import pl.matsuo.core.model.print.KeyValuePrintElement;
 import pl.matsuo.core.model.user.User;
 import pl.matsuo.core.service.facade.IFacadeBuilder;
 import pl.matsuo.core.service.print.PrintMethods;
-import pl.matsuo.core.test.data.AbstractTestData;
+import pl.matsuo.core.test.data.AbstractMediqTestData;
 import pl.matsuo.core.test.data.PayersTestData;
 
 import java.math.BigDecimal;
@@ -30,7 +30,7 @@ import static pl.matsuo.accounting.model.print.AccountingPrint.*;
 import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
 import static pl.matsuo.accounting.model.print.PaymentType.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
-import static pl.matsuo.core.test.data.PayersTestData.*;
+import static pl.matsuo.core.test.data.MediqTestData.*;
 import static pl.matsuo.core.util.DateUtil.*;
 import static pl.matsuo.core.util.NumberSpeaker.*;
 import static pl.matsuo.core.util.NumberUtil.*;
@@ -39,7 +39,7 @@ import static pl.matsuo.core.util.NumberUtil.*;
 @Component
 @Order(50)
 @DiscoverTypes({ PayersTestData.class })
-public class PrintTestData extends AbstractTestData implements PrintMethods {
+public class PrintTestData extends AbstractMediqTestData implements PrintMethods {
 
 
   @Autowired
@@ -51,7 +51,7 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
 
 
   @Override
-  public void execute() {
+  public void internalExecute() {
     savePrints(createTestInvoice(null),
         createTestInvoice_2(null),
         createTestDepositSlip(null),
@@ -60,7 +60,7 @@ public class PrintTestData extends AbstractTestData implements PrintMethods {
 
 
   protected void savePrints(AccountingPrint ... prints) {
-    User user = database.findOne(query(User.class, eq("username", "admin")));
+    User user = database.findAsAdmin(query(User.class, eq("username", "admin"))).get(0);
 
     for (AccountingPrint print : prints) {
       print.setIdUserCreated(user.getId());

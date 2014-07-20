@@ -15,8 +15,8 @@ import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.model.organization.Person;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
 import pl.matsuo.core.service.numeration.NumerationServiceImpl;
+import pl.matsuo.core.test.data.MediqTestData;
 import pl.matsuo.core.test.data.NumerationTestData;
-import pl.matsuo.core.test.data.PayersTestData;
 import pl.matsuo.core.test.data.PersonTestData;
 import pl.matsuo.core.web.controller.AbstractDbControllerRequestTest;
 
@@ -44,7 +44,7 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
 
     Invoice invoice = facadeBuilder.createFacade(print);
 
-    OrganizationUnit organizationUnit = database.findOne(query(OrganizationUnit.class, eq("code", PayersTestData.MEDIQ)));
+    OrganizationUnit organizationUnit = database.findOne(query(OrganizationUnit.class, eq("code", MediqTestData.MEDIQ)));
     Person person = database.findOne(query(Person.class, eq("pesel", "42041428579")));
     invoice.getBuyer().setId(person.getId());
     invoice.getSeller().setId(organizationUnit.getId());

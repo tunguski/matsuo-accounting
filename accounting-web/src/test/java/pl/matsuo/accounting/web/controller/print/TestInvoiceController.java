@@ -12,10 +12,10 @@ import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.model.print.InvoicePosition;
 import pl.matsuo.accounting.service.print.InvoiceService;
+import pl.matsuo.core.exception.RestProcessingException;
 import pl.matsuo.core.model.print.KeyValuePrint;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
 import pl.matsuo.core.model.print.initializer.PrintInitializer;
-import pl.matsuo.core.exception.RestProcessingException;
 
 import static org.junit.Assert.*;
 import static org.springframework.http.HttpStatus.*;

@@ -1,8 +1,6 @@
 package pl.matsuo.accounting.service.print;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.model.print.TotalCost;

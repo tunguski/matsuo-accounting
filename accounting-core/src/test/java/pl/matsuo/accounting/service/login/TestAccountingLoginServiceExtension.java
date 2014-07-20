@@ -9,13 +9,8 @@ import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.core.conf.DbConfig;
 import pl.matsuo.core.conf.TestDataExecutionConfig;
 import pl.matsuo.core.model.organization.OrganizationUnit;
-import pl.matsuo.core.model.user.User;
 import pl.matsuo.core.service.db.Database;
-import pl.matsuo.core.service.db.EntityInterceptorService;
-import pl.matsuo.core.service.db.interceptor.IdBucketInterceptor;
-import pl.matsuo.core.service.facade.FacadeBuilder;
 import pl.matsuo.core.test.data.TestSessionState;
-import pl.matsuo.core.test.data.UserTestData;
 
 import java.util.List;
 

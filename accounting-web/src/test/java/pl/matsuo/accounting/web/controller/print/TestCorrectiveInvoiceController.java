@@ -13,9 +13,9 @@ import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.accounting.model.print.InvoicePosition;
 import pl.matsuo.accounting.service.print.CorrectiveInvoiceService;
 import pl.matsuo.accounting.test.TestCashRegisterSessionState;
+import pl.matsuo.core.exception.RestProcessingException;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
 import pl.matsuo.core.model.print.initializer.PrintInitializer;
-import pl.matsuo.core.exception.RestProcessingException;
 
 import static org.junit.Assert.*;
 import static org.springframework.http.HttpStatus.*;

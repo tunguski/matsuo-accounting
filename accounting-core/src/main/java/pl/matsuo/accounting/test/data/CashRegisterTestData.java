@@ -10,7 +10,8 @@ import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.core.conf.DiscoverTypes;
 import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.service.facade.FacadeBuilder;
-import pl.matsuo.core.test.data.AbstractTestData;
+import pl.matsuo.core.test.data.AbstractMediqTestData;
+import pl.matsuo.core.test.data.MediqTestData;
 import pl.matsuo.core.test.data.PayersTestData;
 
 import static java.math.BigDecimal.*;
@@ -24,7 +25,7 @@ import static pl.matsuo.core.util.NumberUtil.*;
 @Component
 @DiscoverTypes({ PayersTestData.class, PrintTestData.class })
 @Order(60)
-public class CashRegisterTestData extends AbstractTestData {
+public class CashRegisterTestData extends AbstractMediqTestData {
 
 
   @Autowired
@@ -32,8 +33,8 @@ public class CashRegisterTestData extends AbstractTestData {
 
 
   @Override
-  public void execute() {
-    OrganizationUnit mediq = database.findOne(query(OrganizationUnit.class, eq("code", PayersTestData.MEDIQ)));
+  public void internalExecute() {
+    OrganizationUnit mediq = database.findOne(query(OrganizationUnit.class, eq("code", MediqTestData.MEDIQ)));
     OrganizationUnit onet = database.findOne(query(OrganizationUnit.class, eq("code", PayersTestData.ONET)));
 
     CashRegister cashRegister = new CashRegister();

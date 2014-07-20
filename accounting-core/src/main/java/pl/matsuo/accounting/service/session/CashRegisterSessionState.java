@@ -3,7 +3,6 @@ package pl.matsuo.accounting.service.session;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import pl.matsuo.accounting.model.cashregister.CashRegister;
 
 import static org.springframework.context.annotation.ScopedProxyMode.*;
 
