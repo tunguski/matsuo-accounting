@@ -5,8 +5,6 @@ import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.accounting.model.print.CorrectiveInvoicePosition;
 import pl.matsuo.accounting.model.print.TotalCost;
-import pl.matsuo.core.model.print.KeyValuePrint;
-import pl.matsuo.core.test.AbstractPrintTest;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -23,18 +21,11 @@ import static pl.matsuo.core.util.function.FunctionalUtil.*;
 
 
 @ContextConfiguration(classes = {CorrectiveInvoicePrintService.class})
-public class TestCorrectiveInvoice extends AbstractPrintTest<CorrectiveInvoice> {
+public class TestCorrectiveInvoice extends AbstractAccountingPrintTest<CorrectiveInvoice, CorrectiveInvoicePosition> {
 
 
-  public static Function<Integer, Consumer<CorrectiveInvoicePosition>> createCorrectivePosition = i -> {
-    return correctiveInvoicePosition("spaceholder 2 " + i, bd("100").add(bd("" + i)), bd("0.1").add(bd("" + i)), "14");
-  };
-
-
-  @Test
-  public void empty() throws Exception {
-    testCreatePDF(facadeBuilder.createFacade(new KeyValuePrint(), CorrectiveInvoice.class));
-  }
+  public static Function<Integer, Consumer<CorrectiveInvoicePosition>> createCorrectivePosition = i ->
+    correctiveInvoicePosition("spaceholder 2 " + i, bd(100).add(bd(i)), bd("0.1").add(bd(i)), "14");
 
 
   @Test
@@ -47,7 +38,7 @@ public class TestCorrectiveInvoice extends AbstractPrintTest<CorrectiveInvoice> 
 
 
   protected CorrectiveInvoice getFullCorrectiveInvoice() {
-    return initializeFacade(CorrectiveInvoice.class, null,
+    return createAccountingPrint(
         compose(buyer, seller, basicData, invoice -> {
           TotalCost sumAfterCorrection = sumCorrectedInvoicePositions(invoice);
           invoice.setAmountDueAfterCorrection(sumAfterCorrection.getSum());
@@ -56,8 +47,9 @@ public class TestCorrectiveInvoice extends AbstractPrintTest<CorrectiveInvoice> 
           TotalCost sum = sumInvoicePositions(invoice);
           invoice.setAmountDue(sum.getSum());
           invoice.setAmountDueInWords(speakCashAmount(sum.getSum()));
-        }), positions()
-    );
+        }),
+        printBaseData,
+        positions());
   }
 
 
@@ -69,12 +61,6 @@ public class TestCorrectiveInvoice extends AbstractPrintTest<CorrectiveInvoice> 
         range(3, 5).map(TestInvoice.createPosition).collect(Collectors.toList()),
         range(3, 5).map(createCorrectivePosition).collect(Collectors.toList())
     ).toArray(new Consumer[0]);
-  }
-
-
-  @Override
-  protected String getPrintFileName() {
-    return "/print/correctiveInvoice.ftl";
   }
 }
 

@@ -15,38 +15,9 @@ public interface CashDocument<E extends CashDocumentPosition> extends IPrintFaca
   CashDocumentParty getSeller();
   CashDocumentParty getBuyer();
 
-  /**
-   * Data wystawienia
-   */
-  Date getIssuanceDate();
-  void setIssuanceDate(Date issuanceDate);
-
-  /**
-   * Termin płatności
-   */
-  Date getDueDate();
-  void setDueDate(Date issuanceDate);
 
   String getSellPlace();
   void setSellPlace(String sellPlace);
-
-  /**
-   * Data sprzedaży
-   */
-  Date getSellDate();
-  void setSellDate(Date sellDate);
-
-  /**
-   * Wartość rozliczenia w raporcie kasowym (przyjęto)
-   */
-  BigDecimal getCashRegisterAmount();
-  void setCashRegisterAmount(BigDecimal totalAmount);
-
-  /**
-   * Pełna wartość dokumentu
-   */
-  BigDecimal getTotalAmount();
-  void setTotalAmount(BigDecimal totalAmount);
 
   String getAuthenticityText();
   void setAuthenticityText(String authenticityText);

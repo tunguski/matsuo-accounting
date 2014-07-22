@@ -114,8 +114,7 @@ public class CashRegisterReportController
     report.setStartingBalance(lastReport != null ? lastReport.getEndingBalance() : ZERO);
     report.setEndingBalance(lastReport != null ? lastReport.getEndingBalance() : ZERO);
 
-    report.setEndingBalance(report.getEndingBalance().add(
-        sum(prints, facadeBuilder::createFacade, CashDocument::getCashRegisterAmount)));
+    report.setEndingBalance(report.getEndingBalance().add(sumCashRegisterAmount(prints)));
 
     return report;
   }
@@ -123,9 +122,7 @@ public class CashRegisterReportController
 
   @RequestMapping(value = "/cashRegisterPrintsSummary/{id}", method = GET, consumes = {APPLICATION_OCTET_STREAM_VALUE})
   public BigDecimal cashRegisterPrintsSummary(@PathVariable("id") Integer idCashRegister) {
-    return sum(database.find(query(AccountingPrint.class, eq("idCashRegister", idCashRegister),
-            isNull("idCashRegisterReport")).initializer(new PrintInitializer())),
-        facadeBuilder::createFacade, CashDocument::getCashRegisterAmount);
+    return sumCashRegisterAmount(database.find(query(AccountingPrint.class, eq("idCashRegister", idCashRegister))));
   }
 }
 

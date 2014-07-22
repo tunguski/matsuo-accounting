@@ -30,10 +30,8 @@ public class CashDocumentUtil {
   }
 
 
-  public static <E> BigDecimal sum(List<AccountingPrint> prints, BiFunction<AccountingPrint, Class<CashDocument>,
-      CashDocument> facadeBuilder, Function<CashDocument, BigDecimal> getter) {
-    return prints.stream().map(print ->
-            getter.apply(facadeBuilder.apply(print, CashDocument.class))).reduce(ZERO, sumBigDecimal);
+  public static <E> BigDecimal sumCashRegisterAmount(List<AccountingPrint> prints) {
+    return prints.stream().map(print -> print.getCashRegisterAmount()).reduce(ZERO, sumBigDecimal);
   }
 }
 

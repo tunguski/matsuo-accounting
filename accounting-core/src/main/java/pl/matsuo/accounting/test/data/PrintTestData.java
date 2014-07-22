@@ -109,7 +109,7 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
 
     rewriteParties(withdrawSlip, "REMONT", MEDIQ);
 
-    withdrawSlip.setSellDate(date(2013, 8, 9));
+    print.setSellDate(date(2013, 8, 9));
     withdrawSlip.setAuthenticityText("ORYGINAŁ");
 
     withdrawSlip.setCreator("Maciej Stępień");
@@ -119,18 +119,19 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     withdrawSlip.setSellPlace("Warszawa");
 
     BigDecimal sum = PrintUtil.sumSlipPositions(withdrawSlip);
-    withdrawSlip.setTotalAmount(sum);
-    withdrawSlip.setCashRegisterAmount(sum.negate());
+    print.setTotalAmount(sum);
+    print.setCashRegisterAmount(sum.negate());
     withdrawSlip.setTotalAmountInWords(speakCashAmount(sum));
     return print;
   }
 
 
   private AccountingPrint createTestDepositSlip(Integer id) { // kp
-    return initializePrint(print(DepositSlip.class, id).get(), DepositSlip.class, depositSlip -> {
+    AccountingPrint kp = print(DepositSlip.class, id).get();
+    return initializePrint(kp, DepositSlip.class, depositSlip -> {
           rewriteParties(depositSlip, "REMONT", MEDIQ);
 
-          depositSlip.setSellDate(date(2013, 8, 9));
+          kp.setSellDate(date(2013, 8, 9));
           depositSlip.setAuthenticityText("ORYGINAŁ");
 
           depositSlip.setCreator("Maciej Stępień");
@@ -141,8 +142,8 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
           depositSlip.setSellPlace("Warszawa");
 
           BigDecimal sum = PrintUtil.sumSlipPositions(depositSlip);
-          depositSlip.setTotalAmount(sum);
-          depositSlip.setCashRegisterAmount(sum);
+          kp.setTotalAmount(sum);
+          kp.setCashRegisterAmount(sum);
           depositSlip.setTotalAmountInWords(speakCashAmount(sum));
         },
 
@@ -202,11 +203,11 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     rewriteParties(invoice, "REMONT", MEDIQ);
 
     invoice.setBankAccountNumber("26 1050 1445 1000 0022 7647 0461");
-    invoice.setDueDate(date(2013, 8, 19));
+    print.setDueDate(date(2013, 8, 19));
     invoice.setNumber("LEG/FV/2013/123456");
-    invoice.setIssuanceDate(date(2013, 8, 9));
+    print.setIssuanceDate(date(2013, 8, 9));
     invoice.setPaymentType(TRANSFER);
-    invoice.setSellDate(date(2013, 8, 9));
+    print.setSellDate(date(2013, 8, 9));
     invoice.setSellPlace("Warszawa");
     invoice.setAuthenticityText("ORYGINAŁ");
     invoice.setComments("komentarz");
@@ -214,9 +215,9 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
 
     TotalCost sum = PrintUtil.sumInvoicePositions(invoice);
     BigDecimal amountPaid = bd("13.55");
-    invoice.setTotalAmount(sum.getSum());
+    print.setTotalAmount(sum.getSum());
     invoice.setAmountAlreadyPaid(amountPaid);
-    invoice.setCashRegisterAmount(amountPaid);
+    print.setCashRegisterAmount(amountPaid);
     invoice.setAmountDue(sum.getSum().subtract(amountPaid));
     invoice.setAmountDueInWords(speakCashAmount(sum.getSum().subtract(amountPaid)));
 
@@ -247,11 +248,11 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     rewriteParties(invoice, "REMONT", MEDIQ);
 
     invoice.setBankAccountNumber("26 1050 1445 1000 0022 7647 0461");
-    invoice.setDueDate(date(2013, 8, 19));
+    print.setDueDate(date(2013, 8, 19));
     invoice.setNumber("LEG/FV/2013/123456");
-    invoice.setIssuanceDate(date(2013, 8, 9));
+    print.setIssuanceDate(date(2013, 8, 9));
     invoice.setPaymentType(TRANSFER);
-    invoice.setSellDate(date(2013, 8, 9));
+    print.setSellDate(date(2013, 8, 9));
     invoice.setSellPlace("Warszawa");
     invoice.setAuthenticityText("ORYGINAŁ");
     invoice.setComments("komentarz");
@@ -259,9 +260,9 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
 
     TotalCost sum = PrintUtil.sumInvoicePositions(invoice);
     BigDecimal amountPaid = bd("13.55");
-    invoice.setTotalAmount(sum.getSum());
+    print.setTotalAmount(sum.getSum());
     invoice.setAmountAlreadyPaid(amountPaid);
-    invoice.setCashRegisterAmount(amountPaid);
+    print.setCashRegisterAmount(amountPaid);
     invoice.setAmountDue(sum.getSum().subtract(amountPaid));
     invoice.setAmountDueInWords(speakCashAmount(sum.getSum().subtract(amountPaid)));
 

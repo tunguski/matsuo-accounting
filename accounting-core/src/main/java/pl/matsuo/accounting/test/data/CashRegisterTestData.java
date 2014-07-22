@@ -67,10 +67,8 @@ public class CashRegisterTestData extends AbstractMediqTestData {
     cashRegisterReport.setStartingBalance(ZERO);
     cashRegisterReport.setEndingBalance(ZERO);
     for (AccountingPrint print : cashRegisterReport.getPrints()) {
-      cashRegisterReport.setEndingBalance(cashRegisterReport.getEndingBalance().add(
-          facadeBuilder.createFacade(print, CashDocument.class).getCashRegisterAmount()));
+      cashRegisterReport.setEndingBalance(cashRegisterReport.getEndingBalance().add(print.getCashRegisterAmount()));
     }
-
 
     database.create(cashRegisterReport);
   }

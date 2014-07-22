@@ -48,9 +48,9 @@ public class CorrectiveInvoiceService extends CashDocumentService<CorrectiveInvo
 
     CorrectiveInvoice correctiveInvoice = facadeBuilder.createFacade(invoice, CorrectiveInvoice.class);
 
-    correctiveInvoice.setIssuanceDate(date(new Date(), 0, 0));
-    correctiveInvoice.setSellDate(date(new Date(), 0, 0));
-    correctiveInvoice.setDueDate(date(new Date(), 0, 0));
+    invoice.setIssuanceDate(date(new Date(), 0, 0));
+    invoice.setSellDate(date(new Date(), 0, 0));
+    invoice.setDueDate(date(new Date(), 0, 0));
     correctiveInvoice.setPaymentType(CASH);
 
     List<KeyValuePrintElement> copies = new ArrayList<>();
@@ -83,8 +83,8 @@ public class CorrectiveInvoiceService extends CashDocumentService<CorrectiveInvo
 
 
     BigDecimal amountPaid = new BigDecimal(0);
-    facade.setTotalAmount(sum.getSum());
-    facade.setCashRegisterAmount(correctedValue);
+    print.setTotalAmount(sum.getSum());
+    print.setCashRegisterAmount(correctedValue);
 
     facade.setAmountAlreadyPaid(amountPaid);
     facade.setAmountDue(correctedValue);

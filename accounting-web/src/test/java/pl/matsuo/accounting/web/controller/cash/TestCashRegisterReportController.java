@@ -59,7 +59,7 @@ public class TestCashRegisterReportController extends AbstractControllerTest {
     print.setIdUserCreated(0);
 
     Invoice facade = facadeBuilder.createFacade(print);
-    facade.setCashRegisterAmount(sum);
+    print.setCashRegisterAmount(sum);
 
     database.create(print);
 

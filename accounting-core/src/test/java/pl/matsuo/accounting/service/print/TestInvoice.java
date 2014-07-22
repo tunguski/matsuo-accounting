@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.model.print.InvoicePosition;
-import pl.matsuo.core.model.print.KeyValuePrint;
-import pl.matsuo.core.test.AbstractPrintTest;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -26,23 +24,16 @@ import static pl.matsuo.core.util.function.FunctionalUtil.*;
  * @since Aug 22, 2013
  */
 @ContextConfiguration(classes = { InvoicePrintService.class })
-public class TestInvoice extends AbstractPrintTest<Invoice> {
+public class TestInvoice extends AbstractAccountingPrintTest<Invoice, InvoicePosition> {
 
 
   public static Function<Integer, Consumer<InvoicePosition>> createPosition = i ->
-    invoicePosition("spaceholder " + i, bd("100").add(bd("" + i)), bd("100").add(bd("" + i)), "13");
+    invoicePosition("spaceholder " + i, bd(100).add(bd(i)), bd(100).add(bd(i)), "13");
 
 
   @Test
   public void full() throws Exception {
     testCreatePDF(getFullInvoice());
-  }
-
-
-  @Test
-  public void empty() throws Exception {
-    Invoice invoice = facadeBuilder.createFacade(new KeyValuePrint(), Invoice.class);
-    testCreatePDF(invoice);
   }
 
 
@@ -55,7 +46,10 @@ public class TestInvoice extends AbstractPrintTest<Invoice> {
 
 
   protected Invoice getFullInvoice() {
-    return initializeFacade(Invoice.class, null, compose(buyer, seller, basicData), positions());
+    return createAccountingPrint(
+        compose(buyer, seller, basicData),
+        printBaseData,
+        positions());
   }
 
 
@@ -66,12 +60,6 @@ public class TestInvoice extends AbstractPrintTest<Invoice> {
         invoicePosition("wydruk ksero", bd("24"), bd("0.21"), "zw")),
         range(3, 50).map(createPosition).collect(Collectors.toList())
     ).toArray(new Consumer[0]);
-  }
-
-
-  @Override
-  protected String getPrintFileName() {
-    return "/print/invoice.ftl";
   }
 }
 

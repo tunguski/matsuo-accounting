@@ -1,5 +1,6 @@
 package pl.matsuo.accounting.service.print;
 
+import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.accounting.model.print.CashDocumentParty;
 import pl.matsuo.accounting.model.print.InvoiceCommon;
@@ -8,6 +9,7 @@ import pl.matsuo.accounting.model.print.SlipPosition;
 import pl.matsuo.accounting.model.print.TotalCost;
 
 import java.math.BigDecimal;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -44,11 +46,8 @@ public class CashDocumentTestUtil {
 
   public static final Consumer<InvoiceCommon> basicData = invoice -> {
     invoice.setBankAccountNumber("26 1050 1445 1000 0022 7647 0461");
-    invoice.setDueDate(date(2013, 8, 19));
     invoice.setNumber("LEG/FV/2013/123456");
-    invoice.setIssuanceDate(date(2013, 8, 9));
     invoice.setPaymentType(TRANSFER);
-    invoice.setSellDate(date(2013, 8, 9));
     invoice.setSellPlace("Warszawa");
     invoice.setAuthenticityText("ORYGINAŁ");
     invoice.setIsReceipt(false);
@@ -62,17 +61,26 @@ public class CashDocumentTestUtil {
 
     TotalCost sum = sumInvoicePositions(invoice);
     BigDecimal amountPaid = bd("13.55");
-    invoice.setTotalAmount(sum.getSum());
     invoice.setAmountAlreadyPaid(amountPaid);
     invoice.setAmountDue(sum.getSum().subtract(amountPaid));
     invoice.setAmountDueInWords(speakCashAmount(sum.getSum().subtract(amountPaid)));
   };
 
+  public static final BiConsumer<AccountingPrint, CashDocument> cashPrintBaseData = (print, invoice) -> {
+    print.setDueDate(date(2013, 8, 19));
+    print.setIssuanceDate(date(2013, 8, 9));
+    print.setSellDate(date(2013, 8, 9));
+  };
+
+  public static final BiConsumer<AccountingPrint, InvoiceCommon> printBaseData = (print, invoice) -> {
+    cashPrintBaseData.accept(print, invoice);
+    TotalCost sum = sumInvoicePositions(invoice);
+    print.setTotalAmount(sum.getSum());
+  };
 
   public static final Consumer<SlipCommon> slipTestData = slip -> {
     buyer.accept(slip);
     seller.accept(slip);
-    slip.setSellDate(date(2013, 8, 9));
     slip.setAuthenticityText("ORYGINAŁ");
 
     slip.setCreator("Maciej Stępień");
@@ -82,7 +90,6 @@ public class CashDocumentTestUtil {
     slip.setSellPlace("Warszawa");
 
     BigDecimal sum = sumSlipPositions(slip);
-    slip.setTotalAmount(sum);
     slip.setTotalAmountInWords(speakCashAmount(sum));
   };
 

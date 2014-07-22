@@ -23,13 +23,13 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
 
 
   @Autowired
-  Database database;
+  protected Database database;
   @Autowired
-  FacadeBuilder facadeBuilder;
+  protected FacadeBuilder facadeBuilder;
   @Autowired
-  CashRegisterSessionState cashRegisterSessionState;
+  protected CashRegisterSessionState cashRegisterSessionState;
   @Autowired
-  NumerationService numerationService;
+  protected NumerationService numerationService;
 
 
   @SuppressWarnings("unchecked")
@@ -54,7 +54,7 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
       idCashRegister = cashRegisterReport.getCashRegister().getId();
 
       cashRegisterReport.setEndingBalance(
-          cashRegisterReport.getEndingBalance().add(cashDocument.getCashRegisterAmount()));
+          cashRegisterReport.getEndingBalance().add(entity.getCashRegisterAmount()));
       database.update(cashRegisterReport);
     } else if (idCashRegister == null) {
       throw new RestProcessingException("no_cash_register_set");
@@ -66,7 +66,7 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
     entity.setIdCashRegister(idCashRegister);
 
     CashRegister cashRegister = database.findById(CashRegister.class, idCashRegister);
-    cashRegister.setValue(cashRegister.getValue().add(cashDocument.getCashRegisterAmount()));
+    cashRegister.setValue(cashRegister.getValue().add(entity.getCashRegisterAmount()));
     database.update(cashRegister);
 
     preCreate(entity, cashDocument);

@@ -24,8 +24,8 @@ public class WithdrawSlipService extends CashDocumentService<WithdrawSlip> {
     super.fillDocument(print, withdrawSlip);
 
     BigDecimal sum = sumSlipPositions(withdrawSlip);
-    withdrawSlip.setTotalAmount(sum);
-    withdrawSlip.setCashRegisterAmount(sum.negate());
+    print.setTotalAmount(sum);
+    print.setCashRegisterAmount(sum.negate());
     withdrawSlip.setTotalAmountInWords(speakCashAmount(sum));
     return print;
   }

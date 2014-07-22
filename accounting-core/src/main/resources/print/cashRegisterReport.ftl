@@ -36,7 +36,7 @@
 		  ${printPosition.serviceName}
         </#list>
       </td>
-      <td>${printFacade.cashRegisterAmount} zł</td>
+      <td>${print.cashRegisterAmount} zł</td>
     </tr>
     </#list>
     </tbody>

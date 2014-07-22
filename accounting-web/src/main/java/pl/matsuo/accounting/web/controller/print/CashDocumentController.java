@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.accounting.service.print.ICashDocumentService;
+import pl.matsuo.core.IQueryRequestParams;
 import pl.matsuo.core.exception.RestProcessingException;
+import pl.matsuo.core.model.query.AbstractQuery;
+import pl.matsuo.core.model.query.condition.Condition;
 import pl.matsuo.core.web.controller.print.AbstractPrintController;
 
 import javax.validation.Valid;
@@ -19,11 +22,12 @@ import javax.validation.Valid;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
 
 
 @RestController
 @RequestMapping("/cashDocuments")
-public class CashDocumentController extends AbstractPrintController<CashDocument, AccountingPrint> {
+public class CashDocumentController extends AbstractPrintController<CashDocument, AccountingPrint, ICashDocumentParams> {
 
 
   @Autowired
@@ -38,6 +42,12 @@ public class CashDocumentController extends AbstractPrintController<CashDocument
     }
 
     throw new RestProcessingException("Unable to process print type: " + printType);
+  }
+
+
+  protected AbstractQuery<AccountingPrint> listQuery(ICashDocumentParams params, Condition... additionalConditions) {
+    return super.listQuery(params,
+        maybe(params.getStartDate(), gt("issuanceDate", params.getStartDate())));
   }
 
 
