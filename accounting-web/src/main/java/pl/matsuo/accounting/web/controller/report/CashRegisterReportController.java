@@ -99,7 +99,7 @@ public class CashRegisterReportController
 
     CashRegisterReport lastReport =
         database.findOne(query(CashRegisterReport.class,
-            eq("cashRegister.id", idCashRegister)).orderBy("createdTime DESC").limit(1));
+            eq("cashRegister.id", idCashRegister), orderBy("createdTime DESC")).limit(1));
 
     List<AccountingPrint> prints = database.find(query(AccountingPrint.class,
         eq("idCashRegister", idCashRegister), isNull("idCashRegisterReport"))

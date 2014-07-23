@@ -45,7 +45,7 @@ public class CashRegisterReportService extends AbstractReportService<ICashRegist
                                                                    new CashRegisterReportInitializer());
 
       List<CashRegisterReport> cashRegisterReports = database.find(query(CashRegisterReport.class,
-          eq("cast(createdTime as date)", date(cashRegisterReport.getCreatedTime(), 0, 0))).orderBy("createdTime"));
+          eq("cast(createdTime as date)", date(cashRegisterReport.getCreatedTime(), 0, 0)), orderBy("createdTime")));
 
       dataModel.put("cashRegisterReport", cashRegisterReport);
 
