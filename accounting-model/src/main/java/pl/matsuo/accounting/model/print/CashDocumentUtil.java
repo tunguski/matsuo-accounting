@@ -5,8 +5,6 @@ import pl.matsuo.core.model.organization.Person;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import static java.math.BigDecimal.*;
 import static pl.matsuo.core.model.organization.address.AddressUtil.*;

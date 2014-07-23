@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.accounting.model.print.CorrectiveInvoicePosition;
-import pl.matsuo.accounting.model.print.InvoiceCommon;
 import pl.matsuo.accounting.model.print.TotalCost;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
 import pl.matsuo.core.model.print.initializer.PrintInitializer;

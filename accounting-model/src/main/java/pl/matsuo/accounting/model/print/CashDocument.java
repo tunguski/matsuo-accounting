@@ -2,9 +2,6 @@ package pl.matsuo.accounting.model.print;
 
 import pl.matsuo.core.model.print.IPrintFacade;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 
 /**
  * Created by tunguski on 17.09.13.

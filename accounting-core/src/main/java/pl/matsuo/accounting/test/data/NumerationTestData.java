@@ -3,10 +3,8 @@ package pl.matsuo.accounting.test.data;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pl.matsuo.core.conf.DiscoverTypes;
-import pl.matsuo.core.model.numeration.Numeration;
 import pl.matsuo.core.model.numeration.NumerationSchema;
 import pl.matsuo.core.service.numeration.MonthlyNumerationSchemaStrategy;
-import pl.matsuo.core.test.data.AbstractMediqTestData;
 import pl.matsuo.core.test.data.AbstractTestData;
 import pl.matsuo.core.test.data.PayersTestData;
 

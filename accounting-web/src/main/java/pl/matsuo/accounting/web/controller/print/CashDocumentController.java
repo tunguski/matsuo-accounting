@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.accounting.service.print.ICashDocumentService;
-import pl.matsuo.core.IQueryRequestParams;
 import pl.matsuo.core.exception.RestProcessingException;
 import pl.matsuo.core.model.query.AbstractQuery;
 import pl.matsuo.core.model.query.condition.Condition;

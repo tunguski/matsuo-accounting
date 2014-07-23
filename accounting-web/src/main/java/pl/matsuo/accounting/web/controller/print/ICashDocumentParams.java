@@ -1,6 +1,5 @@
 package pl.matsuo.accounting.web.controller.print;
 
-import pl.matsuo.core.IQueryRequestParams;
 import pl.matsuo.core.model.report.IPrintsReportParams;
 
 /**

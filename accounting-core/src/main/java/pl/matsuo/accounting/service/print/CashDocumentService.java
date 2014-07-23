@@ -6,7 +6,6 @@ import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.accounting.model.print.CashDocumentParty;
-import pl.matsuo.accounting.model.print.InvoiceCommon;
 import pl.matsuo.accounting.service.session.CashRegisterSessionState;
 import pl.matsuo.core.exception.RestProcessingException;
 import pl.matsuo.core.model.organization.AbstractParty;
