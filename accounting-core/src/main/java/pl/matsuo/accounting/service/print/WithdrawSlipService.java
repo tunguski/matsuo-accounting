@@ -14,12 +14,6 @@ import static pl.matsuo.core.util.NumberSpeaker.*;
 public class WithdrawSlipService extends CashDocumentService<WithdrawSlip> {
 
 
-  @Override
-  protected void preCreate(AccountingPrint print, WithdrawSlip cashDocument) {
-    cashDocument.setNumber(numerationService.getNumber("WITHDRAW_SLIP"));
-  }
-
-
   protected AccountingPrint fillDocument(AccountingPrint print, WithdrawSlip withdrawSlip) {
     super.fillDocument(print, withdrawSlip);
 

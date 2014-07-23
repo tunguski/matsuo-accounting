@@ -1,15 +1,12 @@
 package pl.matsuo.accounting.test.data;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
-import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.core.conf.DiscoverTypes;
 import pl.matsuo.core.model.organization.OrganizationUnit;
-import pl.matsuo.core.service.facade.FacadeBuilder;
 import pl.matsuo.core.test.data.AbstractMediqTestData;
 import pl.matsuo.core.test.data.MediqTestData;
 import pl.matsuo.core.test.data.PayersTestData;
@@ -26,10 +23,6 @@ import static pl.matsuo.core.util.NumberUtil.*;
 @DiscoverTypes({ PayersTestData.class, PrintTestData.class })
 @Order(60)
 public class CashRegisterTestData extends AbstractMediqTestData {
-
-
-  @Autowired
-  protected FacadeBuilder facadeBuilder;
 
 
   @Override

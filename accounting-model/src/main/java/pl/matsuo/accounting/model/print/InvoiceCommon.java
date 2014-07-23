@@ -12,9 +12,6 @@ import static javax.persistence.EnumType.*;
  */
 public interface InvoiceCommon<E extends CashDocumentPosition> extends CashDocument<E> {
 
-  String getNumber();
-  void setNumber(String invoiceNumber);
-
   @Enumerated(STRING)
   PaymentType getPaymentType();
   void setPaymentType(PaymentType paymentType);

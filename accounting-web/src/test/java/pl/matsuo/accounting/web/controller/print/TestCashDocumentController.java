@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.service.print.InvoiceService;
 import pl.matsuo.accounting.test.TestCashRegisterSessionState;
-import pl.matsuo.core.service.numeration.NumerationServiceImpl;
+import pl.matsuo.core.test.NumerationConfig;
 import pl.matsuo.core.web.controller.AbstractControllerTest;
 
 import static org.junit.Assert.*;
 
 
-@ContextConfiguration(classes = { NumerationServiceImpl.class, InvoiceService.class, TestCashRegisterSessionState.class,
+@ContextConfiguration(classes = { NumerationConfig.class, InvoiceService.class, TestCashRegisterSessionState.class,
                                   CashDocumentController.class })
 public class TestCashDocumentController extends AbstractControllerTest {
 

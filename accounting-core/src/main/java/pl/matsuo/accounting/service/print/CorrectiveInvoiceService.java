@@ -25,48 +25,44 @@ import static pl.matsuo.core.util.NumberSpeaker.*;
 public class CorrectiveInvoiceService extends CashDocumentService<CorrectiveInvoice> {
 
 
-  protected String numerationName(InvoiceCommon invoice) {
-    return invoice.getIsReceipt() != null && invoice.getIsReceipt() ? "CORRECTIVE_RECEIPT" : "CORRECTIVE_INVOICE";
-  }
-
-
   @Override
-  protected void preCreate(AccountingPrint print, CorrectiveInvoice cashDocument) {
-    // jeśli to faktura, dostaje swój numer
-    cashDocument.setNumber(numerationService.getNumber(numerationName(cashDocument)));
+  protected String numerationName(AccountingPrint print, CorrectiveInvoice invoice) {
+    return invoice.getIsReceipt() != null && invoice.getIsReceipt() ? "CorrectiveReceipt" : "CorrectiveInvoice";
   }
 
 
   public AccountingPrint forInvoice(@PathVariable("id") Integer id) {
-    AccountingPrint invoice = database.findById(AccountingPrint.class, id, new PrintInitializer());
-    invoice.setId(null);
-    invoice.setCreatedTime(null);
+    // basing on invoice print content - in controller we can modify it without worry, because it's not connected to
+    // session
+    AccountingPrint print = database.findById(AccountingPrint.class, id, new PrintInitializer());
+    print.setId(null);
+    print.setCreatedTime(null);
 
-    invoice.setIdCashRegister(null);
-    invoice.setIdCashRegisterReport(null);
-    invoice.setPrintClass(CorrectiveInvoice.class);
+    print.setIdCashRegister(null);
+    print.setIdCashRegisterReport(null);
+    print.setPrintClass(CorrectiveInvoice.class);
 
-    CorrectiveInvoice correctiveInvoice = facadeBuilder.createFacade(invoice, CorrectiveInvoice.class);
+    CorrectiveInvoice correctiveInvoice = facadeBuilder.createFacade(print, CorrectiveInvoice.class);
 
-    invoice.setIssuanceDate(date(new Date(), 0, 0));
-    invoice.setSellDate(date(new Date(), 0, 0));
-    invoice.setDueDate(date(new Date(), 0, 0));
+    print.setIssuanceDate(date(new Date(), 0, 0));
+    print.setSellDate(date(new Date(), 0, 0));
+    print.setDueDate(date(new Date(), 0, 0));
     correctiveInvoice.setPaymentType(CASH);
 
     List<KeyValuePrintElement> copies = new ArrayList<>();
-    for (KeyValuePrintElement printElement : invoice.getElements()) {
+    for (KeyValuePrintElement printElement : print.getElements()) {
       printElement.setId(null);
       KeyValuePrintElement copy = new KeyValuePrintElement();
       copy.getFields().putAll(printElement.getFields());
       facadeBuilder.createFacade(copy, CorrectiveInvoicePosition.class).setIsAfterCorrection(true);
       copies.add(copy);
     }
-    invoice.getElements().addAll(copies);
+    print.getElements().addAll(copies);
 
     // nadanie testowego numeru faktury
-    correctiveInvoice.setNumber(numerationService.getPreviewNumber(numerationName(correctiveInvoice)));
+    printNumer(print, correctiveInvoice, true);
 
-    return invoice;
+    return print;
   }
 
 

@@ -14,12 +14,6 @@ import static pl.matsuo.core.util.NumberSpeaker.*;
 public class DepositSlipService extends CashDocumentService<DepositSlip> {
 
 
-  @Override
-  protected void preCreate(AccountingPrint print, DepositSlip cashDocument) {
-    cashDocument.setNumber(numerationService.getNumber("DEPOSIT_SLIP"));
-  }
-
-
   protected AccountingPrint fillDocument(AccountingPrint print, DepositSlip depositSlip) {
     super.fillDocument(print, depositSlip);
 

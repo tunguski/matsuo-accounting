@@ -7,9 +7,6 @@ package pl.matsuo.accounting.model.print;
  */
 public interface SlipCommon extends CashDocument<SlipPosition> {
 
-  String getNumber();
-  void setNumber(String number);
-
   String getTotalAmountInWords();
   void setTotalAmountInWords(String totalAmountInWords);
 

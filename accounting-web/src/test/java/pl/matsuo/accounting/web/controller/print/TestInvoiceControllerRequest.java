@@ -3,6 +3,7 @@ package pl.matsuo.accounting.web.controller.print;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.print.AccountingPrint;
@@ -14,24 +15,29 @@ import pl.matsuo.accounting.test.data.CashRegisterTestData;
 import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.model.organization.Person;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
-import pl.matsuo.core.service.numeration.NumerationServiceImpl;
+import pl.matsuo.core.test.NumerationConfig;
 import pl.matsuo.core.test.data.MediqTestData;
-import pl.matsuo.core.test.data.NumerationTestData;
+import pl.matsuo.accounting.test.data.NumerationTestData;
 import pl.matsuo.core.test.data.PersonTestData;
+import pl.matsuo.core.util.DateUtil;
 import pl.matsuo.core.web.controller.AbstractDbControllerRequestTest;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.springframework.http.MediaType.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static pl.matsuo.accounting.model.print.AccountingPrint.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
+import static pl.matsuo.core.util.DateUtil.*;
 import static pl.matsuo.core.util.NumberUtil.*;
 import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
 
 
-@ContextConfiguration(classes = { CashDocumentController.class, InvoiceService.class, NumerationServiceImpl.class,
-                                  TestCashRegisterSessionState.class, PersonTestData.class, CashRegisterTestData.class,
-                                  NumerationTestData.class})
+@WebAppConfiguration
+@ContextConfiguration(classes = { CashDocumentController.class, NumerationConfig.class, InvoiceService.class,
+    TestCashRegisterSessionState.class, PersonTestData.class, CashRegisterTestData.class, NumerationTestData.class})
 public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTest {
 
 
@@ -41,6 +47,10 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
 
   private AccountingPrint createPrint() {
     AccountingPrint print = print(Invoice.class, null).get();
+
+    print.setIssuanceDate(new Date());
+    print.setDueDate(addTime(new Date(), Calendar.DATE, 14));
+    print.setSellDate(new Date());
 
     Invoice invoice = facadeBuilder.createFacade(print);
 

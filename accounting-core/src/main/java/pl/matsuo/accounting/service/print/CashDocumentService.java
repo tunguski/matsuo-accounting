@@ -6,6 +6,7 @@ import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
 import pl.matsuo.accounting.model.print.CashDocumentParty;
+import pl.matsuo.accounting.model.print.InvoiceCommon;
 import pl.matsuo.accounting.service.session.CashRegisterSessionState;
 import pl.matsuo.core.exception.RestProcessingException;
 import pl.matsuo.core.model.organization.AbstractParty;
@@ -76,6 +77,18 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
 
 
   protected void preCreate(AccountingPrint print, D cashDocument) {
+    printNumer(print, cashDocument, false);
+  }
+
+
+  protected void printNumer(AccountingPrint print, D cashDocument, boolean preview) {
+    cashDocument.setNumber(numerationService.getNumber(
+        numerationName(print, cashDocument), print.getIssuanceDate(), preview));
+  }
+
+
+  protected String numerationName(AccountingPrint print, D cashDocument) {
+    return printType.getSimpleName();
   }
 
 

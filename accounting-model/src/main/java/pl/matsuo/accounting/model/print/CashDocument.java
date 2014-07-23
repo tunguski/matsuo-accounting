@@ -21,5 +21,8 @@ public interface CashDocument<E extends CashDocumentPosition> extends IPrintFaca
 
   String getAuthenticityText();
   void setAuthenticityText(String authenticityText);
+
+  String getNumber();
+  void setNumber(String number);
 }
 
