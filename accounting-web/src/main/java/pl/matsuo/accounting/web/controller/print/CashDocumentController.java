@@ -46,7 +46,7 @@ public class CashDocumentController extends AbstractPrintController<CashDocument
 
   protected AbstractQuery<AccountingPrint> listQuery(ICashDocumentParams params, Condition... additionalConditions) {
     return super.listQuery(params, maybe(params.getStartDate(), gt("issuanceDate", params.getStartDate())))
-        .orderBy(desc("issuanceDate"));
+        .orderBy("issuanceDate DESC");
   }
 
 

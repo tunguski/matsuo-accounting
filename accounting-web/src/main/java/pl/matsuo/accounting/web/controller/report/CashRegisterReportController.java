@@ -97,9 +97,8 @@ public class CashRegisterReportController
   public CashRegisterReport reportForCashRegister(@PathVariable("id") Integer idCashRegister) {
     CashRegister cashRegister = database.findOne(query(CashRegister.class, eq("id", idCashRegister)));
 
-    CashRegisterReport lastReport =
-        database.findOne(query(CashRegisterReport.class,
-            eq("cashRegister.id", idCashRegister), orderBy("createdTime DESC")).limit(1));
+    CashRegisterReport lastReport = database.findOne(query(CashRegisterReport.class,
+        eq("cashRegister.id", idCashRegister)).orderBy("createdTime DESC").limit(1));
 
     List<AccountingPrint> prints = database.find(query(AccountingPrint.class,
         eq("idCashRegister", idCashRegister), isNull("idCashRegisterReport"))
