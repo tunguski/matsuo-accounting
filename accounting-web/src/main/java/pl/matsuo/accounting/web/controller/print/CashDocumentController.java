@@ -64,7 +64,8 @@ public class CashDocumentController extends AbstractPrintController<CashDocument
   @ResponseStatus(CREATED)
   public HttpEntity<AccountingPrint> create(@RequestBody AccountingPrint entity,
                                             @Value("#{request.requestURL}") StringBuffer parentUri) {
-    throw new RestProcessingException("This method is blocked for CashDocumentController");
+    findCashDocumentService(entity.getPrintClass().getSimpleName()).create(entity);
+    return super.create(entity, parentUri);
   }
 
 
