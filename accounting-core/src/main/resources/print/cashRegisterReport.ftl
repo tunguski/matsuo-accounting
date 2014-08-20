@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="../css/cashRegister.css"/>
 </head>
 <body>
-<#include "clinicInfo.ftl">
+<#include "companyInfoHeader.ftl">
 
 <div class="name"><h1>Raport kasowy dla ${cashRegisterReport.cashRegister.code}</h1></div>
 <div class="number">${cashRegisterReport.cashRegister.createdTime?date}</div>
