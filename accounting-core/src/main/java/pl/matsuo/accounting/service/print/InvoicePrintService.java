@@ -16,11 +16,11 @@ import static pl.matsuo.accounting.util.PrintUtil.*;
  * @since Aug 28, 2013
  */
 @Service
-public class InvoicePrintService extends AbstractPrintService<Invoice> {
+public class InvoicePrintService extends AbstractAccountingPrintService<Invoice> {
 
 
   @Override
-  protected void buildModel(Invoice invoice, Map<String, Object> dataModel) {
+  protected void buildAccountingModel(Invoice invoice, Map<String, Object> dataModel) {
     Map<String, Object> total = new HashMap<>();
     Map<String, Object> taxes = new HashMap<>();
 

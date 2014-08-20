@@ -5,10 +5,10 @@ import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
-import pl.matsuo.accounting.model.print.CashDocumentParty;
 import pl.matsuo.accounting.service.session.CashRegisterSessionState;
 import pl.matsuo.core.exception.RestProcessingException;
 import pl.matsuo.core.model.organization.AbstractParty;
+import pl.matsuo.core.model.print.PrintParty;
 import pl.matsuo.core.service.db.Database;
 import pl.matsuo.core.service.facade.FacadeBuilder;
 import pl.matsuo.core.service.numeration.NumerationService;
@@ -109,7 +109,7 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
   }
 
 
-  protected void fillParty(CashDocumentParty cashDocumentParty) {
+  protected void fillParty(PrintParty cashDocumentParty) {
     with(database.findById(AbstractParty.class, cashDocumentParty.getId()), party -> rewriteParty(cashDocumentParty, party));
   }
 }

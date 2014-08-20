@@ -1,6 +1,7 @@
 package pl.matsuo.accounting.model.print;
 
 import pl.matsuo.core.model.print.IPrintFacade;
+import pl.matsuo.core.model.print.PrintParty;
 
 
 /**
@@ -9,8 +10,8 @@ import pl.matsuo.core.model.print.IPrintFacade;
 public interface CashDocument<E extends CashDocumentPosition> extends IPrintFacade<E> {
 
 
-  CashDocumentParty getSeller();
-  CashDocumentParty getBuyer();
+  PrintParty getSeller();
+  PrintParty getBuyer();
 
 
   String getSellPlace();

@@ -13,13 +13,7 @@ import java.util.Map;
  * @since Aug 28, 2013
  */
 @Service
-public class DepositSlipPrintService extends AbstractPrintService<DepositSlip> {
-
-
-  @Override
-  protected void buildModel(DepositSlip print, Map<String, Object> dataModel) {
-
-  }
+public class DepositSlipPrintService extends AbstractAccountingPrintService<DepositSlip> {
 
 
   @Override

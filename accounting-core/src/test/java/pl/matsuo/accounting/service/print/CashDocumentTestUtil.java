@@ -2,11 +2,11 @@ package pl.matsuo.accounting.service.print;
 
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
-import pl.matsuo.accounting.model.print.CashDocumentParty;
 import pl.matsuo.accounting.model.print.InvoiceCommon;
 import pl.matsuo.accounting.model.print.SlipCommon;
 import pl.matsuo.accounting.model.print.SlipPosition;
 import pl.matsuo.accounting.model.print.TotalCost;
+import pl.matsuo.core.model.print.PrintParty;
 
 import java.math.BigDecimal;
 import java.util.function.BiConsumer;
@@ -27,7 +27,7 @@ public class CashDocumentTestUtil {
 
 
   public static final Consumer<CashDocument> partyFiller(Integer id, String name, String address, String nip,
-                                                         Function<CashDocument, CashDocumentParty> partyProvider) {
+                                                         Function<CashDocument, PrintParty> partyProvider) {
     return invoice ->
       with(partyProvider.apply(invoice), party -> {
         party.setId(id);

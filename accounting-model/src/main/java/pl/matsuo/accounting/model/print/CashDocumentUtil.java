@@ -2,6 +2,7 @@ package pl.matsuo.accounting.model.print;
 
 import pl.matsuo.core.model.organization.AbstractParty;
 import pl.matsuo.core.model.organization.Person;
+import pl.matsuo.core.model.print.PrintParty;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,7 +17,7 @@ import static pl.matsuo.core.util.NumberUtil.*;
 public class CashDocumentUtil {
 
 
-  public static void rewriteParty(CashDocumentParty cashDocumentParty, AbstractParty party) {
+  public static void rewriteParty(PrintParty cashDocumentParty, AbstractParty party) {
     cashDocumentParty.setId(party.getId());
     cashDocumentParty.setName(party.getName());
     cashDocumentParty.setAddress(htmlAddress(party.getAddress()));

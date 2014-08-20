@@ -13,12 +13,7 @@ import java.util.Map;
  * @since Aug 28, 2013
  */
 @Service
-public class WithdrawSlipPrintService extends AbstractPrintService<WithdrawSlip> {
-
-
-  @Override
-  protected void buildModel(WithdrawSlip print, Map<String, Object> dataModel) {
-  }
+public class WithdrawSlipPrintService extends AbstractAccountingPrintService<WithdrawSlip> {
 
 
   @Override
