@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.math.BigDecimal.*;
 import static pl.matsuo.core.util.NumberUtil.*;
@@ -95,12 +96,13 @@ public class PrintUtil {
    * </ol>
    */
   protected static List<InvoicePosition> filter(List<? extends InvoicePosition> positions, final Boolean isCorrection) {
-    return positions.stream().filter(
+    Stream<? extends InvoicePosition> filtered = positions.stream().filter(
         (InvoicePosition position) ->
             isCorrection == (CorrectiveInvoicePosition.class.isAssignableFrom(position.getClass())
                 && ((CorrectiveInvoicePosition) position).getIsAfterCorrection() != null
-                && ((CorrectiveInvoicePosition) position).getIsAfterCorrection())
-    ).collect(Collectors.toList());
+                && ((CorrectiveInvoicePosition) position).getIsAfterCorrection()));
+
+    return ((Stream<InvoicePosition>) filtered).collect(Collectors.toList());
   }
 
 
