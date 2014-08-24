@@ -22,7 +22,7 @@ import static pl.matsuo.core.util.NumberUtil.*;
 @Component
 @DiscoverTypes({ PayersTestData.class, PrintTestData.class })
 @Order(60)
-public class CashRegisterTestData extends AbstractMediqTestData {
+public class MediqCashRegisterTestData extends AbstractMediqTestData {
 
 
   @Override
@@ -59,9 +59,8 @@ public class CashRegisterTestData extends AbstractMediqTestData {
     cashRegisterReport.getPrints().addAll(database.findAll(AccountingPrint.class));
     cashRegisterReport.setStartingBalance(ZERO);
     cashRegisterReport.setEndingBalance(ZERO);
-    for (AccountingPrint print : cashRegisterReport.getPrints()) {
-      cashRegisterReport.setEndingBalance(cashRegisterReport.getEndingBalance().add(print.getCashRegisterAmount()));
-    }
+    cashRegisterReport.getPrints().forEach(print ->
+        cashRegisterReport.setEndingBalance(cashRegisterReport.getEndingBalance().add(print.getCashRegisterAmount())));
 
     database.create(cashRegisterReport);
   }

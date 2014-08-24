@@ -8,7 +8,7 @@ import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
-import pl.matsuo.accounting.test.data.CashRegisterTestData;
+import pl.matsuo.accounting.test.data.MediqCashRegisterTestData;
 import pl.matsuo.accounting.web.controller.report.CashRegisterReportController;
 import pl.matsuo.core.service.execution.ExecutionServiceImpl;
 import pl.matsuo.core.web.controller.AbstractDbControllerRequestTest;
@@ -30,7 +30,7 @@ import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
  */
 @Transactional
 @ContextConfiguration(classes = { CashRegisterReportController.class, ExecutionServiceImpl.class,
-                                  CashRegisterTestData.class })
+                                  MediqCashRegisterTestData.class })
 public class TestCashRegisterReportControllerRequest extends AbstractDbControllerRequestTest {
 
 

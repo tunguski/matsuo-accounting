@@ -11,7 +11,7 @@ import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.model.print.InvoicePosition;
 import pl.matsuo.accounting.service.print.InvoiceService;
 import pl.matsuo.accounting.test.TestCashRegisterSessionState;
-import pl.matsuo.accounting.test.data.CashRegisterTestData;
+import pl.matsuo.accounting.test.data.MediqCashRegisterTestData;
 import pl.matsuo.accounting.test.data.NumerationTestData;
 import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.model.organization.Person;
@@ -36,7 +36,7 @@ import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = { CashDocumentController.class, NumerationConfig.class, InvoiceService.class,
-    TestCashRegisterSessionState.class, PersonTestData.class, CashRegisterTestData.class, NumerationTestData.class})
+    TestCashRegisterSessionState.class, PersonTestData.class, MediqCashRegisterTestData.class, NumerationTestData.class})
 public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTest {
 
 
