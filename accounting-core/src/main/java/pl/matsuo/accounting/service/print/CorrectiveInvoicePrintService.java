@@ -2,7 +2,6 @@ package pl.matsuo.accounting.service.print;
 
 import org.springframework.stereotype.Service;
 import pl.matsuo.accounting.model.print.CorrectiveInvoice;
-import pl.matsuo.core.service.print.AbstractPrintService;
 
 import java.util.HashMap;
 import java.util.Map;
