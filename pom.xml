@@ -54,4 +54,11 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <repositories>
+    <repository>
+      <id>repo.matsuo-it.com</id>
+      <url>http://repo.matsuo-it.com/</url>
+    </repository>
+  </repositories>
 </project>
