@@ -55,9 +55,11 @@ public class TestCashRegisterReportController extends AbstractControllerTest {
     AccountingPrint print = print(Invoice.class, null).get();
     print.setIdCashRegister(idCashRegister);
     print.setIdUserCreated(0);
+    print.setIdBucket(1);
 
     Invoice facade = facadeBuilder.createFacade(print);
-    print.setCashRegisterAmount(sum);
+    facade.getSeller().setId(1);
+    print.setValue(sum);
 
     database.create(print);
 

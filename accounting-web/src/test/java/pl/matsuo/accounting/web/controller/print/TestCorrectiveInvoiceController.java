@@ -71,9 +71,9 @@ public class TestCorrectiveInvoiceController extends AbstractPrintControllerTest
     String id = url.substring(url.lastIndexOf("/") + 1);
 
     AccountingPrint savedPrint = database.findById(AccountingPrint.class, i(id), new PrintInitializer());
-    CorrectiveInvoice savedCorrectiveInvoice = createFacade(savedPrint);
 
-    assertEquals(bd("14.00"), savedPrint.getCashRegisterAmount());
+    assertEquals(bd("14.00"), savedPrint.getValue());
+    assertEquals(bd("-14.00"), savedPrint.getCashRegisterAmount());
 
   }
 

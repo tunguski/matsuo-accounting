@@ -57,6 +57,7 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
     Person person = database.findOne(query(Person.class, eq("pesel", "42041428579")));
     invoice.getBuyer().setId(person.getId());
     invoice.getSeller().setId(organizationUnit.getId());
+    print.setIdBucket(organizationUnit.getId());
 
     return print;
   }

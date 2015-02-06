@@ -79,7 +79,7 @@ public class CorrectiveInvoiceService extends CashDocumentService<CorrectiveInvo
 
     BigDecimal amountPaid = new BigDecimal(0);
     print.setTotalAmount(sum.getSum());
-    print.setCashRegisterAmount(correctedValue);
+    print.setValue(correctedValue);
 
     facade.setAmountAlreadyPaid(amountPaid);
     facade.setAmountDue(correctedValue);

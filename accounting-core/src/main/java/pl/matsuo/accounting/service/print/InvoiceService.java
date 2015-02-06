@@ -30,7 +30,7 @@ public class InvoiceService extends CashDocumentService<Invoice> {
     TotalCost sum = sumInvoicePositions(facade);
     BigDecimal amountPaid = new BigDecimal(0);
     print.setTotalAmount(sum.getSum());
-    print.setCashRegisterAmount(sum.getSum());
+    print.setValue(sum.getSum());
 
     facade.setAmountAlreadyPaid(amountPaid);
     facade.setAmountDue(sum.getSum().subtract(amountPaid));

@@ -19,7 +19,7 @@ public class DepositSlipService extends CashDocumentService<DepositSlip> {
 
     BigDecimal sum = sumSlipPositions(depositSlip);
     print.setTotalAmount(sum);
-    print.setCashRegisterAmount(sum.negate());
+    print.setValue(sum);
     depositSlip.setTotalAmountInWords(speakCashAmount(sum));
     return print;
   }

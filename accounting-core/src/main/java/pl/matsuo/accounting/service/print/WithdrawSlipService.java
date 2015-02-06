@@ -19,7 +19,7 @@ public class WithdrawSlipService extends CashDocumentService<WithdrawSlip> {
 
     BigDecimal sum = sumSlipPositions(withdrawSlip);
     print.setTotalAmount(sum);
-    print.setCashRegisterAmount(sum.negate());
+    print.setValue(sum);
     withdrawSlip.setTotalAmountInWords(speakCashAmount(sum));
     return print;
   }

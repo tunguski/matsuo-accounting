@@ -25,7 +25,11 @@ public class AccountingPrint extends KeyValuePrint {
   private Date dueDate;
   private Date sellDate;
   /**
-   * Wartość rozliczenia w raporcie kasowym (przyjęto)
+   * Sumaryczna wartość wszystkich pozycji.
+   */
+  private BigDecimal value;
+  /**
+   * Wartość rozliczenia w raporcie kasowym (przyjęto).
    */
   private BigDecimal cashRegisterAmount;
   /**
@@ -35,6 +39,17 @@ public class AccountingPrint extends KeyValuePrint {
 
   public static Supplier<? extends AccountingPrint> print(Class<? extends IPrintFacade> clazz, Integer id) {
     return () -> { return (AccountingPrint) printInitializer(clazz, id).apply(new AccountingPrint()); };
+  }
+
+
+  public boolean isCost() {
+    // FIXME: should reference property not field by string
+    return !getFields().get("seller.id").equals("" + getIdBucket());
+  }
+
+
+  public BigDecimal getCashRegisterAmount() {
+    return isCost() ? getValue().negate() : getValue();
   }
 
 
@@ -74,17 +89,17 @@ public class AccountingPrint extends KeyValuePrint {
   public void setSellDate(Date sellDate) {
     this.sellDate = sellDate;
   }
-  public BigDecimal getCashRegisterAmount() {
-    return cashRegisterAmount;
-  }
-  public void setCashRegisterAmount(BigDecimal cashRegisterAmount) {
-    this.cashRegisterAmount = cashRegisterAmount;
-  }
   public BigDecimal getTotalAmount() {
     return totalAmount;
   }
   public void setTotalAmount(BigDecimal totalAmount) {
     this.totalAmount = totalAmount;
+  }
+  public BigDecimal getValue() {
+    return value;
+  }
+  public void setValue(BigDecimal value) {
+    this.value = value;
   }
 }
 

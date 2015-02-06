@@ -65,12 +65,10 @@ public class CashRegisterReportController
       // mapa kasa -> ostatni ze znalezionych raportów dla danej kasy
       Map<CashRegister, CashRegisterReport> reports = new HashMap<>();
       for (CashRegisterReport report : list) {
-        System.out.println(report.getCreatedTime());
         // jeśli przetwarzany raport został utworzony później niż ostatni wybrany, nadpisuje wpis w mapie
         if (reports.get(report.getCashRegister()) == null
             || reports.get(report.getCashRegister()).getCreatedTime().compareTo(report.getCreatedTime()) < 0) {
           reports.put(report.getCashRegister(), report);
-          System.out.println("Selected " + report.getId());
         }
       }
 
@@ -118,9 +116,13 @@ public class CashRegisterReportController
   }
 
 
+  /**
+   * Return not reckoned prints summary
+   */
   @RequestMapping(value = "/cashRegisterPrintsSummary/{id}", method = GET, consumes = {APPLICATION_OCTET_STREAM_VALUE})
   public BigDecimal cashRegisterPrintsSummary(@PathVariable("id") Integer idCashRegister) {
-    return sumCashRegisterAmount(database.find(query(AccountingPrint.class, eq("idCashRegister", idCashRegister))));
+    return sumCashRegisterAmount(database.find(query(AccountingPrint.class, eq("idCashRegister", idCashRegister),
+        isNull("idCashRegisterReport")).initializer(new PrintInitializer())));
   }
 }
 
