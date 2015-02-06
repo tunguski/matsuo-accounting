@@ -120,6 +120,7 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
 
     BigDecimal sum = PrintUtil.sumSlipPositions(withdrawSlip);
     print.setTotalAmount(sum);
+    print.setIdBucket(sessionState.getIdBucket());
     print.setValue(sum);
     withdrawSlip.setTotalAmountInWords(speakCashAmount(sum));
     return print;
@@ -143,6 +144,7 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
 
           BigDecimal sum = PrintUtil.sumSlipPositions(depositSlip);
           kp.setTotalAmount(sum);
+          kp.setIdBucket(sessionState.getIdBucket());
           kp.setValue(sum);
           depositSlip.setTotalAmountInWords(speakCashAmount(sum));
         },
@@ -217,6 +219,7 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     BigDecimal amountPaid = bd("13.55");
     print.setTotalAmount(sum.getSum());
     invoice.setAmountAlreadyPaid(amountPaid);
+    print.setIdBucket(sessionState.getIdBucket());
     print.setValue(amountPaid);
     invoice.setAmountDue(sum.getSum().subtract(amountPaid));
     invoice.setAmountDueInWords(speakCashAmount(sum.getSum().subtract(amountPaid)));
@@ -262,6 +265,7 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     BigDecimal amountPaid = bd("13.55");
     print.setTotalAmount(sum.getSum());
     invoice.setAmountAlreadyPaid(amountPaid);
+    print.setIdBucket(sessionState.getIdBucket());
     print.setValue(amountPaid);
     invoice.setAmountDue(sum.getSum().subtract(amountPaid));
     invoice.setAmountDueInWords(speakCashAmount(sum.getSum().subtract(amountPaid)));

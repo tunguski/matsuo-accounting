@@ -1,5 +1,6 @@
 package pl.matsuo.accounting.model.print;
 
+import org.springframework.util.Assert;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.core.model.print.IPrintFacade;
@@ -10,6 +11,8 @@ import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.function.Supplier;
+
+import static org.springframework.util.Assert.*;
 
 
 @Entity
@@ -43,6 +46,8 @@ public class AccountingPrint extends KeyValuePrint {
 
 
   public boolean isCost() {
+    // print has to be referenced to some party to define is it cost
+    notNull(getIdBucket());
     // FIXME: should reference property not field by string
     return !getFields().get("seller.id").equals("" + getIdBucket());
   }
@@ -50,6 +55,12 @@ public class AccountingPrint extends KeyValuePrint {
 
   public BigDecimal getCashRegisterAmount() {
     return isCost() ? getValue().negate() : getValue();
+  }
+
+  
+  public void setValue(BigDecimal value) {
+    this.value = value;
+    cashRegisterAmount = isCost() ? value.negate() : value;
   }
 
 
@@ -97,9 +108,6 @@ public class AccountingPrint extends KeyValuePrint {
   }
   public BigDecimal getValue() {
     return value;
-  }
-  public void setValue(BigDecimal value) {
-    this.value = value;
   }
 }
 

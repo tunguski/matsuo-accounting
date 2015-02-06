@@ -30,7 +30,6 @@ public class AccountingLoginServiceExtension implements ILoginServiceExtension {
     CashRegister cashRegister = new CashRegister();
     cashRegister.setCode("CR-1");
     cashRegister.setReckoningParty(organizationUnit);
-    cashRegister.setValue(ZERO);
 
     database.create(cashRegister);
   }

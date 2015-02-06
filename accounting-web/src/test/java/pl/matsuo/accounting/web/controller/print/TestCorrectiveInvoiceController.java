@@ -73,7 +73,7 @@ public class TestCorrectiveInvoiceController extends AbstractPrintControllerTest
     AccountingPrint savedPrint = database.findById(AccountingPrint.class, i(id), new PrintInitializer());
 
     assertEquals(bd("14.00"), savedPrint.getValue());
-    assertEquals(bd("-14.00"), savedPrint.getCashRegisterAmount());
+    assertEquals(bd("14.00"), savedPrint.getCashRegisterAmount());
 
   }
 
