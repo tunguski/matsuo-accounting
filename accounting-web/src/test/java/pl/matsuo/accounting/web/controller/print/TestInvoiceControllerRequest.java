@@ -59,6 +59,8 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
     invoice.getSeller().setId(organizationUnit.getId());
     print.setIdBucket(organizationUnit.getId());
 
+    sessionState.setIdBucket(organizationUnit.getId());
+
     return print;
   }
 

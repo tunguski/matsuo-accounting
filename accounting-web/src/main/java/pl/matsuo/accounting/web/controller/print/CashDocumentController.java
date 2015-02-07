@@ -55,6 +55,8 @@ public class CashDocumentController extends AbstractPrintController<CashDocument
   public HttpEntity<AccountingPrint> create(@PathVariable("printType") String printType,
                                             @RequestBody AccountingPrint entity,
                                             @Value("#{request.requestURL}") StringBuffer parentUri) {
+    // FIXME: request preprocessor should set it for all entities before passing to controller methods
+    entity.setIdBucket(sessionState.getIdBucket());
     findCashDocumentService(printType).create(entity);
     return super.create(entity, parentUri);
   }
@@ -64,6 +66,8 @@ public class CashDocumentController extends AbstractPrintController<CashDocument
   @ResponseStatus(CREATED)
   public HttpEntity<AccountingPrint> create(@RequestBody AccountingPrint entity,
                                             @Value("#{request.requestURL}") StringBuffer parentUri) {
+    // FIXME: request preprocessor should set it for all entities before passing to controller methods
+    entity.setIdBucket(sessionState.getIdBucket());
     findCashDocumentService(entity.getPrintClass().getSimpleName()).create(entity);
     return super.create(entity, parentUri);
   }

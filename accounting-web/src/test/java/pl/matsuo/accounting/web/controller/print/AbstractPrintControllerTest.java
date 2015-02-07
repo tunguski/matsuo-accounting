@@ -56,6 +56,7 @@ public abstract class AbstractPrintControllerTest extends AbstractControllerTest
     invoice.getBuyer().setId(person.getId());
     invoice.getSeller().setId(organizationUnit.getId());
     print.setIdBucket(organizationUnit.getId());
+    sessionState.setIdBucket(organizationUnit.getId());
 
     return print;
   }
