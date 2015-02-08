@@ -12,7 +12,7 @@ import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.cashregister.initializer.CashRegisterReportInitializer;
 import pl.matsuo.accounting.model.print.AccountingPrint;
-import pl.matsuo.core.IQueryRequestParams;
+import pl.matsuo.core.params.IQueryRequestParams;
 import pl.matsuo.core.model.api.Initializer;
 import pl.matsuo.core.model.print.initializer.PrintInitializer;
 import pl.matsuo.core.web.controller.AbstractController;
