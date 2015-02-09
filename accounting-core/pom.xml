@@ -29,10 +29,17 @@
       <artifactId>el-api</artifactId>
       <version>${el-api.version}</version>
     </dependency>
+
     <dependency>
       <groupId>com.sun.el</groupId>
       <artifactId>el-ri</artifactId>
       <version>${el-ri.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>pl.matsuo</groupId>
+      <artifactId>matsuo-core</artifactId>
+      <type>test-jar</type>
       <scope>test</scope>
     </dependency>
   </dependencies>
