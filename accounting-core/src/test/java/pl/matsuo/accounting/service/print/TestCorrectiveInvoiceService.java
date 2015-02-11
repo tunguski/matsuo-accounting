@@ -6,6 +6,7 @@ import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.accounting.model.print.Invoice;
+import pl.matsuo.core.model.print.KeyValuePrintElement;
 
 
 @ContextConfiguration(classes = { CorrectiveInvoiceService.class })
@@ -32,6 +33,9 @@ public class TestCorrectiveInvoiceService extends AbstractAccountingPrintService
     AccountingPrint print = new AccountingPrint();
     print.setIdBucket(mediq.getIdBucket());
     print.setPrintClass(Invoice.class);
+
+    print.getElements().add(new KeyValuePrintElement());
+
     database.create(print);
 
     correctiveInvoiceService.forInvoice(print.getId());

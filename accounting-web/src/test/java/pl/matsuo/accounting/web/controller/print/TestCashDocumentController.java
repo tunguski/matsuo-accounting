@@ -8,6 +8,8 @@ import pl.matsuo.accounting.test.TestCashRegisterSessionState;
 import pl.matsuo.core.test.NumerationConfig;
 import pl.matsuo.core.web.controller.AbstractControllerTest;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 
 
@@ -23,5 +25,13 @@ public class TestCashDocumentController extends AbstractControllerTest {
   @Test
   public void testFindCashDocumentService() throws Exception {
     assertNotNull(controller.findCashDocumentService("invoice"));
+  }
+
+
+  @Test
+  public void testListQuery() throws Exception {
+    ICashDocumentParams params = facadeBuilder.createFacade(new HashMap<>(), ICashDocumentParams.class);
+
+    assertNotNull(controller.list(params));
   }
 }
