@@ -93,12 +93,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
 
 
   @Test
-  public void testUpdate() throws Exception {
-
-  }
-
-
-  @Test
   public void testFillDocument() throws Exception {
     AccountingPrint print = new AccountingPrint();
     print.setPrintClass(Invoice.class);
@@ -138,6 +132,29 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     print.getFields().put("seller.id", "" + company.getIdBucket());
 
     cashDocumentService.fillDocument(print);
+
+    assertNotNull(invoice.getBuyer().getName());
+    assertNotNull(invoice.getSeller().getName());
+  }
+
+
+  @Test
+  public void testUpdate() throws Exception {
+    AccountingPrint print = new AccountingPrint();
+    print.setPrintClass(Invoice.class);
+    print.setIssuanceDate(date(2015, 0, 1));
+    Invoice invoice = facadeBuilder.createFacade(print, Invoice.class);
+
+    Person person = database.findOne(query(Person.class));
+    OrganizationUnit company = database.findOne(query(OrganizationUnit.class));
+
+    invoice.getSeller().setId(company.getId());
+    invoice.getBuyer().setId(person.getId());
+
+    print.setIdBucket(company.getIdBucket());
+    print.getFields().put("seller.id", "" + company.getIdBucket());
+
+    cashDocumentService.update(print);
 
     assertNotNull(invoice.getBuyer().getName());
     assertNotNull(invoice.getSeller().getName());
