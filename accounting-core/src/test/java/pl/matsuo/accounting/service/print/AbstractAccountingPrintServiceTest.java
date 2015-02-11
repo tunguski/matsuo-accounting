@@ -2,7 +2,7 @@ package pl.matsuo.accounting.service.print;
 
 import org.junit.Before;
 import org.springframework.test.context.ContextConfiguration;
-import pl.matsuo.accounting.service.session.CashRegisterSessionState;
+import pl.matsuo.accounting.test.TestCashRegisterSessionState;
 import pl.matsuo.accounting.test.data.MediqCashRegisterTestData;
 import pl.matsuo.accounting.test.data.NumerationTestData;
 import pl.matsuo.core.AbstractDbTest;
@@ -16,7 +16,7 @@ import static pl.matsuo.core.model.query.QueryBuilder.*;
 /**
  * Created by marek on 09.02.15.
  */
-@ContextConfiguration(classes = { CashRegisterSessionState.class, NumerationServiceImpl.class,
+@ContextConfiguration(classes = { TestCashRegisterSessionState.class, NumerationServiceImpl.class,
     MonthlyNumerationSchemaStrategy.class, MediqCashRegisterTestData.class, NumerationTestData.class })
 public abstract class AbstractAccountingPrintServiceTest extends AbstractDbTest {
 
