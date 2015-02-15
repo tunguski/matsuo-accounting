@@ -50,7 +50,7 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
 
     if (entity.getIdCashRegisterReport() != null) {
       CashRegisterReport cashRegisterReport =
-          database.findOne(query(CashRegisterReport.class, eq("id", entity.getIdCashRegisterReport())));
+          database.findOne(query(CashRegisterReport.class, eq(CashRegisterReport::getId, entity.getIdCashRegisterReport())));
       idCashRegister = cashRegisterReport.getCashRegister().getId();
 
       cashRegisterReport.setEndingBalance(

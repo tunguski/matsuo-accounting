@@ -27,8 +27,8 @@ public class MediqCashRegisterTestData extends AbstractMediqTestData {
 
   @Override
   public void internalExecute() {
-    OrganizationUnit mediq = database.findOne(query(OrganizationUnit.class, eq("code", MediqTestData.MEDIQ)));
-    OrganizationUnit onet = database.findOne(query(OrganizationUnit.class, eq("code", PayersTestData.ONET)));
+    OrganizationUnit mediq = database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
+    OrganizationUnit onet = database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, PayersTestData.ONET)));
 
     CashRegister cashRegister = new CashRegister();
     cashRegister.setCode("Kasa 1");

@@ -60,7 +60,7 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
 
 
   protected void savePrints(AccountingPrint ... prints) {
-    User user = database.findAsAdmin(query(User.class, eq("username", "admin"))).get(0);
+    User user = database.findAsAdmin(query(User.class, eq(User::getUsername, "admin"))).get(0);
 
     for (AccountingPrint print : prints) {
       print.setIdUserCreated(user.getId());
@@ -78,8 +78,8 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
   private void rewriteParties(CashDocument cashDocument, String sellerCode, String buyerCode) {
     Object o1 = cashDocument.getBuyer();
     Object o2 = cashDocument.getSeller();
-    rewriteParty(cashDocument.getBuyer(), database.findOne(query(OrganizationUnit.class, eq("code", buyerCode))));
-    rewriteParty(cashDocument.getSeller(), database.findOne(query(OrganizationUnit.class, eq("code", sellerCode))));
+    rewriteParty(cashDocument.getBuyer(), database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, buyerCode))));
+    rewriteParty(cashDocument.getSeller(), database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, sellerCode))));
   }
 
 

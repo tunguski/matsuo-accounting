@@ -51,8 +51,8 @@ public abstract class AbstractPrintControllerTest extends AbstractControllerTest
 
     InvoiceCommon invoice = createFacade(print);
     OrganizationUnit organizationUnit =
-        database.findOne(query(OrganizationUnit.class, eq("code", MediqTestData.MEDIQ)));
-    Person person = database.findOne(query(Person.class, eq("pesel", "42041428579")));
+        database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
+    Person person = database.findOne(query(Person.class, eq(Person::getPesel, "42041428579")));
     invoice.getBuyer().setId(person.getId());
     invoice.getSeller().setId(organizationUnit.getId());
     print.setIdBucket(organizationUnit.getId());

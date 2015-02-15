@@ -93,13 +93,13 @@ public class CashRegisterReportController
 
   @RequestMapping(value = "/reportForCashRegister/{id}", method = GET, consumes = {APPLICATION_OCTET_STREAM_VALUE})
   public CashRegisterReport reportForCashRegister(@PathVariable("id") Integer idCashRegister) {
-    CashRegister cashRegister = database.findOne(query(CashRegister.class, eq("id", idCashRegister)));
+    CashRegister cashRegister = database.findOne(query(CashRegister.class, eq(CashRegister::getId, idCashRegister)));
 
     CashRegisterReport lastReport = database.findOne(query(CashRegisterReport.class,
-        eq("cashRegister.id", idCashRegister)).orderBy("createdTime DESC").limit(1));
+        eq(sub(CashRegisterReport::getCashRegister, CashRegister::getId), idCashRegister)).orderBy("createdTime DESC").limit(1));
 
     List<AccountingPrint> prints = database.find(query(AccountingPrint.class,
-        eq("idCashRegister", idCashRegister), isNull("idCashRegisterReport"))
+        eq(AccountingPrint::getIdCashRegister, idCashRegister), isNull(AccountingPrint::getIdCashRegisterReport))
         .initializer(new PrintInitializer()));
 
     CashRegisterReport report = new CashRegisterReport();
@@ -121,8 +121,9 @@ public class CashRegisterReportController
    */
   @RequestMapping(value = "/cashRegisterPrintsSummary/{id}", method = GET, consumes = {APPLICATION_OCTET_STREAM_VALUE})
   public BigDecimal cashRegisterPrintsSummary(@PathVariable("id") Integer idCashRegister) {
-    return sumCashRegisterAmount(database.find(query(AccountingPrint.class, eq("idCashRegister", idCashRegister),
-        isNull("idCashRegisterReport")).initializer(new PrintInitializer())));
+    return sumCashRegisterAmount(database.find(query(AccountingPrint.class,
+        eq(AccountingPrint::getIdCashRegister, idCashRegister),
+        isNull(AccountingPrint::getIdCashRegisterReport)).initializer(new PrintInitializer())));
   }
 }
 

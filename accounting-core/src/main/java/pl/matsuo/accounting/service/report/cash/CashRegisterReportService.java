@@ -6,6 +6,7 @@ import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.cashregister.initializer.CashRegisterReportInitializer;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.CashDocument;
+import pl.matsuo.core.model.query.AbstractQuery;
 import pl.matsuo.core.service.facade.FacadeBuilder;
 import pl.matsuo.core.service.report.AbstractReportService;
 import pl.matsuo.core.service.report.DataModelBuilder;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.math.BigDecimal.*;
+import static pl.matsuo.core.model.query.AbstractQuery.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.util.DateUtil.*;
 import static pl.matsuo.core.util.FreemarkerUtils.*;
@@ -45,7 +47,7 @@ public class CashRegisterReportService extends AbstractReportService<ICashRegist
                                                                    new CashRegisterReportInitializer());
 
       List<CashRegisterReport> cashRegisterReports = database.find(query(CashRegisterReport.class,
-          eq("cast(createdTime as date)", date(cashRegisterReport.getCreatedTime(), 0, 0))).orderBy("createdTime"));
+          cond("cast(createdTime as date) = '" + dateFormat.format(date(cashRegisterReport.getCreatedTime(), 0, 0)) + "'")).orderBy("createdTime"));
 
       dataModel.put("cashRegisterReport", cashRegisterReport);
 

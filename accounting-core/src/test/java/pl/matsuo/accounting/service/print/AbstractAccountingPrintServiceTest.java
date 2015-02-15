@@ -26,6 +26,6 @@ public abstract class AbstractAccountingPrintServiceTest extends AbstractDbTest 
 
   @Before
   public void setUp() {
-    mediq = database.findOne(query(OrganizationUnit.class, eq("code", MediqTestData.MEDIQ)));
+    mediq = database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
   }
 }
