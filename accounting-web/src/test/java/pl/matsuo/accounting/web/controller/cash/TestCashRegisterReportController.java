@@ -91,5 +91,14 @@ public class TestCashRegisterReportController extends AbstractControllerTest {
     assertEquals(1, list2.size());
     assertEquals(id2, list2.get(0).getId());
   }
+
+
+  @Test
+  public void testCashRegisterPrintsSummary() {
+    Integer idCashRegister = database.findOne(query(CashRegister.class)).getId();
+    BigDecimal bigDecimal = controller.cashRegisterPrintsSummary(idCashRegister);
+
+    assertEquals(bd("0"), bigDecimal);
+  }
 }
 
