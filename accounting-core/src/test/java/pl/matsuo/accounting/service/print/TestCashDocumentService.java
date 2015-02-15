@@ -4,13 +4,15 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
+import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.service.session.CashRegisterSessionState;
+import pl.matsuo.core.exception.RestProcessingException;
 import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.model.organization.Person;
-import pl.matsuo.core.model.query.QueryBuilder;
-import pl.matsuo.core.util.DateUtil;
+
+import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
@@ -49,6 +51,53 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     print.getFields().put("seller.id", "" + company.getIdBucket());
 
     cashRegisterSessionState.setIdCashRegister(database.findOne(query(CashRegister.class)).getId());
+
+    AccountingPrint accountingPrint = cashDocumentService.create(print);
+    assertEquals(Invoice.class, accountingPrint.getPrintClass());
+  }
+
+
+  @Test
+  public void testCreateWithIdCashRegisterReport() throws Exception {
+    AccountingPrint print = new AccountingPrint();
+    print.setIssuanceDate(date(2015, 0, 1));
+    Invoice invoice = facadeBuilder.createFacade(print, Invoice.class);
+
+    Person person = database.findOne(query(Person.class));
+    OrganizationUnit company = database.findOne(query(OrganizationUnit.class));
+
+    invoice.getSeller().setId(company.getId());
+    invoice.getBuyer().setId(person.getId());
+
+    print.setIdBucket(company.getIdBucket());
+    print.getFields().put("seller.id", "" + company.getIdBucket());
+    print.setValue(BigDecimal.TEN);
+
+    CashRegisterReport cashRegisterReport = database.findOne(query(CashRegisterReport.class));
+    cashRegisterSessionState.setIdCashRegister(cashRegisterReport.getCashRegister().getId());
+    print.setIdCashRegisterReport(cashRegisterReport.getId());
+
+    AccountingPrint accountingPrint = cashDocumentService.create(print);
+    assertEquals(Invoice.class, accountingPrint.getPrintClass());
+  }
+
+
+  @Test(expected = RestProcessingException.class)
+  public void testCreateWithWrongIdCashRegisterReport() throws Exception {
+    AccountingPrint print = new AccountingPrint();
+    print.setIssuanceDate(date(2015, 0, 1));
+    Invoice invoice = facadeBuilder.createFacade(print, Invoice.class);
+
+    Person person = database.findOne(query(Person.class));
+    OrganizationUnit company = database.findOne(query(OrganizationUnit.class));
+
+    invoice.getSeller().setId(company.getId());
+    invoice.getBuyer().setId(person.getId());
+
+    print.setIdBucket(company.getIdBucket());
+    print.getFields().put("seller.id", "" + company.getIdBucket());
+
+    cashRegisterSessionState.setIdCashRegister(null);
 
     AccountingPrint accountingPrint = cashDocumentService.create(print);
     assertEquals(Invoice.class, accountingPrint.getPrintClass());
