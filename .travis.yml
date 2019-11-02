@@ -1,5 +1,9 @@
 language: java
+before_script:
+  - git clone https://github.com/tunguski/matsuo-core.git
+  - cd matsuo-core
+  - mvn install
 script: mvn package
 after_success: mvn cobertura:cobertura; mvn coveralls:report
 jdk:
-  - oraclejdk8
+  - openjdk10
