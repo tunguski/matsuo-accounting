@@ -1,5 +1,5 @@
 language: java
-before_script:
+before_install:
   - git clone https://github.com/tunguski/matsuo-core.git
   - cd matsuo-core
   - mvn install
