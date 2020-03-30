@@ -6,14 +6,10 @@ import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.DepositSlip;
 
-
-@ContextConfiguration(classes = { DepositSlipService.class })
+@ContextConfiguration(classes = {DepositSlipService.class})
 public class TestDepositSlipService extends AbstractAccountingPrintServiceTest {
 
-
-  @Autowired
-  DepositSlipService depositSlipService;
-
+  @Autowired DepositSlipService depositSlipService;
 
   @Test
   public void testNumerationName() throws Exception {
@@ -25,7 +21,6 @@ public class TestDepositSlipService extends AbstractAccountingPrintServiceTest {
     depositSlipService.numerationName(print, depositSlip);
   }
 
-
   @Test
   public void testFillDocument() throws Exception {
     AccountingPrint print = new AccountingPrint();
@@ -36,4 +31,3 @@ public class TestDepositSlipService extends AbstractAccountingPrintServiceTest {
     depositSlipService.fillDocument(print, depositSlip);
   }
 }
-

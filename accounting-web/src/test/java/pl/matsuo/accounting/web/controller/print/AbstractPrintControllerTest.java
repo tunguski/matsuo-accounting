@@ -1,5 +1,11 @@
 package pl.matsuo.accounting.web.controller.print;
 
+import static java.util.Calendar.*;
+import static pl.matsuo.accounting.model.print.AccountingPrint.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
+import static pl.matsuo.core.util.DateUtil.*;
+
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,28 +25,17 @@ import pl.matsuo.core.test.data.PersonTestData;
 import pl.matsuo.core.web.controller.AbstractControllerTest;
 import pl.matsuo.core.web.mvc.MvcConfig;
 
-import java.util.Date;
-
-import static java.util.Calendar.*;
-import static pl.matsuo.accounting.model.print.AccountingPrint.*;
-import static pl.matsuo.core.model.query.QueryBuilder.*;
-import static pl.matsuo.core.util.DateUtil.*;
-
-
-/**
- * Created by tunguski on 02.02.14.
- */
 @WebAppConfiguration
-@ContextConfiguration(classes = { MvcConfig.class, NumerationConfig.class, TestCashRegisterSessionState.class,
-                                  PersonTestData.class, MediqCashRegisterTestData.class, NumerationTestData.class })
+@ContextConfiguration(
+    classes = {
+      MvcConfig.class, NumerationConfig.class, TestCashRegisterSessionState.class,
+      PersonTestData.class, MediqCashRegisterTestData.class, NumerationTestData.class
+    })
 public abstract class AbstractPrintControllerTest extends AbstractControllerTest
     implements PrintMethods, FacadeBuilderMethods {
 
-  @Autowired
-  TestCashRegisterSessionState clinicSessionState;
-  @Autowired
-  MappingJackson2HttpMessageConverter converter;
-
+  @Autowired TestCashRegisterSessionState clinicSessionState;
+  @Autowired MappingJackson2HttpMessageConverter converter;
 
   protected AccountingPrint createPrint(Class<? extends InvoiceCommon> clazz) {
     AccountingPrint print = print(clazz, null).get();
@@ -51,7 +46,8 @@ public abstract class AbstractPrintControllerTest extends AbstractControllerTest
 
     InvoiceCommon invoice = createFacade(print);
     OrganizationUnit organizationUnit =
-        database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
+        database.findOne(
+            query(OrganizationUnit.class, eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
     Person person = database.findOne(query(Person.class, eq(Person::getPesel, "42041428579")));
     invoice.getBuyer().setId(person.getId());
     invoice.getSeller().setId(organizationUnit.getId());
@@ -61,4 +57,3 @@ public abstract class AbstractPrintControllerTest extends AbstractControllerTest
     return print;
   }
 }
-

@@ -1,29 +1,19 @@
 package pl.matsuo.accounting.service.session;
 
+import static org.springframework.context.annotation.ScopedProxyMode.*;
+
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.context.annotation.ScopedProxyMode.*;
-
-
-/**
- * Created by tunguski on 16.09.13.
- */
 @Component
 @Order(0)
 @Scope(value = "wideSession", proxyMode = TARGET_CLASS)
+@Getter
+@Setter
 public class CashRegisterSessionState {
 
-
   private Integer idCashRegister;
-
-
-  public Integer getIdCashRegister() {
-    return idCashRegister;
-  }
-  public void setIdCashRegister(Integer idCashRegister) {
-    this.idCashRegister = idCashRegister;
-  }
 }
-

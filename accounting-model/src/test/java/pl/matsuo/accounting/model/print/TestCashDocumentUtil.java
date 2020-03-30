@@ -1,21 +1,18 @@
 package pl.matsuo.accounting.model.print;
 
-import org.junit.Test;
-import pl.matsuo.core.model.organization.AbstractParty;
-import pl.matsuo.core.model.organization.Person;
-import pl.matsuo.core.model.print.PrintParty;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
 import static pl.matsuo.core.util.NumberUtil.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Test;
+import pl.matsuo.core.model.organization.AbstractParty;
+import pl.matsuo.core.model.organization.Person;
+import pl.matsuo.core.model.print.PrintParty;
 
 public class TestCashDocumentUtil {
-
 
   @Test
   public void testRewriteParty() throws Exception {
@@ -23,7 +20,6 @@ public class TestCashDocumentUtil {
     AbstractParty party = new Person();
     rewriteParty(cashDocumentParty, party);
   }
-
 
   @Test
   public void testSumCashRegisterAmount() throws Exception {
@@ -41,4 +37,3 @@ public class TestCashDocumentUtil {
     assertEquals(bd(5), sumCashRegisterAmount(prints));
   }
 }
-

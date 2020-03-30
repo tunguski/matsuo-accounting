@@ -1,52 +1,25 @@
 package pl.matsuo.accounting.model.tax;
 
-import pl.matsuo.core.model.AbstractEntity;
-
-import javax.persistence.Entity;
 import java.math.BigDecimal;
-
+import javax.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
+import pl.matsuo.core.model.AbstractEntity;
 
 /**
  * Definicje dostępnych stawek VAT.
- * @author Marek Romanowski
+ *
  * @since Jul 16, 2013
  */
 @Entity
+@Getter
+@Setter
 public class VatRateDefinition extends AbstractEntity {
 
-
-  /**
-   * Nazwa definicji stawki.
-   */
+  /** Nazwa definicji stawki. */
   private String name;
-  /**
-   * Wysokość stawki podatku VAT.
-   */
+  /** Wysokość stawki podatku VAT. */
   private BigDecimal rate;
-  /**
-   * Czy stawka nadal obowiązuje, czy też jest historyczna.
-   */
+  /** Czy stawka nadal obowiązuje, czy też jest historyczna. */
   private boolean actual = true;
-
-
-  // getters
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
-  public BigDecimal getRate() {
-    return rate;
-  }
-  public void setRate(BigDecimal rate) {
-    this.rate = rate;
-  }
-  public boolean isActual() {
-    return actual;
-  }
-  public void setActual(boolean actual) {
-    this.actual = actual;
-  }
 }
-

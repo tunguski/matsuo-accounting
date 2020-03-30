@@ -5,6 +5,4 @@ package pl.matsuo.accounting.model.print;
  *
  * @since Aug 8, 2013
  */
-public interface Invoice extends InvoiceCommon<InvoicePosition> {
-}
-
+public interface Invoice extends InvoiceCommon<InvoicePosition> {}

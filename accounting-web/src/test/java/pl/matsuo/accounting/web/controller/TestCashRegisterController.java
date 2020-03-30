@@ -1,5 +1,8 @@
 package pl.matsuo.accounting.web.controller;
 
+import static org.junit.Assert.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -8,21 +11,12 @@ import pl.matsuo.accounting.service.session.CashRegisterSessionState;
 import pl.matsuo.accounting.web.controller.print.AbstractPrintControllerTest;
 import pl.matsuo.core.service.session.SessionState;
 
-import static org.junit.Assert.*;
-import static pl.matsuo.core.model.query.QueryBuilder.*;
-
-
-@ContextConfiguration(classes = { CashRegisterController.class })
+@ContextConfiguration(classes = {CashRegisterController.class})
 public class TestCashRegisterController extends AbstractPrintControllerTest {
 
-
-  @Autowired
-  CashRegisterController cashRegisterController;
-  @Autowired
-  SessionState sessionState;
-  @Autowired
-  CashRegisterSessionState cashRegisterSessionState;
-
+  @Autowired CashRegisterController cashRegisterController;
+  @Autowired SessionState sessionState;
+  @Autowired CashRegisterSessionState cashRegisterSessionState;
 
   @Test
   public void testChooseCashRegister() throws Exception {
@@ -34,7 +28,6 @@ public class TestCashRegisterController extends AbstractPrintControllerTest {
     assertEquals(id, cashRegisterSessionState.getIdCashRegister());
   }
 
-
   @Test
   public void testActualCashRegister() throws Exception {
     Integer id = database.findOne(query(CashRegister.class)).getId();
@@ -43,7 +36,6 @@ public class TestCashRegisterController extends AbstractPrintControllerTest {
     CashRegister cashRegister = cashRegisterController.actualCashRegister();
     assertEquals(id, cashRegister.getId());
   }
-
 
   @Test
   public void testActualCashRegister2() throws Exception {
@@ -56,7 +48,6 @@ public class TestCashRegisterController extends AbstractPrintControllerTest {
     assertNotNull(cashRegister);
   }
 
-
   @Test
   public void testActualCashRegister3() throws Exception {
     sessionState.setIdBucket(null);
@@ -66,4 +57,3 @@ public class TestCashRegisterController extends AbstractPrintControllerTest {
     assertNull(cashRegister);
   }
 }
-

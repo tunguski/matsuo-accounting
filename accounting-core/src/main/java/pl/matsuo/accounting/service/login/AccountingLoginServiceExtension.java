@@ -1,5 +1,7 @@
 package pl.matsuo.accounting.service.login;
 
+import static java.math.BigDecimal.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
@@ -9,21 +11,11 @@ import pl.matsuo.core.service.db.Database;
 import pl.matsuo.core.service.login.ILoginServiceExtension;
 import pl.matsuo.core.service.session.SessionState;
 
-import static java.math.BigDecimal.*;
-
-
-/**
- * Created by marek on 12.07.14.
- */
 @Service
 public class AccountingLoginServiceExtension implements ILoginServiceExtension {
 
-
-  @Autowired
-  SessionState sessionState;
-  @Autowired
-  Database database;
-
+  @Autowired SessionState sessionState;
+  @Autowired Database database;
 
   @Override
   public void createAccount(OrganizationUnit organizationUnit, User user) {
@@ -34,4 +26,3 @@ public class AccountingLoginServiceExtension implements ILoginServiceExtension {
     database.create(cashRegister);
   }
 }
-

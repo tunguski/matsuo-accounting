@@ -1,6 +1,16 @@
 package pl.matsuo.accounting.test.data;
 
+import static pl.matsuo.accounting.model.print.AccountingPrint.*;
+import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
+import static pl.matsuo.accounting.model.print.PaymentType.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
+import static pl.matsuo.core.test.data.MediqTestData.*;
+import static pl.matsuo.core.util.DateUtil.*;
+import static pl.matsuo.core.util.NumberSpeaker.*;
+import static pl.matsuo.core.util.NumberUtil.*;
 
+import java.math.BigDecimal;
+import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -23,43 +33,32 @@ import pl.matsuo.core.service.print.PrintMethods;
 import pl.matsuo.core.test.data.AbstractMediqTestData;
 import pl.matsuo.core.test.data.PayersTestData;
 
-import java.math.BigDecimal;
-import java.util.function.Function;
-
-import static pl.matsuo.accounting.model.print.AccountingPrint.*;
-import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
-import static pl.matsuo.accounting.model.print.PaymentType.*;
-import static pl.matsuo.core.model.query.QueryBuilder.*;
-import static pl.matsuo.core.test.data.MediqTestData.*;
-import static pl.matsuo.core.util.DateUtil.*;
-import static pl.matsuo.core.util.NumberSpeaker.*;
-import static pl.matsuo.core.util.NumberUtil.*;
-
-
 @Component
 @Order(50)
-@DiscoverTypes({ PayersTestData.class })
+@DiscoverTypes({PayersTestData.class})
 public class PrintTestData extends AbstractMediqTestData implements PrintMethods {
 
+  @Autowired protected IFacadeBuilder facadeBuilder;
 
-  @Autowired
-  protected IFacadeBuilder facadeBuilder;
-
-
-  Function<Address, String> addressText = address -> {
-    return PrintUtil.noNull(address.getZipCode()) + " " + PrintUtil.noNull(address.getTown()) + ", " + PrintUtil.noNull(address.getStreet()); };
-
+  Function<Address, String> addressText =
+      address -> {
+        return PrintUtil.noNull(address.getZipCode())
+            + " "
+            + PrintUtil.noNull(address.getTown())
+            + ", "
+            + PrintUtil.noNull(address.getStreet());
+      };
 
   @Override
   public void internalExecute() {
-    savePrints(createTestInvoice(null),
+    savePrints(
+        createTestInvoice(null),
         createTestInvoice_2(null),
         createTestDepositSlip(null),
         createTestWithdrawSlip(null));
   }
 
-
-  protected void savePrints(AccountingPrint ... prints) {
+  protected void savePrints(AccountingPrint... prints) {
     User user = database.findAsAdmin(query(User.class, eq(User::getUsername, "admin"))).get(0);
 
     for (AccountingPrint print : prints) {
@@ -68,20 +67,21 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     }
   }
 
-
   @Override
   public String getExecuteServiceName() {
     return getClass().getName();
   }
 
-
   private void rewriteParties(CashDocument cashDocument, String sellerCode, String buyerCode) {
     Object o1 = cashDocument.getBuyer();
     Object o2 = cashDocument.getSeller();
-    rewriteParty(cashDocument.getBuyer(), database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, buyerCode))));
-    rewriteParty(cashDocument.getSeller(), database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, sellerCode))));
+    rewriteParty(
+        cashDocument.getBuyer(),
+        database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, buyerCode))));
+    rewriteParty(
+        cashDocument.getSeller(),
+        database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, sellerCode))));
   }
-
 
   private AccountingPrint createTestWithdrawSlip(Integer id) { // kw
     AccountingPrint print = print(WithdrawSlip.class, id).get();
@@ -126,10 +126,12 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     return print;
   }
 
-
   private AccountingPrint createTestDepositSlip(Integer id) { // kp
     AccountingPrint kp = print(DepositSlip.class, id).get();
-    return initializePrint(kp, DepositSlip.class, depositSlip -> {
+    return initializePrint(
+        kp,
+        DepositSlip.class,
+        depositSlip -> {
           rewriteParties(depositSlip, "REMONT", MEDIQ);
 
           kp.setSellDate(date(2013, 8, 9));
@@ -148,7 +150,6 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
           kp.setValue(sum);
           depositSlip.setTotalAmountInWords(speakCashAmount(sum));
         },
-
         printElementFacade -> {
           printElementFacade.setServiceName("Morfologia");
           printElementFacade.setAccountNumber(bd("12345"));
@@ -163,10 +164,8 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
           printElementFacade.setServiceName("OB");
           printElementFacade.setAccountNumber(bd("12345"));
           printElementFacade.setPrice(bd("8.12"));
-        }
-    );
+        });
   }
-
 
   private AccountingPrint createTestInvoice_2(Integer id) {
     AccountingPrint print = print(Invoice.class, id).get();
@@ -227,7 +226,6 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     return print;
   }
 
-
   private AccountingPrint createTestInvoice(Integer id) {
     AccountingPrint print = print(Invoice.class, id).get();
 
@@ -278,4 +276,3 @@ public class PrintTestData extends AbstractMediqTestData implements PrintMethods
     return facadeBuilder;
   }
 }
-

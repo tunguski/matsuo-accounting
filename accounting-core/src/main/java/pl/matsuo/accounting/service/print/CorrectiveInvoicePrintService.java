@@ -1,17 +1,15 @@
 package pl.matsuo.accounting.service.print;
 
-import org.springframework.stereotype.Service;
-import pl.matsuo.accounting.model.print.CorrectiveInvoice;
+import static pl.matsuo.accounting.util.PrintUtil.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static pl.matsuo.accounting.util.PrintUtil.*;
-
+import org.springframework.stereotype.Service;
+import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 
 @Service
-public class CorrectiveInvoicePrintService extends AbstractAccountingPrintService<CorrectiveInvoice> {
-
+public class CorrectiveInvoicePrintService
+    extends AbstractAccountingPrintService<CorrectiveInvoice> {
 
   @Override
   protected void buildAccountingModel(CorrectiveInvoice print, Map<String, Object> dataModel) {
@@ -28,10 +26,8 @@ public class CorrectiveInvoicePrintService extends AbstractAccountingPrintServic
     dataModel.put("total", total);
   }
 
-
   @Override
   public String getFileName(CorrectiveInvoice print) {
     return "correctiveInvoice_" + print.getNumber();
   }
 }
-

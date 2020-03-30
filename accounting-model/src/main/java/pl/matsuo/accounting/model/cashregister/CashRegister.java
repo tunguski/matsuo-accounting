@@ -1,45 +1,22 @@
 package pl.matsuo.accounting.model.cashregister;
 
+import static java.math.BigDecimal.*;
+
+import java.math.BigDecimal;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 import pl.matsuo.core.model.AbstractEntity;
 import pl.matsuo.core.model.organization.AbstractParty;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import java.math.BigDecimal;
-
-import static java.math.BigDecimal.*;
-
-
-/**
- * Model danych kasy (np.: fiskalnej).
- * Created by tunguski on 16.09.13.
- */
+/** Model danych kasy (np.: fiskalnej). */
 @Entity
+@Getter
+@Setter
 public class CashRegister extends AbstractEntity {
 
   protected String code;
   protected BigDecimal value = ZERO;
-  @ManyToOne
-  protected AbstractParty reckoningParty;
-
-
-  public String getCode() {
-    return code;
-  }
-  public void setCode(String code) {
-    this.code = code;
-  }
-  public BigDecimal getValue() {
-    return value;
-  }
-  public void setValue(BigDecimal value) {
-    this.value = value;
-  }
-  public AbstractParty getReckoningParty() {
-    return reckoningParty;
-  }
-  public void setReckoningParty(AbstractParty reckoningParty) {
-    this.reckoningParty = reckoningParty;
-  }
+  @ManyToOne protected AbstractParty reckoningParty;
 }
-

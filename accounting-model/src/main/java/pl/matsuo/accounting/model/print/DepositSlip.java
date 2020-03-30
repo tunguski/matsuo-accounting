@@ -8,6 +8,6 @@ package pl.matsuo.accounting.model.print;
 public interface DepositSlip extends SlipCommon {
 
   String getAccountant();
+
   void setAccountant(String text);
 }
-

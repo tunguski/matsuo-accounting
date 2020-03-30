@@ -6,14 +6,10 @@ import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.Invoice;
 
-
-@ContextConfiguration(classes = { InvoiceService.class })
+@ContextConfiguration(classes = {InvoiceService.class})
 public class TestInvoiceService extends AbstractAccountingPrintServiceTest {
 
-
-  @Autowired
-  InvoiceService invoiceService;
-
+  @Autowired InvoiceService invoiceService;
 
   @Test
   public void testNumerationName() throws Exception {
@@ -25,7 +21,6 @@ public class TestInvoiceService extends AbstractAccountingPrintServiceTest {
     invoiceService.numerationName(print, invoice);
   }
 
-
   @Test
   public void testFillDocument() throws Exception {
     AccountingPrint print = new AccountingPrint();
@@ -36,4 +31,3 @@ public class TestInvoiceService extends AbstractAccountingPrintServiceTest {
     invoiceService.fillDocument(print, invoice);
   }
 }
-

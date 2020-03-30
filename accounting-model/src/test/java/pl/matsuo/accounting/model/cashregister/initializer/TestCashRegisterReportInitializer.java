@@ -1,13 +1,12 @@
 package pl.matsuo.accounting.model.cashregister.initializer;
 
+import static org.mockito.Mockito.*;
+
 import org.junit.Test;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 
-import static org.mockito.Mockito.*;
-
 public class TestCashRegisterReportInitializer {
-
 
   @Test
   public void testInit() throws Exception {
@@ -20,4 +19,3 @@ public class TestCashRegisterReportInitializer {
     verify(print, times(2)).getFields();
   }
 }
-

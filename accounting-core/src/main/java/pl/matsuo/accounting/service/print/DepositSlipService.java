@@ -1,18 +1,15 @@
 package pl.matsuo.accounting.service.print;
 
+import static pl.matsuo.accounting.util.PrintUtil.*;
+import static pl.matsuo.core.util.NumberSpeaker.*;
+
+import java.math.BigDecimal;
 import org.springframework.stereotype.Service;
 import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.accounting.model.print.DepositSlip;
 
-import java.math.BigDecimal;
-
-import static pl.matsuo.accounting.util.PrintUtil.*;
-import static pl.matsuo.core.util.NumberSpeaker.*;
-
-
 @Service
 public class DepositSlipService extends CashDocumentService<DepositSlip> {
-
 
   protected AccountingPrint fillDocument(AccountingPrint print, DepositSlip depositSlip) {
     super.fillDocument(print, depositSlip);
@@ -24,4 +21,3 @@ public class DepositSlipService extends CashDocumentService<DepositSlip> {
     return print;
   }
 }
-

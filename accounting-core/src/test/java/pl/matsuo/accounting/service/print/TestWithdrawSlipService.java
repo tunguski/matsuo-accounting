@@ -4,17 +4,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import pl.matsuo.accounting.model.print.AccountingPrint;
-import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.accounting.model.print.WithdrawSlip;
 
-
-@ContextConfiguration(classes = { WithdrawSlipService.class })
+@ContextConfiguration(classes = {WithdrawSlipService.class})
 public class TestWithdrawSlipService extends AbstractAccountingPrintServiceTest {
 
-
-  @Autowired
-  WithdrawSlipService withdrawSlipService;
-
+  @Autowired WithdrawSlipService withdrawSlipService;
 
   @Test
   public void testNumerationName() throws Exception {
@@ -26,7 +21,6 @@ public class TestWithdrawSlipService extends AbstractAccountingPrintServiceTest 
     withdrawSlipService.numerationName(print, withdrawSlip);
   }
 
-
   @Test
   public void testFillDocument() throws Exception {
     AccountingPrint print = new AccountingPrint();
@@ -37,4 +31,3 @@ public class TestWithdrawSlipService extends AbstractAccountingPrintServiceTest 
     withdrawSlipService.fillDocument(print, withdrawSlip);
   }
 }
-

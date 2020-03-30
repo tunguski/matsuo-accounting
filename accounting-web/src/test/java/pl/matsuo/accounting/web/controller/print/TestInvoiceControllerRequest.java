@@ -1,5 +1,16 @@
 package pl.matsuo.accounting.web.controller.print;
 
+import static org.springframework.http.MediaType.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.matsuo.accounting.model.print.AccountingPrint.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
+import static pl.matsuo.core.util.DateUtil.*;
+import static pl.matsuo.core.util.NumberUtil.*;
+import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
+
+import java.util.Calendar;
+import java.util.Date;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,28 +32,20 @@ import pl.matsuo.core.test.data.MediqTestData;
 import pl.matsuo.core.test.data.PersonTestData;
 import pl.matsuo.core.web.controller.AbstractDbControllerRequestTest;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import static org.springframework.http.MediaType.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static pl.matsuo.accounting.model.print.AccountingPrint.*;
-import static pl.matsuo.core.model.query.QueryBuilder.*;
-import static pl.matsuo.core.util.DateUtil.*;
-import static pl.matsuo.core.util.NumberUtil.*;
-import static pl.matsuo.core.web.controller.ControllerTestUtil.*;
-
-
 @WebAppConfiguration
-@ContextConfiguration(classes = { CashDocumentController.class, NumerationConfig.class, InvoiceService.class,
-    TestCashRegisterSessionState.class, PersonTestData.class, MediqCashRegisterTestData.class, NumerationTestData.class})
+@ContextConfiguration(
+    classes = {
+      CashDocumentController.class,
+      NumerationConfig.class,
+      InvoiceService.class,
+      TestCashRegisterSessionState.class,
+      PersonTestData.class,
+      MediqCashRegisterTestData.class,
+      NumerationTestData.class
+    })
 public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTest {
 
-
-  @Autowired
-  protected TestCashRegisterSessionState clinicSessionState;
-
+  @Autowired protected TestCashRegisterSessionState clinicSessionState;
 
   private AccountingPrint createPrint() {
     AccountingPrint print = print(Invoice.class, null).get();
@@ -53,8 +56,9 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
 
     Invoice invoice = facadeBuilder.createFacade(print);
 
-    OrganizationUnit organizationUnit = database.findOne(query(OrganizationUnit.class,
-        eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
+    OrganizationUnit organizationUnit =
+        database.findOne(
+            query(OrganizationUnit.class, eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
     Person person = database.findOne(query(Person.class, eq(Person::getPesel, "42041428579")));
     invoice.getBuyer().setId(person.getId());
     invoice.getSeller().setId(organizationUnit.getId());
@@ -64,7 +68,6 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
 
     return print;
   }
-
 
   private KeyValuePrintElement addRandomPosition(AccountingPrint print) {
     KeyValuePrintElement printElement = new KeyValuePrintElement();
@@ -81,7 +84,6 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
     return printElement;
   }
 
-
   @Test
   public void listAppointments() throws Exception {
     AccountingPrint print = createPrint();
@@ -96,9 +98,11 @@ public class TestInvoiceControllerRequest extends AbstractDbControllerRequestTes
     addRandomPosition(print);
     addRandomPosition(print);
 
-    mockMvc.perform(put("/cashDocuments/" + idFromLocation(resultActions))
-         .content(objectMapper.writeValueAsString(print)).contentType(APPLICATION_JSON))
-         .andExpect(status().isNoContent());
+    mockMvc
+        .perform(
+            put("/cashDocuments/" + idFromLocation(resultActions))
+                .content(objectMapper.writeValueAsString(print))
+                .contentType(APPLICATION_JSON))
+        .andExpect(status().isNoContent());
   }
 }
-

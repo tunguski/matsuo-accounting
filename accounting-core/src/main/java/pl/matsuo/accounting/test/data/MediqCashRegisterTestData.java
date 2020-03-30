@@ -1,5 +1,9 @@
 package pl.matsuo.accounting.test.data;
 
+import static java.math.BigDecimal.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
+import static pl.matsuo.core.util.NumberUtil.*;
+
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
@@ -11,24 +15,19 @@ import pl.matsuo.core.test.data.AbstractMediqTestData;
 import pl.matsuo.core.test.data.MediqTestData;
 import pl.matsuo.core.test.data.PayersTestData;
 
-import static java.math.BigDecimal.*;
-import static pl.matsuo.core.model.query.QueryBuilder.*;
-import static pl.matsuo.core.util.NumberUtil.*;
-
-
-/**
- * Created by tunguski on 15.09.13.
- */
 @Component
-@DiscoverTypes({ PayersTestData.class, PrintTestData.class })
+@DiscoverTypes({PayersTestData.class, PrintTestData.class})
 @Order(60)
 public class MediqCashRegisterTestData extends AbstractMediqTestData {
 
-
   @Override
   public void internalExecute() {
-    OrganizationUnit mediq = database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
-    OrganizationUnit onet = database.findOne(query(OrganizationUnit.class, eq(OrganizationUnit::getCode, PayersTestData.ONET)));
+    OrganizationUnit mediq =
+        database.findOne(
+            query(OrganizationUnit.class, eq(OrganizationUnit::getCode, MediqTestData.MEDIQ)));
+    OrganizationUnit onet =
+        database.findOne(
+            query(OrganizationUnit.class, eq(OrganizationUnit::getCode, PayersTestData.ONET)));
 
     CashRegister cashRegister = new CashRegister();
     cashRegister.setCode("Kasa 1");
@@ -51,7 +50,6 @@ public class MediqCashRegisterTestData extends AbstractMediqTestData {
     createCashRegisterReport();
   }
 
-
   private void createCashRegisterReport() {
     CashRegisterReport cashRegisterReport = new CashRegisterReport();
     cashRegisterReport.setCashRegister(database.findOne(query(CashRegister.class)));
@@ -59,16 +57,18 @@ public class MediqCashRegisterTestData extends AbstractMediqTestData {
     cashRegisterReport.getPrints().addAll(database.findAll(AccountingPrint.class));
     cashRegisterReport.setStartingBalance(ZERO);
     cashRegisterReport.setEndingBalance(ZERO);
-    cashRegisterReport.getPrints().forEach(print ->
-        cashRegisterReport.setEndingBalance(cashRegisterReport.getEndingBalance().add(print.getCashRegisterAmount())));
+    cashRegisterReport
+        .getPrints()
+        .forEach(
+            print ->
+                cashRegisterReport.setEndingBalance(
+                    cashRegisterReport.getEndingBalance().add(print.getCashRegisterAmount())));
 
     database.create(cashRegisterReport);
   }
-
 
   @Override
   public String getExecuteServiceName() {
     return getClass().getName();
   }
 }
-

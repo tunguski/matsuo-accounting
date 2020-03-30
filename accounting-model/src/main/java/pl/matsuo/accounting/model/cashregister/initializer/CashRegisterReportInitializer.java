@@ -5,15 +5,9 @@ import pl.matsuo.accounting.model.print.AccountingPrint;
 import pl.matsuo.core.model.api.Initializer;
 import pl.matsuo.core.model.print.initializer.PrintInitializer;
 
-
-/**
- * Created by tunguski on 20.09.13.
- */
 public class CashRegisterReportInitializer implements Initializer<CashRegisterReport> {
 
-
   PrintInitializer printInitializer = new PrintInitializer();
-
 
   @Override
   public void init(CashRegisterReport report) {
@@ -24,4 +18,3 @@ public class CashRegisterReportInitializer implements Initializer<CashRegisterRe
     }
   }
 }
-

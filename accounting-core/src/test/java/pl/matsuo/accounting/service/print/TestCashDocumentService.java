@@ -1,5 +1,10 @@
 package pl.matsuo.accounting.service.print;
 
+import static org.junit.Assert.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
+import static pl.matsuo.core.util.DateUtil.*;
+
+import java.math.BigDecimal;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,28 +17,16 @@ import pl.matsuo.core.exception.RestProcessingException;
 import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.model.organization.Person;
 
-import java.math.BigDecimal;
-
-import static org.junit.Assert.*;
-import static pl.matsuo.core.model.query.QueryBuilder.*;
-import static pl.matsuo.core.util.DateUtil.*;
-
-
-@ContextConfiguration(classes = { InvoiceService.class })
+@ContextConfiguration(classes = {InvoiceService.class})
 public class TestCashDocumentService extends AbstractAccountingPrintServiceTest {
 
-
-  @Autowired
-  InvoiceService cashDocumentService;
-  @Autowired
-  CashRegisterSessionState cashRegisterSessionState;
-
+  @Autowired InvoiceService cashDocumentService;
+  @Autowired CashRegisterSessionState cashRegisterSessionState;
 
   @Test
   public void testPrintType() throws Exception {
     assertEquals(Invoice.class, cashDocumentService.printType());
   }
-
 
   @Test
   public void testCreate() throws Exception {
@@ -55,7 +48,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     AccountingPrint accountingPrint = cashDocumentService.create(print);
     assertEquals(Invoice.class, accountingPrint.getPrintClass());
   }
-
 
   @Test
   public void testCreateWithIdCashRegisterReport() throws Exception {
@@ -81,7 +73,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     assertEquals(Invoice.class, accountingPrint.getPrintClass());
   }
 
-
   @Test(expected = RestProcessingException.class)
   public void testCreateWithWrongIdCashRegisterReport() throws Exception {
     AccountingPrint print = new AccountingPrint();
@@ -103,7 +94,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     assertEquals(Invoice.class, accountingPrint.getPrintClass());
   }
 
-
   @Test
   public void testPreCreate() throws Exception {
     AccountingPrint print = new AccountingPrint();
@@ -115,7 +105,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
 
     assertEquals("FV/2015/1/1", invoice.getNumber());
   }
-
 
   @Test
   public void testPrintNumer() throws Exception {
@@ -129,7 +118,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     assertEquals("FV/2015/1/2", invoice.getNumber());
   }
 
-
   @Test
   public void testNumerationName() throws Exception {
     AccountingPrint print = new AccountingPrint();
@@ -139,7 +127,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
 
     assertEquals("Invoice", cashDocumentService.numerationName(print, invoice));
   }
-
 
   @Test
   public void testFillDocument() throws Exception {
@@ -163,7 +150,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     assertNotNull(invoice.getSeller().getName());
   }
 
-
   @Test
   public void testFillDocument1() throws Exception {
     AccountingPrint print = new AccountingPrint();
@@ -185,7 +171,6 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     assertNotNull(invoice.getBuyer().getName());
     assertNotNull(invoice.getSeller().getName());
   }
-
 
   @Test
   public void testUpdate() throws Exception {
@@ -209,4 +194,3 @@ public class TestCashDocumentService extends AbstractAccountingPrintServiceTest 
     assertNotNull(invoice.getSeller().getName());
   }
 }
-

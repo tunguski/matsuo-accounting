@@ -1,12 +1,11 @@
 package pl.matsuo.accounting.model.print;
 
-import org.junit.Test;
-
 import static org.junit.Assert.*;
 import static pl.matsuo.core.util.NumberUtil.*;
 
-public class TestTotalCost {
+import org.junit.Test;
 
+public class TestTotalCost {
 
   @Test
   public void testAddToValue() throws Exception {
@@ -14,7 +13,6 @@ public class TestTotalCost {
     totalCost.addToValue(bd(10));
     assertTrue(bd(10).compareTo(totalCost.getValue()) == 0);
   }
-
 
   @Test
   public void testAddToTax() throws Exception {

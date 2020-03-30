@@ -1,53 +1,48 @@
 package pl.matsuo.accounting.service.report.cash;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
-import pl.matsuo.accounting.model.cashregister.initializer.CashRegisterReportInitializer;
-import pl.matsuo.accounting.model.print.AccountingPrint;
-import pl.matsuo.accounting.model.print.CashDocument;
-import pl.matsuo.core.model.query.AbstractQuery;
-import pl.matsuo.core.service.facade.FacadeBuilder;
-import pl.matsuo.core.service.report.AbstractReportService;
-import pl.matsuo.core.service.report.DataModelBuilder;
-
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static java.math.BigDecimal.*;
 import static pl.matsuo.core.model.query.AbstractQuery.*;
 import static pl.matsuo.core.model.query.QueryBuilder.*;
 import static pl.matsuo.core.util.DateUtil.*;
 import static pl.matsuo.core.util.FreemarkerUtils.*;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
+import pl.matsuo.accounting.model.cashregister.initializer.CashRegisterReportInitializer;
+import pl.matsuo.accounting.model.print.AccountingPrint;
+import pl.matsuo.accounting.model.print.CashDocument;
+import pl.matsuo.core.service.facade.FacadeBuilder;
+import pl.matsuo.core.service.report.AbstractReportService;
+import pl.matsuo.core.service.report.DataModelBuilder;
 
-/**
- * Serwis tworzenia raportu kasowego.
- *
- * @author Mateusz Orlik
- * @since 15/08/2013
- */
+/** Serwis tworzenia raportu kasowego. */
 @Service
 public class CashRegisterReportService extends AbstractReportService<ICashRegisterReportParams> {
 
+  @Autowired protected FacadeBuilder facadeBuilder;
 
-  @Autowired
-  protected FacadeBuilder facadeBuilder;
-
-
-  /**
-   */
+  /** */
   @Override
   protected void injectModel(DataModelBuilder dataModel, ICashRegisterReportParams params) {
     if (params != null) {
-      CashRegisterReport cashRegisterReport = database.findById(CashRegisterReport.class,
-                                                                   params.getIdReport(),
-                                                                   new CashRegisterReportInitializer());
+      CashRegisterReport cashRegisterReport =
+          database.findById(
+              CashRegisterReport.class, params.getIdReport(), new CashRegisterReportInitializer());
 
-      List<CashRegisterReport> cashRegisterReports = database.find(query(CashRegisterReport.class,
-          cond("cast(createdTime as date) = '" + dateFormat.format(date(cashRegisterReport.getCreatedTime(), 0, 0)) + "'")).orderBy("createdTime"));
+      List<CashRegisterReport> cashRegisterReports =
+          database.find(
+              query(
+                      CashRegisterReport.class,
+                      cond(
+                          "cast(createdTime as date) = '"
+                              + dateFormat.format(date(cashRegisterReport.getCreatedTime(), 0, 0))
+                              + "'"))
+                  .orderBy("createdTime"));
 
       dataModel.put("cashRegisterReport", cashRegisterReport);
 
@@ -58,13 +53,13 @@ public class CashRegisterReportService extends AbstractReportService<ICashRegist
         CashDocument cashDocument = facadeBuilder.createFacade(print);
         printFacades.put(print.getId(), cashDocument);
 
-
         String printType = print.getPrintClass().getSimpleName();
         if (printTypeSummary.get(printType) == null) {
           printTypeSummary.put(printType, ZERO);
         }
 
-        printTypeSummary.put(printType, printTypeSummary.get(printType).add(print.getCashRegisterAmount()));
+        printTypeSummary.put(
+            printType, printTypeSummary.get(printType).add(print.getCashRegisterAmount()));
       }
 
       CashDocument documentInfo = facadeBuilder.createFacade(new HashMap<>(), CashDocument.class);
@@ -87,4 +82,3 @@ public class CashRegisterReportService extends AbstractReportService<ICashRegist
     }
   }
 }
-

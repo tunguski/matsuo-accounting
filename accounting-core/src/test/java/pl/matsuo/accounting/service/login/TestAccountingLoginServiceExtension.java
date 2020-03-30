@@ -1,5 +1,8 @@
 package pl.matsuo.accounting.service.login;
 
+import static org.junit.Assert.*;
+
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +15,16 @@ import pl.matsuo.core.model.organization.OrganizationUnit;
 import pl.matsuo.core.service.db.Database;
 import pl.matsuo.core.test.data.TestSessionState;
 
-import java.util.List;
-
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { DbConfig.class, TestDataExecutionConfig.class,
-                                  AccountingLoginServiceExtension.class, TestSessionState.class })
+@ContextConfiguration(
+    classes = {
+      DbConfig.class, TestDataExecutionConfig.class,
+      AccountingLoginServiceExtension.class, TestSessionState.class
+    })
 public class TestAccountingLoginServiceExtension {
 
-  @Autowired
-  AccountingLoginServiceExtension extension;
-  @Autowired
-  Database database;
+  @Autowired AccountingLoginServiceExtension extension;
+  @Autowired Database database;
 
   @Test
   public void testCreateAccount() throws Exception {

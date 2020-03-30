@@ -8,14 +8,10 @@ import pl.matsuo.accounting.model.print.CorrectiveInvoice;
 import pl.matsuo.accounting.model.print.Invoice;
 import pl.matsuo.core.model.print.KeyValuePrintElement;
 
-
-@ContextConfiguration(classes = { CorrectiveInvoiceService.class })
+@ContextConfiguration(classes = {CorrectiveInvoiceService.class})
 public class TestCorrectiveInvoiceService extends AbstractAccountingPrintServiceTest {
 
-
-  @Autowired
-  CorrectiveInvoiceService correctiveInvoiceService;
-
+  @Autowired CorrectiveInvoiceService correctiveInvoiceService;
 
   @Test
   public void testNumerationName() throws Exception {
@@ -26,7 +22,6 @@ public class TestCorrectiveInvoiceService extends AbstractAccountingPrintService
     print.setIdBucket(mediq.getIdBucket());
     correctiveInvoiceService.numerationName(print, invoice);
   }
-
 
   @Test
   public void testForInvoice() throws Exception {
@@ -41,7 +36,6 @@ public class TestCorrectiveInvoiceService extends AbstractAccountingPrintService
     correctiveInvoiceService.forInvoice(print.getId());
   }
 
-
   @Test
   public void testFillDocument() throws Exception {
     AccountingPrint print = new AccountingPrint();
@@ -52,4 +46,3 @@ public class TestCorrectiveInvoiceService extends AbstractAccountingPrintService
     correctiveInvoiceService.fillDocument(print, invoice);
   }
 }
-

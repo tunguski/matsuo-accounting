@@ -8,28 +8,24 @@ import pl.matsuo.core.service.numeration.MonthlyNumerationSchemaStrategy;
 import pl.matsuo.core.test.data.AbstractTestData;
 import pl.matsuo.core.test.data.PayersTestData;
 
-
-/**
- * Created by tunguski on 15.09.13.
- */
 @Component
 @Order(20)
-@DiscoverTypes({ PayersTestData.class })
+@DiscoverTypes({PayersTestData.class})
 public class NumerationTestData extends AbstractTestData {
-
 
   @Override
   public void execute() {
     createNumerationSchema("Invoice", "FV/${numerationYear}/${numerationMonth}/${value}");
     createNumerationSchema("Receipt", "PAR/${numerationYear}/${numerationMonth}/${value}");
 
-    createNumerationSchema("CorrectiveInvoice", "FV-K/${numerationYear}/${numerationMonth}/${value}");
-    createNumerationSchema("CorrectiveReceipt", "PAR-K/${numerationYear}/${numerationMonth}/${value}");
+    createNumerationSchema(
+        "CorrectiveInvoice", "FV-K/${numerationYear}/${numerationMonth}/${value}");
+    createNumerationSchema(
+        "CorrectiveReceipt", "PAR-K/${numerationYear}/${numerationMonth}/${value}");
 
     createNumerationSchema("WithdrawSlip", "KW/${numerationYear}/${numerationMonth}/${value}");
     createNumerationSchema("DepositSlip", "KP/${numerationYear}/${numerationMonth}/${value}");
   }
-
 
   private void createNumerationSchema(String code, String pattern) {
     NumerationSchema numeration = new NumerationSchema();
@@ -43,10 +39,8 @@ public class NumerationTestData extends AbstractTestData {
     database.create(numeration);
   }
 
-
   @Override
   public String getExecuteServiceName() {
     return getClass().getName();
   }
 }
-

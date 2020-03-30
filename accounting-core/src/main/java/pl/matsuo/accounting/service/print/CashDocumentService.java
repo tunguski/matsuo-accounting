@@ -1,5 +1,10 @@
 package pl.matsuo.accounting.service.print;
 
+import static org.springframework.core.GenericTypeResolver.*;
+import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
+import static pl.matsuo.core.model.query.QueryBuilder.*;
+import static pl.matsuo.core.util.function.FunctionalUtil.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.matsuo.accounting.model.cashregister.CashRegister;
 import pl.matsuo.accounting.model.cashregister.CashRegisterReport;
@@ -13,33 +18,20 @@ import pl.matsuo.core.service.db.Database;
 import pl.matsuo.core.service.facade.FacadeBuilder;
 import pl.matsuo.core.service.numeration.NumerationService;
 
-import static org.springframework.core.GenericTypeResolver.*;
-import static pl.matsuo.accounting.model.print.CashDocumentUtil.*;
-import static pl.matsuo.core.model.query.QueryBuilder.*;
-import static pl.matsuo.core.util.function.FunctionalUtil.*;
-
-
 public abstract class CashDocumentService<D extends CashDocument> implements ICashDocumentService {
 
-
-  @Autowired
-  protected Database database;
-  @Autowired
-  protected FacadeBuilder facadeBuilder;
-  @Autowired
-  protected CashRegisterSessionState cashRegisterSessionState;
-  @Autowired
-  protected NumerationService numerationService;
-
+  @Autowired protected Database database;
+  @Autowired protected FacadeBuilder facadeBuilder;
+  @Autowired protected CashRegisterSessionState cashRegisterSessionState;
+  @Autowired protected NumerationService numerationService;
 
   @SuppressWarnings("unchecked")
-  protected final Class<D> printType = (Class<D>) resolveTypeArgument(getClass(), CashDocumentService.class);
-
+  protected final Class<D> printType =
+      (Class<D>) resolveTypeArgument(getClass(), CashDocumentService.class);
 
   public Class<D> printType() {
     return printType;
   }
-
 
   @Override
   public AccountingPrint create(AccountingPrint entity) {
@@ -50,7 +42,10 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
 
     if (entity.getIdCashRegisterReport() != null) {
       CashRegisterReport cashRegisterReport =
-          database.findOne(query(CashRegisterReport.class, eq(CashRegisterReport::getId, entity.getIdCashRegisterReport())));
+          database.findOne(
+              query(
+                  CashRegisterReport.class,
+                  eq(CashRegisterReport::getId, entity.getIdCashRegisterReport())));
       idCashRegister = cashRegisterReport.getCashRegister().getId();
 
       cashRegisterReport.setEndingBalance(
@@ -74,33 +69,28 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
     return entity;
   }
 
-
   protected void preCreate(AccountingPrint print, D cashDocument) {
     printNumer(print, cashDocument, false);
   }
 
-
   protected void printNumer(AccountingPrint print, D cashDocument, boolean preview) {
-    cashDocument.setNumber(numerationService.getNumber(
-        numerationName(print, cashDocument), print.getIssuanceDate(), preview));
+    cashDocument.setNumber(
+        numerationService.getNumber(
+            numerationName(print, cashDocument), print.getIssuanceDate(), preview));
   }
-
 
   protected String numerationName(AccountingPrint print, D cashDocument) {
     return printType.getSimpleName();
   }
-
 
   @Override
   public AccountingPrint update(AccountingPrint entity) {
     return fillDocument(entity);
   }
 
-
   protected final AccountingPrint fillDocument(AccountingPrint print) {
     return fillDocument(print, facadeBuilder.createFacade(print, printType()));
   }
-
 
   protected AccountingPrint fillDocument(AccountingPrint print, D cashDocument) {
     fillParty(cashDocument.getBuyer());
@@ -108,9 +98,9 @@ public abstract class CashDocumentService<D extends CashDocument> implements ICa
     return print;
   }
 
-
   protected void fillParty(PrintParty cashDocumentParty) {
-    with(database.findById(AbstractParty.class, cashDocumentParty.getId()), party -> rewriteParty(cashDocumentParty, party));
+    with(
+        database.findById(AbstractParty.class, cashDocumentParty.getId()),
+        party -> rewriteParty(cashDocumentParty, party));
   }
 }
-
